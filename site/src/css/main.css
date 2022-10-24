@@ -1,4 +1,20 @@
 /* stylelint-disable selector-max-specificity */
+
+/* cores do site antigo  */
+
+/* html {
+    --font_family: 'Source Sans Pro', sans-serif;
+    --color_font_medium: #fc553d;
+    --color_font_light: #73b8f8;
+    --color_primary: #272a63;
+    --color_secondary_medium: #73b8f8;
+    --color_gray_medium: #f1f0fa;
+    --color_footer_button: #dbf1ff;
+    --swiper-theme-color: #007aff;
+    --color_seal: #086892;
+    --color_bg_seal: #F1F0FA;
+} */
+
 body {
   font-family: SegoeUI;
   --bs-primary: #7fa0ad;
