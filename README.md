@@ -24,6 +24,7 @@ A pasta ``` services ``` contém funções que são reaproveitadas por todo o pr
 
 ## Configurações do projeto
 ### Backend (studio)
+O backend foi construído utilizando o CMS sanity.io. Para criar o backend do projeto, é necessário uma conta no sanity.io. Crie um projeto 
 Dentro da pasta studio, configurar as variáveis de ambiente em um arquivo ``` ./studio/.env.development ```. Configurar as variáveis referentes ao projeto ID e a dataset do Sanity.io.
 ### Frontend
 Dentro da pasta site, configurar as variáveis de ambiente em um arquivo ``` ./site/.env ```. Configurar as variáveis referentes ao projeto ID e a dataset do Sanity.io para queries GROQ utilizadas no frontend.
