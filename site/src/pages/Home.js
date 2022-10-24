@@ -5,8 +5,6 @@ import Sale from '../components/Sale';
 import Search from '../components/Search';
 // A função fetchContent é responsável por fazer o fetch das informações
 import fetchContent from '../services/fetchContent';
-// A função urlFor é usada para retornar o endereço da imagem a partir do retorno da API
-// import urlFor from '../services/urlFor';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
