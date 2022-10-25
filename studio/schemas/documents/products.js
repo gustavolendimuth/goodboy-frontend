@@ -23,5 +23,16 @@ export default {
       type: 'text',
       title: 'Descrição',
     },
+    {
+      type: 'array',
+      name: 'categories',
+      title: 'Categorias',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'categories' }],
+        },
+      ],
+    },
   ],
 };

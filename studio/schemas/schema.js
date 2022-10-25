@@ -4,7 +4,12 @@ import createSchema from 'part:@sanity/base/schema-creator';
 
 // Then import schema types from any plugins that might expose them
 import schemaTypes from 'all:part:@sanity/base/schema-type';
+
+// Documents (tables)
 import products from './documents/products';
+import categories from './documents/categories';
+
+// Objects
 import figure from './objects/figure';
 
 // Then we give our schema to the builder and provide the result to Sanity
@@ -16,6 +21,8 @@ export default createSchema({
   types: schemaTypes.concat([
     /* Your types here! */
     products,
+    categories,
+
     figure,
   ]),
 });

@@ -12,6 +12,8 @@ import ProductDetails from './pages/ProductDetails';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import Search from './components/Search';
+import Categories from './components/Categories';
 
 function App() {
   const {
@@ -36,7 +38,13 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar />
+      <header>
+        <Navbar />
+        <section>
+          <Search />
+          <Categories />
+        </section>
+      </header>
       <main>
         <Routes>
           <Route element={ <Home /> } path="/" exact />
