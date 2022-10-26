@@ -5,6 +5,7 @@ import Sale from '../components/Sale';
 import Context from '../context/Context';
 // A função fetchContent é responsável por fazer o fetch das informações
 import fetchContent from '../services/fetchContent';
+import mainAndSubCategories from '../services/mainAndSubCategories';
 
 export default function Home() {
   const {
@@ -27,7 +28,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    console.log(categories, products);
+    console.log(mainAndSubCategories(categories), products);
   }, [products, categories]);
 
   return (

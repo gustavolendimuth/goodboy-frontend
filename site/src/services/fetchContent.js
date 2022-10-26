@@ -6,8 +6,11 @@ const fetchContent = async (doc) => {
       title, photo, price, description,
       categories[]->{name, isMainCategory},
     }`,
-    categories: `*[_type == "categories"] {
-      name, isMainCategory
+    categories: `*[_type == "categories" && isMainCategory] {
+      name,
+      "products": *[_type == "products" && references(^._id)]{
+        categories[]->{name}
+      }
     }`,
   };
 
