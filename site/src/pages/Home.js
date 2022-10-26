@@ -28,7 +28,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    console.log(mainAndSubCategories(categories), products);
+    if (categories) console.log('Objeto das categorias', mainAndSubCategories(categories));
+    if (products) console.log('Objeto dos produtos', products);
   }, [products, categories]);
 
   return (

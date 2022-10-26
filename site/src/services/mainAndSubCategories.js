@@ -1,9 +1,8 @@
-export default (categories) => categories.map((category) => (
+export default (categories) => categories.map((mainCategory) => (
   {
-    MainCategory: category.name,
-    categories: [...new Set(category.products
-      .map((product) => product.categories)
-      .map((productCategory) => productCategory)
-      .map((subcategory) => subcategory[1].name))],
+    mainCategory: mainCategory.name,
+    subCategories: [...new Set(mainCategory.categories
+      .map((subCategory) => subCategory)
+      .map((category) => category.category))],
   }
 ));
