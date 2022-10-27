@@ -7,9 +7,9 @@ export default async (table) => {
       "categories": categories[]->name,
     }`,
     categories: `*[_type == "categories" && isMainCategory] {
-      name,
-      "categories": *[_type == "products" && references(^._id)]{
-        "category": categories[1]->name
+      "mainCategory": name,
+      "subCategories": *[_type == "products" && references(^._id)]{
+        "subCategory": categories[1]->name
       }
     }`,
   };
