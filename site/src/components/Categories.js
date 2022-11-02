@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import Context from '../context/Context';
+import '../css/Categories.css';
 
 export default function Categories() {
   const {
@@ -7,75 +8,63 @@ export default function Categories() {
     categories,
   } = useContext(Context);
 
-  //   const mainCategoryCaes = categories?.[0]?.subCategories || [];
-  //   const mainCategoryGatos = categories?.[1]?.subCategories || [];
+  // declaração e tratamento do retorno da API para iterar sobre as categorias de produtos
+  const mainCategoryCaes = categories?.[0]?.subCategories || [];
+  const mainCategoryGatos = categories?.[1]?.subCategories || [];
+
+  // log das categorias
   useEffect(() => {
-    // console.log('chamou useEffect');
     if (categories) console.log('Objeto das categorias', categories);
-    // if (products) console.log('Objeto dos produtos', products);
   }, [products, categories]);
 
   return (
-    <div>
+    <div className="categories-container">
       <div className="dropdown">
-        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
+        {/* botão de dropdown */}
+        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Cães
         </button>
-        <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <button className="dropdown-item" type="button">Action</button>
-          <button className="dropdown-item" type="button">Another action</button>
-          <button className="dropdown-item" type="button">Something else here</button>
+        {/* iteração sobre as categorias de produtos para retorna-los em itens de um dropdown clicável */}
+        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {
+            mainCategoryCaes.map((subCategory) => (
+              <a
+                className="dropdown-item"
+                // link placeholder para redirecionamento
+                href="https://www.w3schools.com/tags/att_a_href.asp#:~:text=Definition%20and%20Usage,will%20not%20be%20a%20hyperlink."
+                key={ subCategory }
+                data-testid={ `${subCategory}-caes` }
+              >
+                { subCategory }
+              </a>
+
+            ))
+          }
+        </div>
+      </div>
+      <div className="dropdown">
+        {/* botão de dropdown */}
+        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Gatos
+        </button>
+        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {/* iteração sobre as categorias de produtos para retorna-los em itens de um dropdown clicável */}
+          {
+            mainCategoryGatos.map((subCategory) => (
+              <a
+                className="dropdown-item"
+                // link placeholder para redirecionamento
+                href="https://www.w3schools.com/tags/att_a_href.asp#:~:text=Definition%20and%20Usage,will%20not%20be%20a%20hyperlink."
+                key={ subCategory }
+                data-testid={ `${subCategory}-gatos` }
+              >
+                { subCategory }
+              </a>
+
+            ))
+          }
         </div>
       </div>
     </div>
-
-  // <div>
-
-  //   <div className="dropdown show">
-  //     {/* <a
-  //       className="btn btn-secondary dropdown-toggle"
-  //       href="https://getbootstrap.com/docs/4.0/components/dropdowns/"
-  //       role="button"
-  //       id="dropdownMenuLink"
-  //       data-toggle="dropdown"
-  //       aria-haspopup="true"
-  //       aria-expanded="false"
-  //     >
-  //       Cães
-  //     </a> */}
-  //     <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  //       Cães
-  //     </button>
-  //     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-  //       {
-  //         mainCategoryCaes.map((subCategory) => (
-  //           <a
-  //             className="dropdown-item"
-  //             href="https://www.w3schools.com/tags/att_a_href.asp#:~:text=Definition%20and%20Usage,will%20not%20be%20a%20hyperlink."
-  //             key={ subCategory }
-  //             // type="button"
-  //             // data-testid={ `${subCategory}-caes` }
-  //           >
-  //             { subCategory }
-  //           </a>
-
-  //         ))
-  //       }
-  //     </div>
-  //   </div>
-  //   {/* {
-  //     mainCategoryGatos.map((subCategory) => (
-  //       <button
-  //         key={ subCategory }
-  //         type="button"
-  //         data-testid={ `${subCategory}-caes` }
-  //         // onClick={ () => handleClick(subCategory) }
-  //       >
-  //         { subCategory }
-  //       </button>
-
-  //     ))
-  //   } */}
-  // </div>
   );
 }
