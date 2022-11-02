@@ -1,11 +1,20 @@
 import sanityClient from './sanityClient';
 
-export default async (table) => {
+// Função que faz o fetch e retorna um objeto com os produtos, ou categorias, de acordo com os parâmetros passados
+// Para fazer o fetch de um produto, é necessário passar o segundo parâmetro com o id do produto
+export default async (table, id) => {
   const query = {
-    products: `*[_type == "products"] | order(_createdAt desc) {
-      title, photo, price, description,
+    // Query que retorna todos os produtos
+    products: `*[_type == "products"] | order(_createdAt asc) {
+      _id, title, photo, price, description,
       "categories": categories[]->name,
     }`,
+    // Query que retorna somente um produto de acordo com o id passado
+    product: `*[_type == "products" && _id == "${id}"] {
+      _id, title, photo, price, description,
+      "categories": categories[]->name,
+    }`,
+    // Query que retorna somente as categorias que contém produtos ativos
     categories: `*[_type == "categories" && isMainCategory] {
       "mainCategory": name,
       "subCategories": *[_type == "products" && references(^._id)]{
@@ -16,6 +25,7 @@ export default async (table) => {
 
   if (table) {
     try {
+      // o fetch utiliza a query que está dentro do objeto query acima
       const response = await sanityClient.fetch(query[table]);
       return response;
     } catch (err) {
