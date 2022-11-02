@@ -22,6 +22,7 @@ export default function Categories() {
       <div className="dropdown">
         {/* botão de dropdown */}
         <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img className="animal-img-icon" alt="cão" src="https://images.tcdn.com.br/files/1127101/themes/7/img/ico-caes.png" height="30" width="35" />
           Cães
         </button>
         {/* iteração sobre as categorias de produtos para retorna-los em itens de um dropdown clicável */}
@@ -45,6 +46,7 @@ export default function Categories() {
       <div className="dropdown">
         {/* botão de dropdown */}
         <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img className="animal-img-icon" alt="gato" src="https://images.tcdn.com.br/files/1127101/themes/7/img/ico-gatos.png" height="30" width="30" />
           Gatos
         </button>
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">

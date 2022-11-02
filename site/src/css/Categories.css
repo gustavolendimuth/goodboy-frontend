@@ -22,6 +22,7 @@
     border-color: #007aff;
     box-shadow: rgb(#007aff / 50%);
 }
+
 .btn-secondary:hover {
     color: #fff;
     background-color: #fc553d;
@@ -39,13 +40,13 @@
     background-color: #fc553d;
     border-color: #fc553d;
 }
+
 .btn-check:focus+.btn-secondary, .btn-secondary:focus {
     color: #fff;
     background-color: #fc553d;
     border-color: #fc553d;
     box-shadow: #fc553d;
 }
-
 .dropdown-item {
     display: block;
     width: 100%;
@@ -59,8 +60,11 @@
     background-color: transparent;
     border: 0;
 }
-
 .dropdown-item:focus, .dropdown-item:hover {
     color: #fc553d;
     background-color:  #e9ecef
+}
+.animal-img-icon{
+    padding: 2px;
+    margin-right: 3px;
 }
