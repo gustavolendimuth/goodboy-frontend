@@ -41,7 +41,6 @@ function App() {
       <header>
         <Navbar />
         <section>
-          <Search />
           <Categories />
         </section>
       </header>
