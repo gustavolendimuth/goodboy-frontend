@@ -7,6 +7,16 @@ export default function HomeProducts({ products = [] }) {
   return (
     <div>
       <h2>HomeProducts</h2>
+      <div className="dropdown">
+        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Dropdown button
+        </button>
+        <ul className="dropdown-menu">
+          <li><a className="dropdown-item" href="#teste">Action</a></li>
+          <li><a className="dropdown-item" href="#teste">Another action</a></li>
+          <li><a className="dropdown-item" href="#teste">Something else here</a></li>
+        </ul>
+      </div>
       {products && products.map((product) => (
         <div key={ product.title }>
           <p>{product.title}</p>
