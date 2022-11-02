@@ -17,52 +17,39 @@ export default function Categories() {
 
   return (
     <div>
-
-      <div className="dropdown show">
-        {/* <a
-          className="btn btn-secondary dropdown-toggle"
-          href="https://getbootstrap.com/docs/4.0/components/dropdowns/"
-          role="button"
-          id="dropdownMenuLink"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          Cães
-        </a> */}
-        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Cães
-        </button>
-        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          {
-            mainCategoryCaes.map((subCategory) => (
-              <a
-                className="dropdown-item"
-                href="https://www.w3schools.com/tags/att_a_href.asp#:~:text=Definition%20and%20Usage,will%20not%20be%20a%20hyperlink."
-                key={ subCategory }
-                // type="button"
-                // data-testid={ `${subCategory}-caes` }
-              >
-                { subCategory }
-              </a>
-
-            ))
-          }
-        </div>
-      </div>
-      {/* {
-        mainCategoryGatos.map((subCategory) => (
-          <button
-            key={ subCategory }
-            type="button"
-            data-testid={ `${subCategory}-caes` }
-            // onClick={ () => handleClick(subCategory) }
-          >
-            { subCategory }
+      <div>
+        <h2>HomeProducts</h2>
+        <div className="dropdown">
+          <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown button
           </button>
-
-        ))
-      } */}
+          <ul className="dropdown-menu">
+            <li><a className="dropdown-item" href="#teste">Action</a></li>
+            <li><a className="dropdown-item" href="#teste">Another action</a></li>
+            <li><a className="dropdown-item" href="#teste">Something else here</a></li>
+          </ul>
+        </div>
+        {products && products.map((product) => (
+          <div key={ product.title }>
+            <p>{product.title}</p>
+            <img src={ urlFor(product.photo.image).url() } alt={ product.photo.alt } />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
+
+/* {
+  mainCategoryGatos.map((subCategory) => (
+    <button
+      key={ subCategory }
+      type="button"
+      data-testid={ `${subCategory}-cães` }
+      // onClick={ () => handleClick(subCategory) }
+    >
+      { subCategory }
+    </button>
+
+  ))
+} */
