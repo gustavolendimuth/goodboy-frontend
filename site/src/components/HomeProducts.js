@@ -2,27 +2,25 @@ import PropTypes from 'prop-types';
 import React from 'react';
 // A função urlFor é usada para retornar o endereço da imagem a partir do retorno da API
 import urlFor from '../services/urlFor';
+import '../css/homeProducts.css';
 
 export default function HomeProducts({ products = [] }) {
   return (
-    <div>
-      <h2>HomeProducts</h2>
-      <div className="dropdown">
-        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Dropdown button
-        </button>
-        <ul className="dropdown-menu">
-          <li><a className="dropdown-item" href="#teste">Action</a></li>
-          <li><a className="dropdown-item" href="#teste">Another action</a></li>
-          <li><a className="dropdown-item" href="#teste">Something else here</a></li>
-        </ul>
+    <div className="container pt-5">
+      <div className="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-lg-4 justify-content-center align-items-center pb-4">
+        {products && products.map((product) => (
+          <div className="col" key={ product.title }>
+            <div className="product-card d-flex flex-column justify-content-center align-items-center p-3">
+              <div className="p-2">
+                <img src={ urlFor(product.photo.image).url() } alt={ product.photo.alt } className="product-image" />
+              </div>
+              <div>
+                <p className="product-title p-2">{product.title}</p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-      {products && products.map((product) => (
-        <div key={ product.title }>
-          <p>{product.title}</p>
-          <img src={ urlFor(product.photo.image).url() } alt={ product.photo.alt } />
-        </div>
-      ))}
     </div>
   );
 }
