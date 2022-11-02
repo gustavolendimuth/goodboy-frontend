@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
 import './css/bootstrap.min.css';
 import './css/main.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Home from './pages/Home';
 import Footer from './components/Footer';
 import Context from './context/Context';
 import Navbar from './components/Navbar';
-// import ProductDetails from './pages/ProductDetails';
-// import Products from './pages/Products';
-// import Cart from './pages/Cart';
-// import Checkout from './pages/Checkout';
+import ProductDetails from './pages/ProductDetails';
+import Products from './pages/Products';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 import Search from './components/Search';
 import Categories from './components/Categories';
 
@@ -48,10 +48,10 @@ function App() {
       <main>
         <Routes>
           <Route element={ <Home /> } path="/" exact />
-          {/* <Route element={ <ProductDetails /> } path="/produto/:id" />
+          <Route element={ <ProductDetails /> } path="/produto/:id" />
           <Route element={ <Products /> } path="/produto/:query" />
           <Route element={ <Cart /> } path="/carrinho/:session" />
-          <Route element={ <Checkout /> } path="/checkout/:session" /> */}
+          <Route element={ <Checkout /> } path="/checkout/:session" />
         </Routes>
       </main>
       <Footer />

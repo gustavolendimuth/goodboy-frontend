@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
-// import HomeProducts from '../components/HomeProducts';
-// import Sale from '../components/Sale';
+import HomeProducts from '../components/HomeProducts';
+import Sale from '../components/Sale';
 import Context from '../context/Context';
 // A função fetchContent é responsável por fazer o fetch das informações
 import fetchContent from '../services/fetchContent';
@@ -37,19 +37,19 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    // if (categories) console.log('Objeto das categorias', categories);
-    // if (products) console.log('Objeto dos produtos', products);
+    if (categories) console.log('Objeto das categorias', categories);
+    if (products) console.log('Objeto dos produtos', products);
   }, [products, categories]);
 
   return (
     <>
       <div>Home</div>
-      {/* <section>
+      <section>
         <Sale />
       </section>
       <section>
         <HomeProducts products={ products } />
-      </section> */}
+      </section>
     </>
   );
 }
