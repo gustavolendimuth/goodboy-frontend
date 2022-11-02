@@ -7,7 +7,7 @@ export default function Categories() {
     categories,
   } = useContext(Context);
 
-//   const mainCategoryCaes = categories?.[0]?.subCategories || [];
+  //   const mainCategoryCaes = categories?.[0]?.subCategories || [];
   //   const mainCategoryGatos = categories?.[1]?.subCategories || [];
   useEffect(() => {
     // console.log('chamou useEffect');
