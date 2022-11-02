@@ -2,7 +2,7 @@
 
 /* cores do site antigo  */
 
-/* html {
+html {
     --font_family: 'Source Sans Pro', sans-serif;
     --color_font_medium: #fc553d;
     --color_font_light: #73b8f8;
@@ -13,7 +13,7 @@
     --swiper-theme-color: #007aff;
     --color_seal: #086892;
     --color_bg_seal: #F1F0FA;
-} */
+}
 
 body {
   --bs-primary: #7fa0ad;
