@@ -1,23 +1,25 @@
 import sanityClient from './sanityClient';
 
-const fetchContent = async (doc) => {
+export default async (table) => {
   const query = {
     products: `*[_type == "products"] | order(_createdAt desc) {
       title, photo, price, description,
-      categories[]->{name, isMainCategory},
+      "categories": categories[]->name,
     }`,
-    categories: `*[_type == "categories"] {
-      name, isMainCategory
+    categories: `*[_type == "categories" && isMainCategory] {
+      "mainCategory": name,
+      "subCategories": *[_type == "products" && references(^._id)]{
+        "subCategory": categories[1]->name
+      }
     }`,
   };
 
-  if (doc) {
+  if (table) {
     try {
-      const response = await sanityClient.fetch(query[doc]);
+      const response = await sanityClient.fetch(query[table]);
       return response;
     } catch (err) {
       return console.error(err);
     }
   }
 };
-export default fetchContent;

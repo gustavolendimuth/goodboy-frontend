@@ -5,8 +5,8 @@ import Context from './Context';
 
 export default function Provider({ children }) {
   const [session, setSession] = useState();
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState();
+  const [categories, setCategories] = useState();
 
   const setLocalStorage = (key, value) => {
     if (key && value) localStorage.setItem(key, JSON.stringify(value));
