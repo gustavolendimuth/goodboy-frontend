@@ -38,16 +38,9 @@ export default function Categories() {
               >
                 { subCategory }
               </a>
-
             ))
           }
         </div>
-        {products && products.map((product) => (
-          <div key={ product.title }>
-            <p>{product.title}</p>
-            <img src={ urlFor(product.photo.image).url() } alt={ product.photo.alt } />
-          </div>
-        ))}
       </div>
       <div className="dropdown">
         {/* botão de dropdown */}
@@ -72,6 +65,7 @@ export default function Categories() {
             ))
           }
         </div>
+      </div>
     </div>
   );
 }

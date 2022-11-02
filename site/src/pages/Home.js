@@ -43,7 +43,6 @@ export default function Home() {
 
   return (
     <>
-      <div>Home</div>
       <section>
         <Sale />
       </section>
