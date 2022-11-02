@@ -42,6 +42,12 @@ export default function Categories() {
             ))
           }
         </div>
+        {products && products.map((product) => (
+          <div key={ product.title }>
+            <p>{product.title}</p>
+            <img src={ urlFor(product.photo.image).url() } alt={ product.photo.alt } />
+          </div>
+        ))}
       </div>
       <div className="dropdown">
         {/* botão de dropdown */}
@@ -66,7 +72,20 @@ export default function Categories() {
             ))
           }
         </div>
-      </div>
     </div>
   );
 }
+
+/* {
+  mainCategoryGatos.map((subCategory) => (
+    <button
+      key={ subCategory }
+      type="button"
+      data-testid={ `${subCategory}-cães` }
+      // onClick={ () => handleClick(subCategory) }
+    >
+      { subCategory }
+    </button>
+
+  ))
+} */
