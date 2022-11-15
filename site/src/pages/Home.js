@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
-import HomeProducts from '../components/HomeProducts';
+import Banner from '../components/Banner';
 import Sale from '../components/Sale';
+import Spotlight from '../components/Spotlight';
 import Context from '../context/Context';
 // A função fetchContent é responsável por fazer o fetch das informações
 import fetchContent from '../services/fetchContent';
@@ -47,7 +48,10 @@ export default function Home() {
         <Sale />
       </section>
       <section>
-        <HomeProducts products={ products } />
+        <Spotlight />
+      </section>
+      <section>
+        <Banner />
       </section>
     </>
   );

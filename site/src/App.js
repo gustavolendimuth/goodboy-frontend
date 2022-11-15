@@ -12,7 +12,7 @@ import ProductDetails from './pages/ProductDetails';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
-import Search from './components/Search';
+// import Search from './components/Search';
 import Categories from './components/Categories';
 
 function App() {
