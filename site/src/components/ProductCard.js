@@ -4,6 +4,8 @@ import React from 'react';
 import urlFor from '../services/urlFor';
 import '../css/productCard.css';
 
+// Componente dos Cards que recebe como props um array de produtos e faz o map desses produtos
+
 export default function ProductCard({ products = [] }) {
   return (
     <div className="container pt-5">
