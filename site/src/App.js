@@ -3,7 +3,6 @@ import React, { useContext, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './css/bootstrap.min.css';
 import './css/main.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Home from './pages/Home';
 import Footer from './components/Footer';
 import Context from './context/Context';
