@@ -24,6 +24,20 @@ export default {
       title: 'Descrição',
     },
     {
+      name: 'sale',
+      type: 'boolean',
+      title: 'Promoção',
+      description: 'Marque esta opção se o produto está em promoção',
+      initialValue: false,
+    },
+    {
+      name: 'spotlight',
+      type: 'boolean',
+      title: 'Destaque',
+      description: 'Marque esta opção se o produto está em destaque',
+      initialValue: false,
+    },
+    {
       type: 'array',
       name: 'categories',
       title: 'Categorias',
