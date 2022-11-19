@@ -1,0 +1,5 @@
+.sale-container {
+  background-color: var(--bs-light);
+  color: var(--bs-secondary);
+  text-align: center;
+}

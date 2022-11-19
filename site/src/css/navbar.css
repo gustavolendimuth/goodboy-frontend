@@ -1,0 +1,24 @@
+.cart-icon {
+  font-size: 22px;
+}
+
+.cart-number-container {
+  background-color: var(--bs-light);
+  border-radius: 50%;
+  height: 22px;
+  width: 22px;
+}
+
+.cart-number {
+  color: var(--bs-primary);
+}
+
+.login-icon {
+  font-size: 26px;
+}
+
+.login-links {
+  display: inline-block;
+  font-size: 0.7rem;
+  line-height: 0.8rem;
+}

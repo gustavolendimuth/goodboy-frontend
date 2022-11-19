@@ -38,7 +38,6 @@ export default function Categories() {
               >
                 { subCategory }
               </a>
-
             ))
           }
         </div>
@@ -70,3 +69,17 @@ export default function Categories() {
     </div>
   );
 }
+
+/* {
+  mainCategoryGatos.map((subCategory) => (
+    <button
+      key={ subCategory }
+      type="button"
+      data-testid={ `${subCategory}-cães` }
+      // onClick={ () => handleClick(subCategory) }
+    >
+      { subCategory }
+    </button>
+
+  ))
+} */
