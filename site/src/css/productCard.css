@@ -16,3 +16,9 @@
   max-height: 250px;
   max-width: 250px;
 }
+
+.product-price {
+  color: black;
+  font-size: large;
+  font-weight: bold;
+}
