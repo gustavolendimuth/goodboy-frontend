@@ -2,9 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 // A função urlFor é usada para retornar o endereço da imagem a partir do retorno da API
 import urlFor from '../services/urlFor';
-import '../css/homeProducts.css';
+import '../css/productCard.css';
 
-export default function HomeProducts({ products = [] }) {
+// Componente dos Cards que recebe como props um array de produtos e faz o map desses produtos
+
+export default function ProductCard({ products = [] }) {
   return (
     <div className="container pt-5">
       <div className="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-lg-4 justify-content-center align-items-center pb-4">
@@ -17,6 +19,12 @@ export default function HomeProducts({ products = [] }) {
               <div>
                 <p className="product-title p-2">{product.title}</p>
               </div>
+              <div>
+                <p className="product-price">{product.price}</p>
+              </div>
+              <div className="actions">
+                <a href={ `/produto/${product.id}` } className="btn btn-primary" role="button">VER PRODUTO</a>
+              </div>
             </div>
           </div>
         ))}
@@ -25,11 +33,11 @@ export default function HomeProducts({ products = [] }) {
   );
 }
 
-HomeProducts.defaultProps = {
+ProductCard.defaultProps = {
   products: [],
 };
 
-HomeProducts.propTypes = {
+ProductCard.propTypes = {
   products: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
