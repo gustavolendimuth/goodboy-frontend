@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Context from '../context/Context';
 import urlFor from '../services/urlFor';
 import '../css/productDetails.css';
+import fetchContent from '../services/fetchContent';
 
 export default function ProductDetails() {
   const {
@@ -23,6 +24,15 @@ export default function ProductDetails() {
   });
 
   useEffect(() => {
+    const getProduct = async () => {
+      const data = await fetchContent('product', id);
+      console.log('data product', data);
+      setProduct([data]);
+    };
+    getProduct();
+  }, []);
+
+  useEffect(() => {
     // console.log("produtos na pagina de detalhes", products)
     const productsWithThisId = products?.filter((p) => p._id === id);
     if (productsWithThisId?.length > 0) {
@@ -34,8 +44,11 @@ export default function ProductDetails() {
     // check if this product is already in the cart
     const shoppingCart = getLocalStorage('shoppingCart');
     if (shoppingCart) {
+    //   shoppingCart.push(product);
+    // }
+    // setLocalStorage('shoppingCart', [product]);
       if (shoppingCart[id]) {
-        shoppingCart[id] += shoppingCart[id] + 1;
+        shoppingCart[id] += 1;
       } else {
         shoppingCart[id] = 1;
       }
@@ -64,7 +77,7 @@ export default function ProductDetails() {
                 <p className="product-price">{product.price}</p>
               </div>
               <div>
-                <button onClick={ () => handleAddClick() }>QUANTIDADE E ADICIONAR NO CARRINHO</button>
+                <button type="button" onClick={ () => handleAddClick() }>QUANTIDADE E ADICIONAR NO CARRINHO</button>
               </div>
             </div>
           </div>
@@ -73,5 +86,5 @@ export default function ProductDetails() {
       </div>
     );
   }
-  <div>Produto não encontrado</div>;
+  return <div>Produto não encontrado</div>;
 }
