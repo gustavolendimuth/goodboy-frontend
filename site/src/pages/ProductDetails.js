@@ -35,7 +35,7 @@ export default function ProductDetails() {
     const shoppingCart = getLocalStorage('shoppingCart');
     if (shoppingCart) {
       if (shoppingCart[id]) {
-        shoppingCart[id] = shoppingCart[id] + 1;
+        shoppingCart[id] += shoppingCart[id] + 1;
       } else {
         shoppingCart[id] = 1;
       }
@@ -47,7 +47,7 @@ export default function ProductDetails() {
 
   if (product?.title) {
     return (
-      <div>
+      <div className="product-card d-flex flex-column justify-content-center align-items-center p-3">
         <div>
           <div className="product-title" key={ product.title }>
             <div>
@@ -61,7 +61,10 @@ export default function ProductDetails() {
                 <p className="product-description">{product.description}</p>
               </div>
               <div>
-                <div onClick={ () => handleAddClick() }>QUANTIDADE E ADICIONAR NO CARRINHO</div>
+                <p className="product-price">{product.price}</p>
+              </div>
+              <div>
+                <button onClick={ () => handleAddClick() }>QUANTIDADE E ADICIONAR NO CARRINHO</button>
               </div>
             </div>
           </div>

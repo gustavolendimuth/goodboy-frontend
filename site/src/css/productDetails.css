@@ -17,11 +17,11 @@
     max-width: 250px;
 }
 
-/* .product-price {
+.product-price {
     color: black;
-    font-size: large;
+    font-size: medium;
     font-weight: bold;
-  } */
+  }
 
 .product-description {
     color: black;
