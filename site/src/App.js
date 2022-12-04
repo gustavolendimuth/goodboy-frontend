@@ -14,6 +14,12 @@ import Checkout from './pages/Checkout';
 // import Search from './components/Search';
 import Categories from './components/Categories';
 
+// A função fetchContent é responsável por fazer o fetch das informações
+import fetchContent from './services/fetchContent';
+// A função transforma formatCategoriesObject o retorno da API em um objeto mais simples
+// e remove as subcategorias duplicadas com a função new Set()
+import formatCategoriesObject from './services/formatCategoriesObject';
+
 function App() {
   const {
     getLocalStorage,
@@ -34,6 +40,37 @@ function App() {
   useEffect(() => {
     setLocalStorage('session', session);
   }, [session]);
+
+  const {
+    products,
+    setProducts,
+    categories,
+    setCategories,
+  } = useContext(Context);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    const getProducts = async () => {
+      const productsResponse = await fetchContent('products');
+
+      if (productsResponse) setProducts(productsResponse);
+    };
+
+    const getCategories = async () => {
+      const categoriesResponse = await fetchContent('categories');
+
+      if (categoriesResponse) setCategories(formatCategoriesObject(categoriesResponse));
+    };
+
+    getProducts();
+    getCategories();
+  }, []);
+
+  useEffect(() => {
+    if (categories) console.log('Objeto das categorias', categories);
+    if (products) console.log('Objeto dos produtos', products);
+  }, [products, categories]);
 
   return (
     <BrowserRouter>

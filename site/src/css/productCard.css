@@ -22,21 +22,3 @@
   font-size: large;
   font-weight: bold;
 }
-
-.actions .product-button {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  height: 44px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  border-radius: 3px;
-  text-align: center;
-  cursor: pointer;
-  color: var(--color_font_inverted);
-  background-color: var(--color_secondary_medium);
-  transition: ease-out 0.2s;
-}

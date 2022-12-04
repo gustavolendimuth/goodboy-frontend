@@ -23,7 +23,8 @@ export default function ProductCard({ products = [] }) {
                 <p className="product-price">{product.price}</p>
               </div>
               <div className="actions">
-                <a href={ `/produto/${product.id}` } className="product-button" role="button">VER PRODUTO</a>
+                {/* // link placeholder para direcionar para a página de detalhes do produto */}
+                <a href={ `/produto/${product._id}` } className="btn btn-primary" role="button">VER PRODUTO</a>
               </div>
             </div>
           </div>
