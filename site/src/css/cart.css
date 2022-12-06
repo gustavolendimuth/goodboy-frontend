@@ -1,0 +1,35 @@
+.product-title {
+    color: var(--bs-primary);
+    font-size: large;
+    font-weight: 600;
+    text-align: center;
+}
+
+.product-card {
+    background-color: var(--bs-light);
+    border: 1px solid var(--light-grey);
+    border-radius: 8px;
+    height: 100%;
+}
+
+.product-image {
+    max-height: 250px;
+    max-width: 250px;
+}
+
+.carrinho-title {
+    color: black;
+    font-size: large;
+    font-weight: bold;
+}
+
+.product-price-single {
+    color: black;
+    font-size: medium;
+}
+
+.product-price-total {
+    color: black;
+    font-size: large;
+    font-weight: bold;
+}

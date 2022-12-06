@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 // import { useParams } from 'react-router-dom';
 import Context from '../context/Context';
 import urlFor from '../services/urlFor';
+import '../css/cart.css';
 
 export default function Cart() {
   // const { session } = useParams();
@@ -40,19 +41,19 @@ export default function Cart() {
 
   return (
     <div>
-      <div>
-        <p>Carrinho de Compras</p>
+      <div className="product-card d-flex flex-column justify-content-center align-items-center p-3">
+        <p className="carrinho-title">Meu carrinho</p>
         {cartList?.map((prod) => (
           <div key={ prod._id }>
-            <img src={ urlFor(prod.photo?.image).url() } alt={ prod.photo?.alt } />
-            <p>{prod.title}</p>
-            <p>
-              preço:
+            <img className="product-image" src={ urlFor(prod.photo?.image).url() } alt={ prod.photo?.alt } />
+            <p className="product-title">{prod.title}</p>
+            <p className="product-price-single">
+              Preço unitário:
               {' '}
               {priceProductSum(prod.price, storage[prod._id])}
             </p>
-            <p>
-              quantidade:
+            <p className="product-price-single">
+              Quantidade:
               {' '}
               {storage[prod._id]}
             </p>
@@ -62,7 +63,7 @@ export default function Cart() {
           </div>
         ))}
       </div>
-      <p>
+      <p className="product-price-total">
         Total:
         {' '}
         {totalPrice()}
