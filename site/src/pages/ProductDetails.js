@@ -77,7 +77,7 @@ export default function ProductDetails() {
                 <p className="product-price">{product.price}</p>
               </div>
               <div>
-                <button type="button" onClick={ () => handleAddClick() }>QUANTIDADE E ADICIONAR NO CARRINHO</button>
+                <button type="button" className="btn btn-primary" onClick={ () => handleAddClick() }>ADICIONAR NO CARRINHO</button>
               </div>
             </div>
           </div>
