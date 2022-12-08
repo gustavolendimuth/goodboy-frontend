@@ -1,16 +1,21 @@
-import React from 'react';
+/* eslint-disable react/jsx-max-depth */
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { BiLogIn } from 'react-icons/bi';
 import { FiShoppingCart } from 'react-icons/fi';
 import goodboyLogo from '../images/goodboy_logo-transp.webp';
 import '../css/navbar.css';
+import Context from '../context/Context';
 
 export default function Navbar() {
+  const { cartItems } = useContext(Context);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container-fluid px-5">
-        <a className="navbar-brand" href="/">
+        <Link className="navbar-brand" to="/">
           <img src={ goodboyLogo } alt="Good Boy Logo" width="222px" />
-        </a>
+        </Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
         </button>
@@ -38,14 +43,21 @@ export default function Navbar() {
             </li>
             <li className="nav-item">
               <div className="mx-4">
-                <a className="nav-link active d-flex gap-2 align-items-center" href="/">
+                <Link
+                  className="nav-link active d-flex gap-2 align-items-center"
+                  to={ cartItems?.length ? '/carrinho' : null }
+                >
                   <div>
                     <FiShoppingCart className="cart-icon" />
                   </div>
                   <div className="cart-number-container d-flex justify-content-center align-items-center">
-                    <div className="cart-number">0</div>
+                    <div className="cart-number">
+                      {' '}
+                      <b>{cartItems?.length ? cartItems.reduce((acc, curr) => acc + curr.quantity, 0) : 0}</b>
+                      {' '}
+                    </div>
                   </div>
-                </a>
+                </Link>
               </div>
             </li>
           </ul>

@@ -10,7 +10,7 @@ import products from './documents/products';
 import categories from './documents/categories';
 
 // Objects
-import figure from './objects/figure';
+import figure from './types/figure';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({

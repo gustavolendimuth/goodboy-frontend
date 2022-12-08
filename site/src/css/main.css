@@ -13,6 +13,9 @@ body {
   --bs-info: #2b5667;
   --bs-info-rgb: 43 , 86 , 103;
   --light-grey: #e4e9f0;
+  height: auto;
+  size: 100%;
+  width: auto;
 }
 
 p {
@@ -25,6 +28,7 @@ p {
 }
 
 main {
+  min-height: 90%;
   width: 100%;
 }
 

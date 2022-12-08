@@ -15,8 +15,9 @@ export default {
     },
     {
       name: 'price',
-      type: 'string',
+      type: 'number',
       title: 'Preço',
+      validation: (Rule) => Rule.required().min(0).precision(2),
     },
     {
       name: 'description',

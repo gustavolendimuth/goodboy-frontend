@@ -1,21 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Context from '../context/Context';
 import '../css/Categories.css';
 
 export default function Categories() {
   const {
-    products,
     categories,
   } = useContext(Context);
 
   // declaração e tratamento do retorno da API para iterar sobre as categorias de produtos
   const mainCategoryCaes = categories?.[0]?.subCategories || [];
   const mainCategoryGatos = categories?.[1]?.subCategories || [];
-
-  // log das categorias
-  useEffect(() => {
-    if (categories) console.log('Objeto das categorias', categories);
-  }, [products, categories]);
 
   return (
     <div className="categories-container">

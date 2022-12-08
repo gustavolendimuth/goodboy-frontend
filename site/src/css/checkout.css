@@ -1,0 +1,332 @@
+/* stylelint-disable max-line-length */
+.hidden {
+  display: none;
+}
+
+p {
+  color: gray;
+}
+
+/* Shopping Cart Section - Start */
+.shopping-cart {
+  overflow: hidden;
+  padding-bottom: 10px;
+  transition: max-height 5s ease-in-out;
+}
+
+.shopping-cart.hide {
+  max-height: 0;
+  pointer-events: none;
+}
+
+.shopping-cart .content {
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.shopping-cart .block-heading {
+  margin-bottom: 30px;
+  padding-top: 40px;
+  text-align: center;
+}
+
+.shopping-cart .block-heading p {
+  color: gray;
+  font-size: 1.2rem;
+  margin: auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+.shopping-cart .block-heading h1, .shopping-cart .block-heading h2, .shopping-cart .block-heading h3 {
+  color: grey;
+  margin-bottom: 1.2rem;
+}
+
+.shopping-cart .items {
+  margin: auto;
+}
+
+.shopping-cart .items .product {
+  margin-bottom: 0;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.shopping-cart .items .product .info {
+  padding-top: 0;
+  text-align: left;
+}
+
+.shopping-cart .items .product .info .product-details .product-detail {
+  padding-left: 40px;
+  padding-top: 40px;
+}
+
+.shopping-cart .items .product .info .product-details h5 {
+  color: grey;
+  font-size: 19px;
+}
+
+.shopping-cart .items .product .info .product-details .product-info {
+  font-size: 15px;
+  margin-top: 15px;
+}
+
+.shopping-cart .items .product .info .product-details label {
+  color: grey;
+  font-size: 19px;
+  width: 50px;
+}
+
+.shopping-cart .items .product .info .product-details input {
+  width: 80px;
+}
+
+.shopping-cart .items .product .info .price {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.shopping-cart .summary {
+  background-color: #fff;
+  border-top: 2px solid grey;
+  height: 100%;
+  padding: 30px;
+}
+
+.shopping-cart .summary h3 {
+  font-size: 1.3em;
+  font-weight: 400;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.shopping-cart .summary .summary-item:not( :last-of-type ) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.shopping-cart .summary .text {
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.shopping-cart .summary .price {
+  float: right;
+  font-size: 1em;
+}
+
+.shopping-cart .summary button {
+  background-color: grey;
+  color: #fff;
+  margin-top: 20px;
+}
+
+@media ( min-width : 768px ) {
+
+  .shopping-cart .items .product .info .product-details .product-detail {
+    padding-left: 40px;
+    padding-top: 40px;
+  }
+
+  .shopping-cart .items .product .info .price {
+    font-size: 22px;
+    font-weight: 500;
+    top: 17px;
+  }
+
+  .shopping-cart .items .product .info .quantity {
+    text-align: center;
+  }
+
+  .shopping-cart .items .product .info .quantity .quantity-input {
+    padding: 4px 10px;
+    text-align: center;
+  }
+}
+
+/* Card Payment Section - Start */
+.container__payment {
+  max-width: 600px;
+}
+
+.payment-form {
+  font-family: Helvetica Neue , Helvetica , sans-serif;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding-bottom: 10px;
+}
+
+.payment-form.dark {
+  background-color: #fff;
+}
+
+.payment-form .content {
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.075);
+}
+
+.payment-form .block-heading {
+  margin-bottom: 30px;
+  padding-top: 40px;
+  text-align: center;
+}
+
+.payment-form .block-heading p {
+  color: gray;
+  font-size: 1.2;
+  margin: auto;
+  max-width: 420px;
+  text-align: center;
+}
+
+.payment-form .block-heading h1, .payment-form .block-heading h2, .payment-form .block-heading h3 {
+  color: grey;
+  margin-bottom: 1.2rem;
+}
+
+.payment-form .form-payment {
+  background-color: #fff;
+  border-top: 2px solid grey;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.075);
+  margin: auto;
+  max-width: 600px;
+  padding: 0;
+}
+
+.payment-form .title {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  font-weight: 400;
+  margin-bottom: 0.8em;
+  padding-bottom: 8px;
+}
+
+.payment-form .products {
+  background-color: #fff;
+  padding: 25px;
+}
+
+.payment-form .products .item {
+  margin-bottom: 1em;
+}
+
+.payment-form .products .item-name {
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.payment-form .products .item-description {
+  font-size: 0.8em;
+  opacity: 0.6;
+}
+
+.payment-form .products .item p {
+  margin-bottom: 0.2em;
+}
+
+.payment-form .products .price {
+  float: right;
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.payment-form .products .total {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+  line-height: 1;
+  margin-top: 10px;
+  padding-top: 19px;
+}
+
+.payment-form .payment-details {
+  height: 100%;
+  padding: 25px 25px 15px;
+}
+
+.payment-form .payment-details label {
+  color: grey;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.payment-form .payment-details button {
+  background-color: grey;
+  font-weight: 500;
+  margin-bottom: 10px;
+  margin-top: 0.6em;
+  padding: 12px 0;
+}
+
+.payment-form .date-separator {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.payment-form a, .payment-form a:not( [ href ] ) {
+  color: grey;
+  cursor: pointer;
+  font-size: 13px;
+  margin: 0;
+  padding: 0;
+}
+
+.payment-form a:not( [ href ] ):hover {
+  color: grey;
+  cursor: pointer;
+}
+
+#loading-message {
+  display: none;
+  font-weight: 700;
+  text-align: center;
+}
+
+#horizontal_logo {
+  margin: 0;
+  width: 150px;
+}
+
+@media ( min-width : 576px ) {
+
+  .payment-form .title {
+    font-size: 1.2em;
+  }
+
+  .payment-form .products {
+    padding: 40px;
+  }
+
+  .payment-form .products .item-name {
+    font-size: 1em;
+  }
+
+  .payment-form .products .price {
+    font-size: 1em;
+  }
+
+  .payment-form .payment-details {
+    padding: 40px 40px 30px;
+  }
+
+  .payment-form .payment-details button {
+    margin-bottom: 15px;
+    margin-top: 1em;
+  }
+
+  /* Payment Result Section - Start */
+  .container__result {
+    display: none;
+  }
+
+  #fail-response, #success-response {
+    display: none;
+  }
+}
