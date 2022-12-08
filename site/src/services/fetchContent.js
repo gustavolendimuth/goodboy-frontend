@@ -18,7 +18,7 @@ export default async (table, id) => {
       _id, title, photo, price, description,
       "categories": categories[]->name,
     }`,
-    // Query que retorna somente um produto de acordo com o id
+    // Query que retorna um produto ou uma lista de produtos
     product: groq`*[_type == "products" && _id in ${JSON.stringify(idArray)}] {
         _id, title, photo, price, description,
         "categories": categories[]->name,
