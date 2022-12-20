@@ -7,7 +7,7 @@
     "start": "cd ./site && npm start",
     "dev": "cd ./site && npm start",
     "sanity": "cd ./studio && sanity start",
-    "build": "rm -rf ./build && cd ./site && npm install && npm run build && mv build ../ && cd ../studio && npm install && npm run build ../build/studio -y",
+    "build": "rm -rf ./build && cd ./site && npm install && npm run build && mv build ../ && cd ../studio && sanity install && sanity build ../build/studio -y",
     "test": "cd site && react-scripts test",
     "eject": "cd site && react-scripts eject",
     "lint:styles": "npx stylelint '**/*.css'",
@@ -15,7 +15,7 @@
   },
   "author": "Gustavo Lendimuth",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "@sanity/cli": "^3.0.6"
   }
 }
