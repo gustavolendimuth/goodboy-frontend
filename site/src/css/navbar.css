@@ -1,5 +1,5 @@
 .cart-icon {
-  font-size: 22px;
+  font-size: 1.8rem;
 }
 
 .cart-number-container {
@@ -14,11 +14,21 @@
 }
 
 .login-icon {
-  font-size: 26px;
+  font-size: 1.4rem;
+  margin-left: -7px;
 }
 
 .login-links {
   display: inline-block;
   font-size: 0.7rem;
   line-height: 0.8rem;
+}
+
+.btn-outline-danger {
+  border-color: var(--bs-light);
+  color: var(--bs-light);
+}
+
+.search {
+  padding-left: 12px !important;
 }

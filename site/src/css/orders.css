@@ -1,0 +1,11 @@
+.orders-container {
+  max-width: 800px;
+}
+
+.orders-product-row-even {
+  background-color: var(--bs-primary-light) !important;
+}
+
+.orders-product-row {
+  background-color: var(--bs-secondary-light) !important;
+}

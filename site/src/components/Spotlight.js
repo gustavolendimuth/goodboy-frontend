@@ -8,23 +8,22 @@ import ProductCard from './ProductCard';
 export default function Spotlight() {
   const { products } = useContext(Context); // aqui deverá ser um array do spotlight, e não products
   return (
-    <div className="spotlight-container pt-5">
-      <div className="container">
-        <section>
-          <h2>Destaques</h2>
-          <div className="container pt-5">
-            <div
-              className="row gx-5 gy-5 row-cols-1 row-cols-sm-2 row-cols-lg-4
-              justify-content-center align-items-center pb-4"
-            >
-              {products && products.map((product) => (
-                <ProductCard key={ product._id } product={ product } />
-              ))}
-            </div>
+    <section className="spotlight-container pt-5 pb-3">
+      <div className="container px-4">
+        <div className="section-title">
+          <h1 className="text-light">Destaques</h1>
+        </div>
+        <div className="pt-4">
+          <div
+            className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-5"
+          >
+            {products && products.map((product) => (
+              <ProductCard key={ product._id } product={ product } />
+            ))}
           </div>
-        </section>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 

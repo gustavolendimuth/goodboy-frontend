@@ -1,35 +1,87 @@
+/* stylelint-disable selector-no-qualifying-type */
+
+/* stylelint-disable max-line-length */
+
 /* stylelint-disable selector-max-specificity */
 body {
   --bs-primary: #fc553d;
+  --bs-primary-light: #fcf4f3;
   --bs-primary-rgb: 252 , 85 , 61;
   --bs-secondary: #007aff;
+  --bs-secondary-light: #eef6fe;
   --bs-secondary-rgb: 0 , 122 , 255;
   --bs-light: #fff;
-  --bs-light-rgb: 255 , 255 , 255;
-  --bs-dark: #17365d;
-  --bs-dark-rgb: 23 , 54 , 93;
-  --bs-body-color: #7fa0ad;
-  --bs-body-font-size: 1.43rem;
-  --bs-info: #2b5667;
-  --bs-info-rgb: 43 , 86 , 103;
   --light-grey: #e4e9f0;
-  height: auto;
-  size: 100%;
-  width: auto;
+  --half-gray: #f5f5f5;
+  --bs-gray: #585e62;
+  --bs-btn-hover-bg: #0b5ed7;
+  color: var(--bs-gray) !important;
+  font-family: Varela Round , sans-serif !important;
+  width: 100% !important;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Rubik+Gemstones&family=Varela+Round&display=swap') ;
+
+h1 {
+  color: var(--bs-primary);
+  font-size: 2.5rem;
+}
+
+h1.svelte-1mym5f9 {
+  color: var(--light-gray) !important;
+}
+
+h2.svelte-zpmp54 {
+  color: var(--light-gray) !important;
+}
+
+h3 {
+  font-family: Varela Round , sans-serif !important;
+  font-size: 1.3rem;
+}
+
+h4 {
+  color: var(--light-gray);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+}
+
+.section-title h1 {
+  font-family: Rubik Gemstones , cursive !important;
 }
 
 p {
-  letter-spacing: 0.03em;
+  color: var(--bs-gray);
+  font-size: 1rem;
+  letter-spacing: 0.01em;
   margin-bottom: 0;
 }
 
 #root {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  min-height: calc(var(--vh, 1vh) * 100);
+  width: 100%;
+}
+
+header {
   width: 100%;
 }
 
 main {
-  min-height: 90%;
   width: 100%;
+}
+
+footer {
+  width: 100%;
+}
+
+.form-control {
+  text-align: start !important;
 }
 
 .link {
@@ -40,19 +92,28 @@ main {
   text-decoration: none;
 }
 
-.section {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  justify-content: space-between;
-  min-height: calc(var(--vh, 1vh) * 100);
-}
-
 .bg-primary {
   background-color: var(--bs-primary) !important;
 }
 
 .bg-secondary {
   background-color: var(--bs-secondary) !important;
+}
+
+.btn-danger {
+  background-color: #fc553d;
+  border-color: #fc553d;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #d84b36;
+  border-color: #d84b36;
+  color: #fff;
+}
+
+.btn-secondary:active, .btn-secondary:focus, .btn-check:focus + .btn-secondary, .btn-check:active + .btn-secondary, .btn-check:checked + .btn-secondary, .btn-secondary.active, .show > .btn-secondary.dropdown-toggle {
+  background-color: #fc553d;
+  border-color: #fc553d;
+  color: #fff;
 }

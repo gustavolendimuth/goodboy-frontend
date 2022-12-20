@@ -1,5 +1,7 @@
 .spotlight-container {
-  background-color: var(--bs-light);
-  color: var(--bs-secondary);
+
+  /* background-color: rgb(var(--bs-secondary-rgb), 0.1); */
+  background-color: var(--bs-secondary);
+  color: var(--bs-light);
   text-align: center;
 }

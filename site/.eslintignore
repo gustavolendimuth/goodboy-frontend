@@ -1,0 +1,8 @@
+**/*.test.js
+/site/src/tests/*
+# site/src/index.js
+site/export/*
+site/assets/js/bootstrap.min.js
+**/bootstrap.min.css
+node_modules/*
+site/node_modules/*

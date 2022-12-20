@@ -10,6 +10,7 @@ import Context from '../context/Context';
 import fetchContent from '../services/fetchContent';
 import CartProducts from '../components/CartProducts';
 import currencyFormatter from '../services/currencyFormatter';
+import '../css/cart.css';
 
 export default function Cart() {
   const {
@@ -59,37 +60,40 @@ export default function Cart() {
   return (
     <section className="shopping-cart">
       <div className="container container__cart">
-        <div className="block-heading">
-          <h2>Carrinho</h2>
-          <p>Confira os produtos e as quantidades</p>
+        <div className="section-title text-center pt-5 pb-4">
+          <h1>Carrinho</h1>
+          <h3>Confira os produtos e as quantidades</h3>
         </div>
-        <div className="content">
-          <div className="row">
-            <div className="col-md-12 col-lg-8">
-              <div className="items">
-                {cartItemsData ? cartItemsData.map((item) => (
-                  <CartProducts key={ item._id } item={ item } />
-                )) : null}
+        <div className="content rounded-4">
+          <div className="items p-4">
+            {
+              cartItemsData && cartItemsData.map((item, index, array) => (
+                <CartProducts key={ item._id } item={ item } info={ { index, array } } />
+              ))
+            }
+          </div>
+          <div className="summary w-100 d-flex flex-column align-items-end">
+            <div className=" w-auto">
+              <div className="d-flex justify-content-between">
+                <h3 className="text">
+                  Total
+                </h3>
+                <h3 className="price" id="cart-total">
+                  <b>
+                    {
+                      currencyFormatter({ format: 'pt-BR', value: total, symbol: true })
+                    }
+                  </b>
+                </h3>
               </div>
-            </div>
-            <div className="col-md-12 col-lg-4">
-              <div className="summary">
-                <h3>Cart</h3>
-                <div className="p-3">
-                  <span className="text">Total</span>
-                  <span className="price" id="cart-total">
-                    {`R$${currencyFormatter('pt-BR', total)}`}
-                  </span>
-                </div>
-                <div className="d-flex justify-content-center">
-                  <Link
-                    to="/checkout"
-                    className="btn btn-primary btn-lg btn-block"
-                    id="checkout-btn"
-                  >
-                    Finalizar a Compra
-                  </Link>
-                </div>
+              <div className="d-flex justify-content-center pt-4">
+                <Link
+                  to="/checkout"
+                  className="btn btn-primary btn-lg w-100 px-5"
+                  id="checkout-btn"
+                >
+                  Finalizar a Compra
+                </Link>
               </div>
             </div>
           </div>

@@ -4,7 +4,7 @@
   "description": "Good Boy e-commerce",
   "scripts": {
     "goodboy": "npm install && cd ./site && npm install && cd ../studio && sanity install",
-    "start": "cd ./site && react-scripts start",
+    "start": "cd ./site && npm start",
     "sanity": "cd ./studio && sanity start",
     "build": "rm -rf ./build && cd ./site && npm install && react-scripts build && mv build ../",
     "test": "cd site && react-scripts test",
@@ -13,28 +13,5 @@
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js,.jsx"
   },
   "author": "Gustavo Lendimuth",
-  "license": "ISC",
-  "devDependencies": {
-    "@testing-library/react": "^13.4.0",
-    "eslint": "^8.23.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-react": "^7.31.1",
-    "eslint-plugin-react-func": "^0.1.18",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-redux": "^4.0.0",
-    "eslint-plugin-sonarjs": "^0.15.0",
-    "prettier": "^2.7.1",
-    "stylelint": "^14.11.0",
-    "stylelint-config-standard": "^28.0.0",
-    "stylelint-order": "^5.0.0"
-  },
-  "dependencies": {
-    "@sanity/cli": "^2.33.3",
-    "bootstrap": "^5.2.2",
-    "jquery": "^3.6.1",
-    "popper.js": "^1.16.1",
-    "react-scripts": "^5.0.1"
-  }
+  "license": "ISC"
 }

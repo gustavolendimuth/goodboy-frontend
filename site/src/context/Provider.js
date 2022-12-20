@@ -2,10 +2,10 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { removeLocalStorage } from '../services/localStorage';
 import Context from './Context';
 
 export default function Provider({ children }) {
-  const [session, setSession] = useState();
   const [products, setProducts] = useState();
   const [categories, setCategories] = useState();
   const [cartItems, setCartItems] = useState([]);
@@ -13,12 +13,11 @@ export default function Provider({ children }) {
   const [total, setTotal] = useState(0);
   const [cartItemsData, setCartItemsData] = useState();
   const [localStorageIsReady, setLocalStorageIsReady] = useState(false);
-
-  const setLocalStorage = (key, value) => {
-    if (key && value) localStorage.setItem(key, JSON.stringify(value));
-  };
-  const getLocalStorage = (key) => key && JSON.parse(localStorage.getItem(key));
-  const removeLocalStorage = (key) => key && localStorage.removeItem(key);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState();
+  const [token, setToken] = useState();
+  const [alert, setAlert] = useState();
+  const [loginForm, setLoginForm] = useState({ email: '', keepConnected: true });
 
   const getItemQuantity = (id) => cartItems?.find((item) => item.id === id)?.quantity || 0;
 
@@ -69,10 +68,6 @@ export default function Provider({ children }) {
   };
 
   const context = {
-    setLocalStorage,
-    getLocalStorage,
-    session,
-    setSession,
     products,
     setProducts,
     categories,
@@ -85,13 +80,22 @@ export default function Provider({ children }) {
     addToCart,
     removeFromCart,
     deleteFromCart,
-    removeLocalStorage,
     total,
     setTotal,
     cartItemsData,
     setCartItemsData,
     setLocalStorageIsReady,
     localStorageIsReady,
+    loggedIn,
+    setLoggedIn,
+    user,
+    setUser,
+    token,
+    setToken,
+    alert,
+    setAlert,
+    loginForm,
+    setLoginForm,
   };
 
   return (

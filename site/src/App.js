@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/custom.scss';
 import './css/main.css';
 import Home from './pages/Home';
 import Footer from './components/Footer';
@@ -18,18 +19,19 @@ import fetchContent from './services/fetchContent';
 // e remove as subcategorias duplicadas com a função new Set()
 import formatCategoriesObject from './services/formatCategoriesObject';
 import CheckoutResponse from './pages/CheckoutResponse';
+import Login from './pages/Login';
+import useCartItems from './hooks/useCartItems';
+import useToken from './hooks/useToken';
+import Alert from './components/Alert';
+import ScrollToTop from './hooks/ScrollToTop';
+import Orders from './pages/Orders';
 
 function App() {
   const {
-    getLocalStorage,
-    setLocalStorage,
-    setCartItems,
-    cartItems,
     setProducts,
     setCategories,
     categories,
     products,
-    setLocalStorageIsReady,
   } = useContext(Context);
 
   const getProducts = async () => {
@@ -43,29 +45,24 @@ function App() {
   };
 
   useEffect(() => {
-    if (cartItems?.length) {
-      setLocalStorage('cart', cartItems);
-    }
-  }, [cartItems]);
-
-  useEffect(() => {
-    const cart = getLocalStorage('cart');
-    if (cart) {
-      setCartItems(cart);
-    }
-
     if (!products)getProducts();
     if (!categories) getCategories();
-    setLocalStorageIsReady(true);
   }, []);
+
+  // A função useToken é responsável por verificar o token ao abrir a página e salvar no localStorage após o login
+  useToken();
+  // A função useCartItems é responsável por resgatar o carrinho ao abrir a página e salvar no localStorage após adicionar um item
+  useCartItems();
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <header>
         <Navbar />
         <section>
           <Categories />
         </section>
+        <Alert />
       </header>
       <main>
         <Routes>
@@ -73,7 +70,11 @@ function App() {
           <Route element={ <ProductDetails /> } path="/produto/:id" />
           <Route element={ <Cart /> } path="/carrinho" />
           <Route element={ <Checkout /> } path="/checkout" />
-          <Route element={ <CheckoutResponse /> } path="/checkout/resultado" />
+          <Route element={ <CheckoutResponse /> } path="/checkout/compra/:id" />
+          <Route element={ <Login /> } path="/login/:email/:magicLink" />
+          <Route element={ <Login /> } path="/login" />
+          <Route element={ <Orders /> } path="/compras" />
+          <Route element={ <Home /> } path="*" />
         </Routes>
       </main>
       <Footer />

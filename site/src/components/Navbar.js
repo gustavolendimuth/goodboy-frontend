@@ -1,67 +1,92 @@
+/* eslint-disable react/forbid-component-props */
 /* eslint-disable react/jsx-max-depth */
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { BiLogIn } from 'react-icons/bi';
+import { BiLogIn, BiLogOut, BiCreditCard, BiBone } from 'react-icons/bi';
 import { FiShoppingCart } from 'react-icons/fi';
 import goodboyLogo from '../images/goodboy_logo-transp.webp';
-import '../css/navbar.css';
 import Context from '../context/Context';
+import '../css/navbar.css';
 
 export default function Navbar() {
-  const { cartItems } = useContext(Context);
+  const {
+    cartItems,
+    user,
+    setUser,
+    setToken,
+  } = useContext(Context);
+
+  const logout = () => {
+    setUser();
+    setToken();
+  };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div className="container-fluid px-5">
-        <Link className="navbar-brand" to="/">
-          <img src={ goodboyLogo } alt="Good Boy Logo" width="222px" />
+    <nav className="navbar navbar-dark bg-primary">
+      <div className="container d-flex justify-content-center align-items-center gap-3 py-3">
+        <Link className="order-md-0" to="/">
+          <img src={ goodboyLogo } alt="Good Boy Logo" width="200px" className="img-fluid" />
         </Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon" />
-        </button>
-        <div className="collapse navbar-collapse px-5" id="navbarSupportedContent">
-          <form className="d-flex px-5 mx-auto mb-2 mb-lg-0" role="search">
-            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-            <button className="btn btn-outline-light" type="submit">Buscar</button>
-          </form>
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <a className="nav-link active mx-4" href="/">
-                <div className="d-flex gap-2 align-items-center">
-                  <div className="login-links">
-                    <BiLogIn className="login-icon" />
-                  </div>
-                  <div className="login-links">
-                    Minha Conta
-                    {' '}
-                    <br />
-                    Entrar/Cadastrar
-                  </div>
-                </div>
-
-              </a>
-            </li>
-            <li className="nav-item">
+        <form onSubmit={ (e) => e.preventDefault() } className="d-flex mx-auto mb-2 mb-lg-0 order-2 order-lg-1" role="search">
+          <input className="form-control me-2 search" type="search" placeholder="Produto" aria-label="Search" />
+          <button className="btn btn-primary d-flex px-3" type="submit">
+            <BiBone className="login-icon me-1" />
+            Buscar
+          </button>
+        </form>
+        <ul className="navbar-nav mx-auto ms-md-auto me-md-0 mb-2 mb-lg-0 d-flex align-items-center order-1 order-lg-2">
+          <li className="nav-item">
+            <div className="d-flex align-items-center">
+              <div className="login-links">
+                {
+                  user
+                    ? (
+                      <div className="d-flex gap-2 align-items-center">
+                        <Link to="/compras" className="btn btn-outline-light btn-sm px-3 d-flex justify-content-center align-items-center">
+                          <BiCreditCard className="login-icon me-1" />
+                          Compras
+                        </Link>
+                        <form
+                          className="d-inline"
+                          onSubmit={ (e) => {
+                            e.preventDefault();
+                            logout();
+                          } }
+                        >
+                          <button
+                            type="submit"
+                            className="btn btn-outline-danger btn-sm px-3 d-flex justify-content-center align-items-center"
+                          >
+                            <BiLogOut className="login-icon me-1" />
+                            Sair
+                          </button>
+                        </form>
+                      </div>)
+                    : (
+                      <Link to="/login" className="btn btn-outline-danger btn-sm px-3 d-flex justify-content-center align-items-center">
+                        <BiLogIn className="login-icon me-1" />
+                        Entrar
+                      </Link>
+                    )
+                }
+              </div>
               <div className="mx-4">
                 <Link
                   className="nav-link active d-flex gap-2 align-items-center"
                   to={ cartItems?.length ? '/carrinho' : null }
                 >
-                  <div>
+                  <div className="position-relative">
                     <FiShoppingCart className="cart-icon" />
-                  </div>
-                  <div className="cart-number-container d-flex justify-content-center align-items-center">
-                    <div className="cart-number">
-                      {' '}
-                      <b>{cartItems?.length ? cartItems.reduce((acc, curr) => acc + curr.quantity, 0) : 0}</b>
-                      {' '}
-                    </div>
+                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
+                      {cartItems?.length ? cartItems.reduce((acc, curr) => acc + curr.quantity, 0) : 0}
+                      <span className="visually-hidden">unread messages</span>
+                    </span>
                   </div>
                 </Link>
               </div>
-            </li>
-          </ul>
-        </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </nav>
   );

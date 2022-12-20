@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Context from '../context/Context';
-import '../css/Categories.css';
+import '../css/categories.css';
 
 export default function Categories() {
   const {
@@ -15,7 +15,7 @@ export default function Categories() {
     <div className="categories-container">
       <div className="dropdown">
         {/* botão de dropdown */}
-        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button className="btn btn-secondary dropdown-toggle btn-category" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           <img className="animal-img-icon" alt="cão" src="https://images.tcdn.com.br/files/1127101/themes/7/img/ico-caes.png" height="30" width="35" />
           Cães
         </button>
@@ -38,7 +38,7 @@ export default function Categories() {
       </div>
       <div className="dropdown">
         {/* botão de dropdown */}
-        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button className="btn btn-secondary dropdown-toggle btn-category" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           <img className="animal-img-icon" alt="gato" src="https://images.tcdn.com.br/files/1127101/themes/7/img/ico-gatos.png" height="30" width="30" />
           Gatos
         </button>
