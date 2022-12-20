@@ -18,7 +18,6 @@
   },
   "plugins": [
     "react",
-    "react-redux",
     "react-hooks",
     "sonarjs",
     "react-func"
@@ -301,12 +300,6 @@
         "logical": "ignore",
         "prop": "ignore"
       }
-    ],
-    "react-redux/connect-prefer-named-arguments": [
-      "error"
-    ],
-    "react-redux/no-unused-prop-types": [
-      "error"
     ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn", 

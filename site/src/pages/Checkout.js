@@ -31,7 +31,7 @@ export default function Checkout() {
   const mercadopago = new MercadoPago(process.env.REACT_APP_PROJECT_PUBLIC_KEY);
 
   const processPayment = (formData) => {
-    fetch('http://localhost:3001/process_payment', {
+    fetch(`${process.env.REACT_APP_PROJECT_DB_URL}/process_payment`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ export default function Checkout() {
   const loadPaymentForm = async () => {
     const settings = {
       initialization: {
-        amount: currencyFormatter('en-US', total),
+        amount: currencyFormatter({ format: 'en-US', value: total }),
       },
       callbacks: {
         onReady: () => {
@@ -112,41 +112,59 @@ export default function Checkout() {
 
   useEffect(() => {
     if (checkoutResponse) {
-      navigate('/checkout/resultado');
+      navigate(`/checkout/compra/${checkoutResponse.id}`);
     }
   }, [checkoutResponse]);
-
-  if (checkoutResponse) {
-    return <Navigate to="/checkout/resultado" />;
-  }
 
   return (
     <section className="payment-form">
       <div className="container container__payment">
-        <div className="block-heading">
-          <h2>Checkout</h2>
-          <p>Finalize a compra utilizando o pagamento seguro do Mercado Pago</p>
+        <div className="section-title text-center pt-5 pb-4">
+          <h1>Checkout</h1>
+          <h3>Finalize a compra utilizando o pagamento seguro do Mercado Pago</h3>
         </div>
-        <div className="form-payment">
-          <div className="products">
-            <h2 className="title">Resumo</h2>
+        <div className="form-payment rounded-3">
+          <div className="products py-5 px-4">
+            <h3 className="title"><b>Resumo</b></h3>
             <div className="item">
               {
                 cartItemsData?.map((item) => (
                   <div key={ item._id } className="d-flex py-2">
                     <div className="px-0">{getItemQuantity(item._id)}</div>
                     <div className="w-100 px-3">{item.title}</div>
-                    <div className="px-0">{`R$${currencyFormatter('pt-BR', item.price)}`}</div>
+                    <div className="px-0">
+                      {
+                        currencyFormatter({ format: 'pt-BR', value: item.price * getItemQuantity(item._id), symbol: true })
+                      }
+                    </div>
                   </div>
                 ))
               }
             </div>
             <div className="total">
               Total
-              <span className="price" id="summary-total">{`R$${currencyFormatter('pt-BR', total)}`}</span>
+              <span className="price" id="summary-total">
+                {
+                  currencyFormatter({ format: 'pt-BR', value: total, symbol: true })
+                }
+              </span>
             </div>
-            <input type="hidden" id="amount" />
-            <input type="hidden" id="description" />
+          </div>
+          <div className="alert alert-warning mx-4" role="alert">
+            <h3>
+              <b>Cartão de crédito de teste</b>
+            </h3>
+            <b>Número do cartão:</b> 5031 4332 1540 6351
+            <br />
+            <b>Data de vencimento:</b> 11/25
+            <br />
+            <b>Código de segurança:</b> 123
+            <br />
+            <b>Nome do titular:</b> APRO
+            <br />
+            <b>CPF:</b> 12345678909
+            <br />
+            <b>E-mail:</b> seu email
           </div>
           <div className="container" id="mercadopago-bricks-container__PaymentCard"> </div>
           <div className="px-3 pb-3">

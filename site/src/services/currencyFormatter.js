@@ -1,7 +1,7 @@
-export default (format, value) => {
+export default ({ format, value, symbol }) => {
   const formatter = new Intl.NumberFormat(format, {
-    // style: 'currency', // estas duas linhas são necessárias para adicionar o símbolo de moeda
-    // currency: 'BRL',
+    style: symbol && 'currency', // estas duas linhas são necessárias para adicionar o símbolo de moeda
+    currency: symbol && 'BRL',
 
     // A variável format representa idioma em que será formatado o valor.
     // valores possíveis: 'pt-BR', 'en-US', 'es-ES', 'fr-FR', 'de-DE'

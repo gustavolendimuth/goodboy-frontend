@@ -1,5 +1,11 @@
 .sale-container {
-  background-color: var(--bs-light);
-  color: var(--bs-secondary);
+
+  /* background-color: rgb(var(--bs-primary-rgb), 0.1); */
+  background-color: var(--bs-primary);
+  color: var(--bs-light);
   text-align: center;
+}
+
+.sale-title {
+  color: var(--bs-light);
 }

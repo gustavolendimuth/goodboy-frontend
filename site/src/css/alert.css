@@ -1,0 +1,16 @@
+.alert-message {
+  box-shadow: 0 10px 30px 15px rgba(0, 0, 0, 0.2);
+  left: 50%;
+  margin: 20px auto;
+  margin-left: -200px;
+
+  /* margin-top: -50px; */
+  position: absolute;
+  top: 40%;
+  width: 400px;
+  z-index: 100;
+}
+
+.icon {
+  font-size: 2rem;
+}

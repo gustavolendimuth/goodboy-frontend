@@ -2,15 +2,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-max-depth */
 import React, { useContext, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import Context from '../context/Context';
 import '../css/checkout.css';
+import { removeLocalStorage } from '../services/localStorage';
 
 export default function CheckoutResponse() {
-  const { checkoutResponse, removeLocalStorage, setCartItems, setCartItemsData } = useContext(Context);
+  const { checkoutResponse, setCartItems, setCartItemsData, setCheckoutResponse } = useContext(Context);
+  const { id } = useParams();
+
+  if (!id) {
+    return <Navigate to="/carrinho" />;
+  }
 
   if (!checkoutResponse) {
-    return <Navigate to="/carrinho" />;
+    fetch(`https://api.mercadopago.com/v1/payments/${id}?access_token=${process.env.REACT_APP_PROJECT_ACCESS_TOKEN}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setCheckoutResponse(data);
+      });
   }
 
   const mp = new MercadoPago(process.env.REACT_APP_PROJECT_PUBLIC_KEY);
@@ -19,7 +30,7 @@ export default function CheckoutResponse() {
   const renderStatusScreenBrick = async (param) => {
     const settings = {
       initialization: {
-        paymentId: checkoutResponse.id, // id de pagamento gerado pelo Mercado Pago
+        paymentId: id, // id de pagamento gerado pelo Mercado Pago
       },
       callbacks: {
         onReady: () => {
@@ -52,9 +63,9 @@ export default function CheckoutResponse() {
   return (
     <section className="shopping-cart light">
       <div className="container container__payment">
-        <div className="block-heading">
-          <h2>Dados do Pagamento</h2>
-          <p>Informações sobre sua compra. Salve em seu dispositivo para consulta posterior</p>
+        <div className="section-title text-center pt-5 pb-4">
+          <h1>Dados do Pagamento</h1>
+          <h3>Confira as informações do pagamento de sua compra</h3>
         </div>
         <div className="form-payment">
           <div id="statusScreenBrick_container"> </div>

@@ -1,23 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/no-unknown-property */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-underscore-dangle */
-/* eslint-disable react/jsx-max-depth */
+
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
 import currencyFormatter from '../services/currencyFormatter';
 import urlFor from '../services/urlFor';
+import QuantityFormGroup from './QuantityFormGroup';
 
-export default function CartProducts({ item }) {
-  const {
-    getItemQuantity,
-    removeFromCart,
-    addToCart,
-    deleteFromCart,
-    cartItems,
-  } = useContext(Context);
+export default function CartProducts({ item, info }) {
+  const { index, array } = info;
+  const { cartItems, getItemQuantity } = useContext(Context);
   const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
@@ -28,52 +21,55 @@ export default function CartProducts({ item }) {
 
   return (
     <div key={ item._id } className="product">
-      <div className="info">
-        <div className="product-details">
-          <div className="row">
-            <div className="col-md-3">
-              <img
-                src={ urlFor(item.photo.image).url() }
-                alt={ item.photo.alt }
-                width="100%"
-                height="200px"
-                style={ { objectFit: 'contain' } }
-              />
+      <div
+        className={ `row d-flex justify-content-center 
+          ${index !== array.length - 1 && 'item pb-3'} 
+          ${index !== 0 && 'pt-3'}` }
+      >
+        <div className="col-md-2 p-0 text-center">
+          <img
+            src={ urlFor(item.photo.image).url() }
+            alt={ item.photo.alt }
+            width="120px"
+            height="120px"
+            style={ { objectFit: 'contain' } }
+          />
+        </div>
+        <div className="col-md-6 my-auto">
+          <div className="product-info d-flex flex-column justify-content-center gap-3">
+            <h3 className=" text-center text-md-start text-primary pt-3 m-0">
+              {item.title}
+            </h3>
+            <div className="text-center text-md-start">
+              <p>
+                preço
+              </p>
+              <h4 className="m-0">
+                <b>
+                  {
+                    currencyFormatter({ format: 'pt-BR', value: item.price, symbol: true })
+                  }
+                </b>
+              </h4>
             </div>
-            <div className="col-md-5 my-auto">
-              <div className="product-info d-flex flex-column justify-content-center">
-                <h5>
-                  <span>{item.title}</span>
-                  <br />
-                </h5>
-                <span id="unit-price text-danger"><b>{ `R$${currencyFormatter('pt-BR', item.price)}` }</b></span>
-              </div>
-            </div>
-            <div className="col-md-4 my-auto">
-              <div className="d-flex justify-content-center align-items-center pt-1 pb-2">
-                <button
-                  type="button"
-                  className="btn btn-primary btn-sm"
-                  onClick={ () => removeFromCart(item._id) }
-                >
-                  -
-                </button>
-                <p className="quantity px-2"><b>{quantity}</b></p>
-                <button
-                  type="button"
-                  className="btn btn-primary btn-sm"
-                  onClick={ () => addToCart(item._id) }
-                >
-                  +
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-danger btn-sm m-2"
-                  onClick={ () => deleteFromCart(item._id) }
-                >
-                  Remover
-                </button>
-              </div>
+          </div>
+        </div>
+        <div className="col-md-2 my-auto py-3 px-4 text-center">
+          <QuantityFormGroup id={ item._id } />
+        </div>
+        <div className="col-12 col-md-2 my-auto">
+          <div className="text-center text-md-end">
+            <div className="my-auto py-3">
+              <p>
+                subtotal
+              </p>
+              <h3>
+                <b>
+                  {
+                    currencyFormatter({ format: 'pt-BR', value: item.price * quantity, symbol: true })
+                  }
+                </b>
+              </h3>
             </div>
           </div>
         </div>
@@ -83,12 +79,25 @@ export default function CartProducts({ item }) {
 }
 
 CartProducts.propTypes = {
+  info: PropTypes.shape({
+    array: PropTypes.arrayOf(PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      photo: PropTypes.shape({
+        alt: PropTypes.string,
+        image: PropTypes.shape,
+      }),
+      price: PropTypes.number,
+      title: PropTypes.string,
+    })).isRequired,
+    index: PropTypes.number,
+  }).isRequired,
   item: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     photo: PropTypes.shape({
-      alt: PropTypes.any,
-      image: PropTypes.any,
+      alt: PropTypes.string,
+      image: PropTypes.shape(),
     }),
-    price: PropTypes.any,
+    price: PropTypes.number,
+    title: PropTypes.string,
   }).isRequired,
 };
