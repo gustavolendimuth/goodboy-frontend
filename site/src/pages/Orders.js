@@ -20,7 +20,7 @@ function Orders() {
 
   const getOrders = async () => {
     if (!token) return;
-    const response = await fetch(`${process.env.REACT_APP_PROJECT_DB_URL}/order`, {
+    const response = await fetch(`${process.env.REACT_APP_PROJECT_API_URL}/order`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

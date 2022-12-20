@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "Good Boy e-commerce",
   "scripts": {
-    "goodboy": "cd ./site && npm install && cd ../studio && sanity install",
+    "goodboy": "cd ./site && npm install && cd ../studio && npm install",
     "start": "cd ./site && npm start",
-    "dev": "cd ./site && npm start",
     "sanity": "cd ./studio && sanity start",
     "build": "rm -rf ./build && cd ./site && npm install && npm run build && mv build ../ && cd ../studio && npm install && sanity build ../build/studio -y",
     "test": "cd site && react-scripts test",

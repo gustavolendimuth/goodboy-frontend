@@ -11,7 +11,7 @@ function LoginForm({ message, setMessage }) {
   };
 
   const singingIn = (param) => {
-    const response = fetch('http://localhost:3001/login', {
+    const response = fetch(`${process.env.REACT_APP_PROJECT_API_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

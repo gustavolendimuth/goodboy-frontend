@@ -36,7 +36,7 @@ function Login() {
   }, [token, user]);
 
   const getToken = async () => {
-    const response = await fetch(`${process.env.REACT_APP_PROJECT_DB_URL}/login`, {
+    const response = await fetch(`${process.env.REACT_APP_PROJECT_API_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
