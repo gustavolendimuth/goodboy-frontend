@@ -12,10 +12,6 @@ export default function Home() {
     categories,
   } = useContext(Context);
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
-
   useEffect(() => {
     if (categories) console.log('Objeto das categorias', categories);
   }, [categories]);

@@ -31,7 +31,7 @@ export default function Checkout() {
   const mercadopago = new MercadoPago(process.env.REACT_APP_PROJECT_PUBLIC_KEY);
 
   const processPayment = (formData) => {
-    fetch(`${process.env.REACT_APP_PROJECT_DB_URL}/process_payment`, {
+    fetch(`${process.env.REACT_APP_PROJECT_API_URL}/process_payment`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -50,6 +50,7 @@ export default function Checkout() {
       })
       .catch((error) => {
         console.log(error);
+        throw new Error(error);
       });
   };
 
@@ -64,6 +65,7 @@ export default function Checkout() {
         },
         onError: (error) => {
           console.log(error);
+          throw new Error(error);
         },
         onSubmit: ({ selectedPaymentMethod, formData, paymentType }) => new Promise((resolve, reject) => {
           processPayment(formData)
