@@ -11,7 +11,6 @@ const useSingingIn = () => {
       const singingIn = async () => {
         const response = await fetch(`${process.env.REACT_APP_PROJECT_API_URL}/login`, {
           method: 'POST',
-          mode: 'cors',
           headers: {
             'Content-Type': 'application/json',
           },
