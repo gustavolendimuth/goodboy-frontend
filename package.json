@@ -5,13 +5,18 @@
   "scripts": {
     "goodboy": "cd ./site && npm install && cd ../studio && npm install",
     "start": "cd ./site && npm start",
+    "dev": "cd ./site && npm start",
     "sanity": "cd ./studio && sanity start",
-    "build": "rm -rf ./build && cd ./site && npm install && npm run build && mv build ../ && cd ../studio && npm install && sanity build ../build/studio -y",
+    "build": "rm -rf ./build && cd ./site && npm install && npm run build && mv build ../ && cd ../studio && sanity install && sanity build ../build/studio -y",
     "test": "cd site && react-scripts test",
     "eject": "cd site && react-scripts eject",
     "lint:styles": "npx stylelint '**/*.css'",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js,.jsx"
   },
   "author": "Gustavo Lendimuth",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@sanity/cli": "^3.0.6",
+    "react-scripts": "^5.0.1"
+  }
 }
