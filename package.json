@@ -16,6 +16,7 @@
   "author": "Gustavo Lendimuth",
   "license": "ISC",
   "dependencies": {
-    "@sanity/cli": "^3.0.6"
+    "@sanity/cli": "^3.0.6",
+    "react-scripts": "^5.0.1"
   }
 }
