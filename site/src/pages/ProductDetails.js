@@ -1,45 +1,49 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Context from '../context/Context';
+// import Context from '../context/Context';
 import urlFor from '../services/urlFor';
 // import '../css/productDetails.css';
 import fetchContent from '../services/fetchContent';
 import QuantityFormGroup from '../components/QuantityFormGroup';
 
 export default function ProductDetails() {
-  const {
-    products,
-    getLocalStorage,
-    setLocalStorage,
-    session,
-    setSession,
-  } = useContext(Context);
+  // const {
+  //   products,
+  //   getLocalStorage,
+  //   setLocalStorage,
+  //   session,
+  //   setSession,
+  // } = useContext(Context);
+
   const { id } = useParams();
   const [product, setProduct] = useState();
+  const [loading, setLoading] = useState(true);
 
-  console.log({
-    getLocalStorage,
-    setLocalStorage,
-    session,
-    setSession,
-  });
+  // console.log({
+  //   getLocalStorage,
+  //   setLocalStorage,
+  //   session,
+  //   setSession,
+  // });
 
   useEffect(() => {
     const getProduct = async () => {
-      const data = await fetchContent('product', id);
+      const [data] = await fetchContent('product', id);
+      // data?.length > 0 ? setProduct(data[0]) : console.log('0');
       console.log('data product', data);
-      setProduct([data]);
+      setProduct(data);
+      setLoading(false);
     };
     getProduct();
-  }, []);
+  }, [id]);
 
-  useEffect(() => {
-    // console.log("produtos na pagina de detalhes", products)
-    const productsWithThisId = products?.filter((p) => p._id === id);
-    if (productsWithThisId?.length > 0) {
-      setProduct(productsWithThisId[0]);
-    }
-  }, [products, id]);
+  // useEffect(() => {
+  //   // console.log("produtos na pagina de detalhes", products)
+  //   const productsWithThisId = products?.filter((p) => p._id === id);
+  //   if (productsWithThisId?.length > 0) {
+  //     setProduct(productsWithThisId[0]);
+  //   }
+  // }, [products, id]);
 
   // const handleAddClick = () => {
   //   // check if this product is already in the cart
@@ -59,7 +63,8 @@ export default function ProductDetails() {
   //   }
   // };
 
-  if (product?.title) {
+  if (loading) { return <div> Carregando </div>; }
+  if (product) {
     return (
       <div className="product-card d-flex flex-column justify-content-center align-items-center p-3">
         <div>
