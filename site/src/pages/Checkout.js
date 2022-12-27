@@ -63,7 +63,7 @@ export default function Checkout() {
           setLoading((prevLoading) => prevLoading - 1);
           setAlert({
             ok: false,
-            message: errorMessage,
+            message: 'Dados inválidos, verifique os campos e tente novamente',
           });
         },
         onSubmit: ({ selectedPaymentMethod, formData, paymentType }) => new Promise(() => {
