@@ -3,11 +3,11 @@ import { useContext, useEffect } from 'react';
 import Context from '../context/Context';
 import { getLocalStorage, setLocalStorage } from '../services/localStorage';
 
-const useCartItems = () => {
+const useCartLocalStorage = () => {
   const {
     setCartItems,
     cartItems,
-    setLocalStorageIsReady,
+    setCartLocalStorage,
   } = useContext(Context);
 
   useEffect(() => {
@@ -22,8 +22,8 @@ const useCartItems = () => {
       setCartItems(cart);
     }
 
-    setLocalStorageIsReady(true);
+    setCartLocalStorage(true);
   }, []);
 };
 
-export default useCartItems;
+export default useCartLocalStorage;

@@ -8,18 +8,17 @@ import '../css/checkout.css';
 import { removeLocalStorage } from '../services/localStorage';
 
 export default function CheckoutResponse() {
-  const { checkoutResponse, setCartItems, setCartItemsData, setCheckoutResponse } = useContext(Context);
+  const { checkoutResponse, setCartItems, setCartItemsData, setCheckoutResponse, setLoading, loading } = useContext(Context);
   const { id } = useParams();
 
   if (!id) {
-    return <Navigate to="/carrinho" />;
+    return <Navigate to="/checkout" />;
   }
 
   if (!checkoutResponse) {
     fetch(`https://api.mercadopago.com/v1/payments/${id}?access_token=${process.env.REACT_APP_PROJECT_ACCESS_TOKEN}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setCheckoutResponse(data);
       });
   }
@@ -28,15 +27,22 @@ export default function CheckoutResponse() {
   const bricksBuilder = mp.bricks();
 
   const renderStatusScreenBrick = async (param) => {
+    if (!loading) setLoading((prevLoading) => prevLoading + 1);
     const settings = {
       initialization: {
         paymentId: id, // id de pagamento gerado pelo Mercado Pago
       },
       callbacks: {
         onReady: () => {
-          console.log('Status Screen Brick is ready');
+          setLoading((prevLoading) => prevLoading - 1);
         },
         onError: (error) => {
+          setLoading((prevLoading) => prevLoading - 1);
+          setAlert({
+            ok: false,
+            message: errorMessage,
+            time: 5000,
+          });
           console.log(error);
         },
       },

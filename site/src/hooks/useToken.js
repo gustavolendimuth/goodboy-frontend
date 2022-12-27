@@ -3,6 +3,7 @@ import { useContext, useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
 import Context from '../context/Context';
 import { getLocalStorage, removeLocalStorage, setLocalStorage } from '../services/localStorage';
+import fetchAPI from '../services/fetchAPI';
 
 const useToken = () => {
   const {
@@ -12,30 +13,30 @@ const useToken = () => {
     user,
     setAlert,
     loginForm,
+    setLoading,
   } = useContext(Context);
 
   useEffect(() => {
     const verifyToken = async (param) => {
-      const response = await fetch(`${process.env.REACT_APP_PROJECT_API_URL}/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token: param }),
-      });
+      setLoading((prevLoading) => prevLoading + 1);
 
-      const result = await response.json();
+      const { response, result } = await fetchAPI({ endpoint: 'login', method: 'POST', body: { token: param } });
+
       if (!response.ok) {
         setToken();
         removeLocalStorage('token');
-        setAlert({ ok: response.ok, message: result.message, time: 3000 });
+        setAlert({
+          ok: response?.ok || false,
+          message: result?.message || 'Serviço indisponível, tente mais tarde',
+          time: 5000,
+        });
         return;
       }
 
       setToken(param);
       const decoded = jwtDecode(param);
       setUser(decoded.data);
-      setAlert({ ok: response.ok, message: result.message, time: 3000 });
+      setLoading((prevLoading) => prevLoading - 1);
     };
 
     const result = getLocalStorage('token');
@@ -45,27 +46,19 @@ const useToken = () => {
   }, []);
 
   useEffect(() => {
-    if (loginForm.email) {
-      if (loginForm.keepConnected) {
-        setLocalStorage('keepConnected', loginForm.keepConnected);
-      } else {
-        removeLocalStorage('keepConnected');
-      }
+    if (loginForm?.email) {
+      setLocalStorage('keepConnected', JSON.stringify(loginForm.keepConnected));
     }
   }, [loginForm]);
 
   useEffect(() => {
-    const keepConnected = getLocalStorage('keepConnected');
+    const keepConnected = getLocalStorage('keepConnected') === 'true';
     if (token && keepConnected) {
       setLocalStorage('token', token);
     } else {
       removeLocalStorage('token');
     }
   }, [token]);
-
-  useEffect(() => {
-    if (user) console.log('user', user);
-  }, [user]);
 };
 
 export default useToken;

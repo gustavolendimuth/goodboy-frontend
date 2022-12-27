@@ -9,17 +9,21 @@ function Alert() {
     alert,
     setAlert,
   } = useContext(Context);
-  let timer;
 
   useEffect(() => {
-    timer = setTimeout(() => {
-      setAlert();
-    }, alert?.time);
+    let timer;
+    if (alert?.time) {
+      timer = setTimeout(() => {
+        setAlert();
+      }, alert?.time);
+    }
     return () => clearTimeout(timer);
   }, [alert]);
 
+  if (!alert) return null;
+
   return (
-    alert && (
+    <div className="overlay">
       <div
         className={ `alert alert-message ${alert.ok ? 'alert-success' : ' alert-danger'} alert-dismissible fade show d-flex align-items-center` }
         role="alert"
@@ -34,7 +38,7 @@ function Alert() {
         {alert.message}
         <button onClick={ () => setAlert() } type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" />
       </div>
-    )
+    </div>
   );
 }
 

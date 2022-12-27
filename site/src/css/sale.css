@@ -3,6 +3,7 @@
   /* background-color: rgb(var(--bs-primary-rgb), 0.1); */
   background-color: var(--bs-primary);
   color: var(--bs-light);
+  min-height: 650px;
   text-align: center;
 }
 

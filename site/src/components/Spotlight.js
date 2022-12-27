@@ -2,7 +2,6 @@
 import React, { useContext } from 'react';
 import Context from '../context/Context';
 import '../css/spotlight.css';
-import '../css/productCard.css';
 import ProductCard from './ProductCard';
 
 export default function Spotlight() {

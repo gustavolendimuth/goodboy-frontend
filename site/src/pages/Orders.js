@@ -1,16 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable max-len */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FiAlertTriangle, FiCheckCircle } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 import Context from '../context/Context';
 import '../css/orders.css';
+import useFetchOrders from '../hooks/useFetchOrders';
 import currencyFormatter from '../services/currencyFormatter';
 import dateFormatter from '../services/dateFormatter';
 
 function Orders() {
-  const { token, setAlert } = useContext(Context);
-  const [orders, setOrders] = useState();
-
+  const { orders, ordersIsFinished } = useContext(Context);
+  const navigate = useNavigate();
   const status = {
     created: 'Criada',
     paid: 'Paga',
@@ -18,28 +19,14 @@ function Orders() {
     approved: 'Aprovada',
   };
 
-  const getOrders = async () => {
-    if (!token) return;
-    const response = await fetch(`${process.env.REACT_APP_PROJECT_API_URL}/order`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      setAlert({ ok: response.ok, message: 'Serviço indisponível no momento, tente mais tarde', time: 5000 });
-    }
-    if (result) setOrders(result);
-    console.log('result', result);
-  };
+  // Esta função é responsável por buscar os dados das compras do usuário
+  useFetchOrders({ method: 'GET' });
 
   useEffect(() => {
-    if (!orders) getOrders();
-  }, [token]);
+    if (!orders && ordersIsFinished) {
+      navigate('/');
+    }
+  }, [ordersIsFinished]);
 
   return (
     <div className="container orders-container">
@@ -86,7 +73,7 @@ function Orders() {
                         Status
                       </p>
                       <p>
-                        { status[order.status] }
+                        { status[order.status] || 'Não identificado' }
                       </p>
                     </div>
                     <div className="col-2 pe-4">

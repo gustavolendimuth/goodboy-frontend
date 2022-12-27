@@ -1,14 +1,12 @@
 .alert-message {
   box-shadow: 0 10px 30px 15px rgba(0, 0, 0, 0.2);
+  display: block;
   left: 50%;
-  margin: 20px auto;
-  margin-left: -200px;
-
-  /* margin-top: -50px; */
   position: absolute;
-  top: 40%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
   width: 400px;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .icon {

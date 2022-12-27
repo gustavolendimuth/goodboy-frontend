@@ -1,3 +1,4 @@
+/* eslint-disable react-func/max-lines-per-function */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable sonarjs/no-use-of-empty-return-value */
@@ -5,11 +6,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useContext } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import React, { useEffect, useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Context from '../context/Context';
 import '../css/checkout.css';
+import useCartItemsData from '../hooks/useCartItemsData';
 import currencyFormatter from '../services/currencyFormatter';
+import fetchAPI from '../services/fetchAPI';
 
 export default function Checkout() {
   const {
@@ -18,65 +21,62 @@ export default function Checkout() {
     total,
     cartItemsData,
     getItemQuantity,
+    cartLocalStorage,
+    cartItems,
+    setLoading,
+    setAlert,
   } = useContext(Context);
+  const [items, setItems] = useState();
+  let cardPaymentBrickController;
+  const errorMessage = 'Serviço indisponível, tente mais tarde';
 
   const navigate = useNavigate();
 
-  if (!total) {
-    return <Navigate to="/carrinho" />;
-  }
-
-  let cardPaymentBrickController;
-  let items;
   const mercadopago = new MercadoPago(process.env.REACT_APP_PROJECT_PUBLIC_KEY);
 
-  const processPayment = (formData) => {
-    fetch(`${process.env.REACT_APP_PROJECT_API_URL}/process_payment`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: process.env.REACT_APP_PROJECT_AUTH,
-      },
-      body: JSON.stringify({ formData, items }),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        if (result?.error_message) {
-          throw new Error(result.error_message);
-        }
-        console.log('Payment processed successfully', result);
-        setCheckoutResponse(result);
-        return result;
-      })
-      .catch((error) => {
-        console.log(error);
-        throw new Error(error);
-      });
+  const processPayment = async (formData) => {
+    setLoading((prevLoading) => prevLoading + 1);
+
+    const { result, error } = await fetchAPI({ endpoint: 'process_payment', method: 'POST', body: { formData, items } });
+
+    if (error || result.message || !result) {
+      setLoading((prevLoading) => prevLoading - 1);
+      setAlert({ ok: false, message: errorMessage });
+      return;
+    }
+    return result;
   };
 
   const loadPaymentForm = async () => {
+    setLoading((prevLoading) => prevLoading + 1);
+
     const settings = {
       initialization: {
         amount: currencyFormatter({ format: 'en-US', value: total }),
+        items,
       },
       callbacks: {
         onReady: () => {
-          console.log('brick ready');
+          setLoading((prevLoading) => prevLoading - 1);
         },
         onError: (error) => {
-          console.log(error);
-          throw new Error(error);
+          setLoading((prevLoading) => prevLoading - 1);
+          setAlert({
+            ok: false,
+            message: errorMessage,
+          });
         },
-        onSubmit: ({ selectedPaymentMethod, formData, paymentType }) => new Promise((resolve, reject) => {
+        onSubmit: ({ selectedPaymentMethod, formData, paymentType }) => new Promise(() => {
           processPayment(formData)
-            .then((response) => resolve(response))
-            .catch((error) => reject(new Error(error)));
+            .then((result) => setCheckoutResponse(result))
+            .catch((error) => setAlert({ ok: false, message: errorMessage }));
         }),
       },
       locale: 'pt-BR',
       customization: {
         paymentMethods: {
           creditCard: 'all',
+          debitCard: 'all',
           bankTransfer: ['pix'],
         },
         visual: {
@@ -96,20 +96,29 @@ export default function Checkout() {
   };
 
   useEffect(() => {
-    if (!checkoutResponse) {
+    if (!checkoutResponse && total) {
       loadPaymentForm();
     }
   }, [total]);
 
   useEffect(() => {
-    if (!cartItemsData) navigate('/carrinho');
-    items = cartItemsData?.map((item) => ({
-      productId: item._id,
-      title: item.title,
-      quantity: getItemQuantity(item._id),
-      unitPrice: item.price,
-      description: item.description,
-    }));
+    if (cartLocalStorage && !cartItems?.length) {
+      navigate('/');
+    }
+  }, [cartLocalStorage]);
+
+  useCartItemsData();
+
+  useEffect(() => {
+    setItems(
+      cartItemsData?.map((item) => ({
+        productId: item._id,
+        title: item.title,
+        quantity: getItemQuantity(item._id),
+        unitPrice: item.price,
+        description: item.description,
+      })),
+    );
   }, [cartItemsData]);
 
   useEffect(() => {
@@ -117,6 +126,12 @@ export default function Checkout() {
       navigate(`/checkout/compra/${checkoutResponse.id}`);
     }
   }, [checkoutResponse]);
+
+  useEffect(() => {
+    if (items) {
+      console.log(items);
+    }
+  }, [items]);
 
   return (
     <section className="payment-form">
