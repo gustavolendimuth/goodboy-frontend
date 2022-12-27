@@ -1,0 +1,20 @@
+.overlay {
+  background-color: rgba(0, 0, 0, 0.7); /* make the overlay semi-transparent */
+  height: 100%;
+  position: fixed; /* position the overlay on top of the page */
+  width: 100%;
+  z-index: 10; /* ensure the overlay is above other elements on the page */
+}
+
+.spinner-modal {
+  background-color: var(--bs-secondary);
+  border-radius: 12px;
+  display: block;
+  left: 50%;
+  padding: 20px 30px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  z-index: 1000;
+}

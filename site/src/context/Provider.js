@@ -12,12 +12,15 @@ export default function Provider({ children }) {
   const [checkoutResponse, setCheckoutResponse] = useState();
   const [total, setTotal] = useState(0);
   const [cartItemsData, setCartItemsData] = useState();
-  const [localStorageIsReady, setLocalStorageIsReady] = useState(false);
+  const [cartLocalStorage, setCartLocalStorage] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState();
   const [token, setToken] = useState();
   const [alert, setAlert] = useState();
-  const [loginForm, setLoginForm] = useState({ email: '', keepConnected: true });
+  const [loginForm, setLoginForm] = useState();
+  const [loading, setLoading] = useState(0);
+  const [orders, setOrders] = useState();
+  const [ordersIsFinished, setOrdersIsFinished] = useState(false);
 
   const getItemQuantity = (id) => cartItems?.find((item) => item.id === id)?.quantity || 0;
 
@@ -84,8 +87,8 @@ export default function Provider({ children }) {
     setTotal,
     cartItemsData,
     setCartItemsData,
-    setLocalStorageIsReady,
-    localStorageIsReady,
+    cartLocalStorage,
+    setCartLocalStorage,
     loggedIn,
     setLoggedIn,
     user,
@@ -96,6 +99,12 @@ export default function Provider({ children }) {
     setAlert,
     loginForm,
     setLoginForm,
+    loading,
+    setLoading,
+    orders,
+    setOrders,
+    ordersIsFinished,
+    setOrdersIsFinished,
   };
 
   return (

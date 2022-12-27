@@ -3,5 +3,6 @@
   /* background-color: rgb(var(--bs-secondary-rgb), 0.1); */
   background-color: var(--bs-secondary);
   color: var(--bs-light);
+  min-height: 650px;
   text-align: center;
 }

@@ -1,12 +1,11 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
 import { useForm } from 'react-hook-form';
 import Context from '../context/Context';
 import '../css/login.css';
-import useSingingIn from '../hooks/useSingingIn';
+import useLogin from '../hooks/useLogin';
 
 function Login() {
   const { email, magicLink } = useParams();
@@ -18,16 +17,11 @@ function Login() {
 
   const {
     token,
-    setToken,
     user,
-    setUser,
-    alert,
-    setAlert,
     setLoginForm,
   } = useContext(Context);
 
   const navigate = useNavigate();
-  useSingingIn();
 
   useEffect(() => {
     if (token && user) {
@@ -35,38 +29,16 @@ function Login() {
     }
   }, [token, user]);
 
-  const getToken = async () => {
-    const response = await fetch(`${process.env.REACT_APP_PROJECT_API_URL}/login`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, magicLink }),
-    });
-
-    const result = await response.json();
-
-    if (response.ok) {
-      const decoded = jwtDecode(result.token);
-      setUser(decoded);
-      setToken(result.token);
-      result.message = 'Login efetuado com sucesso';
-    }
-
-    setAlert({ ok: response.ok, message: result.message, time: 5000 });
-  };
-
-  useEffect(() => {
-    if (!token && email && magicLink && !alert) {
-      getToken();
-    }
-  }, [email, magicLink]);
+  useLogin({ email, magicLink });
 
   return (
     <section className="form-signin">
       <form
-        onSubmit={ handleSubmit((data) => setLoginForm(data)) }
+        onSubmit={
+          handleSubmit((data) => {
+            if (data.email) setLoginForm(data);
+          })
+        }
       >
         <div className="text-center">
           <h1 className="h3 mb-3 fw-normal">Faça o login</h1>

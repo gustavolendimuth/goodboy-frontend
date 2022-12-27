@@ -1,61 +1,38 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable no-unsafe-optional-chaining */
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/jsx-max-depth */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-unsafe-optional-chaining */
 import React, { useContext, useEffect } from 'react';
 import '../css/checkout.css';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Context from '../context/Context';
-import fetchContent from '../services/fetchContent';
 import CartProducts from '../components/CartProducts';
 import currencyFormatter from '../services/currencyFormatter';
 import '../css/cart.css';
+import useCartItemsData from '../hooks/useCartItemsData';
 
 export default function Cart() {
   const {
-    cartItems,
-    setCartItemsData,
     cartItemsData,
-    setTotal,
+    cartItems,
     total,
-    localStorageIsReady,
+    cartLocalStorage,
     setCheckoutResponse,
   } = useContext(Context);
 
-  if (!cartItems?.length) {
-    return <Navigate to="/" />;
-  }
+  const navigate = useNavigate();
 
-  const getCartItemsData = async () => {
-    const items = cartItems.map((item) => item.id);
-    const response = await fetchContent('product', items);
-    setCartItemsData(response);
-  };
+  // hook que carrega os dados dos produtos do carrinho
+  useCartItemsData();
 
   useEffect(() => {
-    if (cartItems?.length && localStorageIsReady) {
-      const e = async () => getCartItemsData();
-      e();
+    if (!cartItems && cartLocalStorage) {
+      navigate('/');
     }
-  }, [localStorageIsReady]);
-
-  useEffect(() => {
-    if (cartItemsData) {
-      setTotal(cartItemsData
-        .reduce((acc, curr) => {
-          const result = acc + (cartItems.find((item) => item.id === curr._id)?.quantity * curr.price);
-          if (!result) return 0;
-          return result;
-        }, 0));
-    }
-  }, [cartItems, cartItemsData]);
+  }, [cartItems]);
 
   useEffect(() => {
     setCheckoutResponse();
   }, []);
-
-  if (!cartItemsData) return null;
 
   return (
     <section className="shopping-cart">
