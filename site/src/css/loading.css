@@ -1,5 +1,5 @@
 .overlay {
-  background-color: rgba(0, 0, 0, 0.7); /* make the overlay semi-transparent */
+  background-color: rgba(0, 0, 0, 0.5); /* make the overlay semi-transparent */
   height: 100%;
   position: fixed; /* position the overlay on top of the page */
   width: 100%;

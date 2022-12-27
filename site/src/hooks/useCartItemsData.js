@@ -24,7 +24,6 @@ const useCartItemsData = () => {
         setCartItemsData(response);
         setLoading((prevLoading) => prevLoading - 1);
       };
-      console.log(cartItems);
       getCartItemsData();
     }
   }, [cartLocalStorage, cartItems]);

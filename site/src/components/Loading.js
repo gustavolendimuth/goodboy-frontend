@@ -4,10 +4,19 @@ import Context from '../context/Context';
 import '../css/loading.css';
 
 function Loading() {
-  const { loading, setLoading } = useContext(Context);
+  const { loading, setLoading, setAlert } = useContext(Context);
 
   useEffect(() => {
     if (loading < 0) setLoading(0);
+    const timer = setTimeout(() => {
+      setLoading(0);
+      setAlert({ ok: false, message: 'Ops... estamos com problemas, tente novamente mais tarde.' });
+    }, 10000);
+
+    if (!loading) {
+      clearTimeout(timer);
+    }
+    return () => clearTimeout(timer);
   }, [loading]);
 
   if (!loading) return null;
