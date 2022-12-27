@@ -96,10 +96,10 @@ export default function Checkout() {
   };
 
   useEffect(() => {
-    if (!checkoutResponse && total) {
+    if (!checkoutResponse && total && items) {
       loadPaymentForm();
     }
-  }, [total]);
+  }, [total, items, checkoutResponse]);
 
   useEffect(() => {
     if (cartLocalStorage && !cartItems?.length) {
@@ -110,6 +110,7 @@ export default function Checkout() {
   useCartItemsData();
 
   useEffect(() => {
+    if (!cartItemsData) return;
     setItems(
       cartItemsData?.map((item) => ({
         productId: item._id,
