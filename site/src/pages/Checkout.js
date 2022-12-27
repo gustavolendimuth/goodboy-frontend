@@ -6,7 +6,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Context from '../context/Context';
 import '../css/checkout.css';
@@ -27,7 +27,8 @@ export default function Checkout() {
     setAlert,
   } = useContext(Context);
   const [items, setItems] = useState();
-  let cardPaymentBrickController;
+  const [cardPaymentBrickController, setCardPaymentBrickController] = useState();
+  const paymentFormLoaded = useRef(false);
   const errorMessage = 'Serviço indisponível, tente mais tarde';
 
   const navigate = useNavigate();
@@ -36,7 +37,6 @@ export default function Checkout() {
 
   const processPayment = async (formData) => {
     setLoading((prevLoading) => prevLoading + 1);
-
     const { result, error } = await fetchAPI({ endpoint: 'process_payment', method: 'POST', body: { formData, items } });
 
     if (error || result.message || !result) {
@@ -57,7 +57,7 @@ export default function Checkout() {
       },
       callbacks: {
         onReady: () => {
-          setLoading((prevLoading) => prevLoading - 1);
+          setLoading((prevLoading) => { if (prevLoading > 0) return prevLoading - 1; });
         },
         onError: (error) => {
           setLoading((prevLoading) => prevLoading - 1);
@@ -69,7 +69,10 @@ export default function Checkout() {
         onSubmit: ({ selectedPaymentMethod, formData, paymentType }) => new Promise(() => {
           processPayment(formData)
             .then((result) => setCheckoutResponse(result))
-            .catch((error) => setAlert({ ok: false, message: errorMessage }));
+            .catch((error) => {
+              setLoading((prevLoading) => prevLoading - 1);
+              setAlert({ ok: false, message: errorMessage });
+            });
         }),
       },
       locale: 'pt-BR',
@@ -92,14 +95,16 @@ export default function Checkout() {
     };
 
     const bricks = await mercadopago.bricks();
-    cardPaymentBrickController = await bricks.create('payment', 'mercadopago-bricks-container__PaymentCard', settings);
+    setCardPaymentBrickController(await bricks.create('payment', 'mercadopago-bricks-container__PaymentCard', settings));
   };
 
   useEffect(() => {
-    if (!checkoutResponse && total && items) {
+    if (!checkoutResponse && total && items && !paymentFormLoaded.current) {
       loadPaymentForm();
+      paymentFormLoaded.current = true;
+      console.log(items, total);
     }
-  }, [total, items, checkoutResponse]);
+  }, [items, total]);
 
   useEffect(() => {
     if (cartLocalStorage && !cartItems?.length) {
@@ -110,7 +115,7 @@ export default function Checkout() {
   useCartItemsData();
 
   useEffect(() => {
-    if (!cartItemsData) return;
+    if (!cartItemsData || items) return;
     setItems(
       cartItemsData?.map((item) => ({
         productId: item._id,
@@ -127,12 +132,6 @@ export default function Checkout() {
       navigate(`/checkout/compra/${checkoutResponse.id}`);
     }
   }, [checkoutResponse]);
-
-  useEffect(() => {
-    if (items) {
-      console.log(items);
-    }
-  }, [items]);
 
   return (
     <section className="payment-form">

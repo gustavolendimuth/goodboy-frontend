@@ -1,9 +1,14 @@
-import React, { useContext } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect } from 'react';
 import Context from '../context/Context';
 import '../css/loading.css';
 
 function Loading() {
-  const { loading } = useContext(Context);
+  const { loading, setLoading } = useContext(Context);
+
+  useEffect(() => {
+    if (loading < 0) setLoading(0);
+  }, [loading]);
 
   if (!loading) return null;
 
