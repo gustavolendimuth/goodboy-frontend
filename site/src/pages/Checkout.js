@@ -27,9 +27,9 @@ export default function Checkout() {
     setAlert,
   } = useContext(Context);
   const [items, setItems] = useState();
-  const [cardPaymentBrickController, setCardPaymentBrickController] = useState();
   const paymentFormLoaded = useRef(false);
-  const errorMessage = 'Serviço indisponível, tente mais tarde';
+  const errorMessage = 'Desculpe... serviço indisponível, tente mais tarde';
+  let cardPaymentBrickController;
 
   const navigate = useNavigate();
 
@@ -57,7 +57,7 @@ export default function Checkout() {
       },
       callbacks: {
         onReady: () => {
-          setLoading((prevLoading) => { if (prevLoading > 0) return prevLoading - 1; });
+          setLoading((prevLoading) => prevLoading - 1);
         },
         onError: (error) => {
           setLoading((prevLoading) => prevLoading - 1);
@@ -95,14 +95,13 @@ export default function Checkout() {
     };
 
     const bricks = await mercadopago.bricks();
-    setCardPaymentBrickController(await bricks.create('payment', 'mercadopago-bricks-container__PaymentCard', settings));
+    cardPaymentBrickController = await bricks.create('payment', 'mercadopago-bricks-container__PaymentCard', settings);
   };
 
   useEffect(() => {
     if (!checkoutResponse && total && items && !paymentFormLoaded.current) {
       loadPaymentForm();
       paymentFormLoaded.current = true;
-      console.log(items, total);
     }
   }, [items, total]);
 
@@ -130,6 +129,7 @@ export default function Checkout() {
   useEffect(() => {
     if (checkoutResponse) {
       navigate(`/checkout/compra/${checkoutResponse.id}`);
+      window.location.reload(true);
     }
   }, [checkoutResponse]);
 

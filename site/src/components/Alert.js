@@ -17,6 +17,9 @@ function Alert() {
         setAlert();
       }, alert?.time);
     }
+    if (!alert) {
+      clearTimeout(timer);
+    }
     return () => clearTimeout(timer);
   }, [alert]);
 
@@ -24,19 +27,21 @@ function Alert() {
 
   return (
     <div className="overlay">
-      <div
-        className={ `alert alert-message ${alert.ok ? 'alert-success' : ' alert-danger'} alert-dismissible fade show d-flex align-items-center` }
-        role="alert"
-      >
-        <div>
-          <strong>
-            {
-              alert.ok ? <FiCheckCircle className="icon me-3" /> : <FiAlertTriangle className="icon me-3" />
-            }
-          </strong>
+      <div className="scale-up-center">
+        <div
+          className={ `alert alert-message ${alert.ok ? 'alert-success' : ' alert-danger'} alert-dismissible fade show d-flex align-items-center` }
+          role="alert"
+        >
+          <div>
+            <strong>
+              {
+                alert.ok ? <FiCheckCircle className="icon me-3" /> : <FiAlertTriangle className="icon me-3" />
+              }
+            </strong>
+          </div>
+          {alert.message}
+          <button onClick={ () => setAlert() } type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" />
         </div>
-        {alert.message}
-        <button onClick={ () => setAlert() } type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" />
       </div>
     </div>
   );

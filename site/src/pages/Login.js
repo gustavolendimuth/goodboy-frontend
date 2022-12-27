@@ -32,7 +32,7 @@ function Login() {
   useLogin({ email, magicLink });
 
   return (
-    <section className="form-signin">
+    <section className="form-signin mt-5">
       <form
         onSubmit={
           handleSubmit((data) => {

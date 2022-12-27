@@ -8,26 +8,17 @@ import '../css/checkout.css';
 import { removeLocalStorage } from '../services/localStorage';
 
 export default function CheckoutResponse() {
-  const { checkoutResponse, setCartItems, setCartItemsData, setCheckoutResponse, setLoading, loading } = useContext(Context);
+  const { checkoutResponse, setCartItems, setCartItemsData, setCheckoutResponse, setLoading } = useContext(Context);
   const { id } = useParams();
 
   if (!id) {
     return <Navigate to="/checkout" />;
   }
 
-  if (!checkoutResponse) {
-    fetch(`https://api.mercadopago.com/v1/payments/${id}?access_token=${process.env.REACT_APP_PROJECT_ACCESS_TOKEN}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setCheckoutResponse(data);
-      });
-  }
-
   const mp = new MercadoPago(process.env.REACT_APP_PROJECT_PUBLIC_KEY);
   const bricksBuilder = mp.bricks();
 
   const renderStatusScreenBrick = async (param) => {
-    if (!loading) setLoading((prevLoading) => prevLoading + 1);
     const settings = {
       initialization: {
         paymentId: id, // id de pagamento gerado pelo Mercado Pago
@@ -55,8 +46,17 @@ export default function CheckoutResponse() {
   };
 
   useEffect(() => {
-    renderStatusScreenBrick(bricksBuilder);
-  }, []);
+    if (!checkoutResponse) {
+      setLoading((prevLoading) => prevLoading + 1);
+      fetch(`https://api.mercadopago.com/v1/payments/${id}?access_token=${process.env.REACT_APP_PROJECT_ACCESS_TOKEN}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setCheckoutResponse(data);
+        });
+    } else {
+      renderStatusScreenBrick(bricksBuilder);
+    }
+  }, [checkoutResponse]);
 
   useEffect(() => {
     if (checkoutResponse?.status === 'approved') {
