@@ -3,6 +3,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 // A função urlFor é usada para retornar o endereço da imagem a partir do retorno da API
+import { Link } from 'react-router-dom';
 import urlFor from '../services/urlFor';
 import '../css/productCard.css';
 import currencyFormatter from '../services/currencyFormatter';
@@ -14,16 +15,20 @@ export default function ProductCard({ product }) {
   return (
     <div className="col mx-auto" key={ product.title }>
       <div className="product-card card h-100 d-flex flex-column justify-content-between align-items-center p-4">
-        <img
-          src={ urlFor(product.photo.image).url() }
-          alt={ product.photo.alt }
-          height="250px"
-          width="250px"
-          className="p-2"
-          style={ { objectFit: 'contain' } }
-        />
+        <Link to={ `/produto/${product._id}` }>
+          <img
+            src={ urlFor(product.photo.image).url() }
+            alt={ product.photo.alt }
+            height="250px"
+            width="250px"
+            className="p-2"
+            style={ { objectFit: 'contain' } }
+          />
+        </Link>
         <div>
-          <p className="product-title p-2">{product.title}</p>
+          <Link to={ `/produto/${product._id}` }>
+            <p className="product-title p-2">{product.title}</p>
+          </Link>
         </div>
         <div>
           <p className="product-price">
