@@ -1,6 +1,6 @@
 # Good Boy
 
-#### E-commerce de produtos para pet simples, fácil e prática para venda em loja física, sem vendedor. Acesse (https://goodboy.lendimuth.design) para ver o projeto rodando.
+#### E-commerce de produtos para pet simples, fácil e prática para venda em loja física, sem vendedor. Acesse https://goodboy.lendimuth.design para ver o projeto rodando.
 ## Instalação
 Para instalar o projeto, use ``` npm run goodboy ```.
 
