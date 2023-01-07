@@ -1,0 +1,32 @@
+.product-title {
+  color: var(--bs-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.product-card {
+    background-color: var(--bs-light);
+    border: 1px solid var(--light-grey);
+    border-radius: 8px;
+    height: 100%;
+}
+
+.product-image {
+    max-height: 250px;
+    max-width: 250px;
+    margin-bottom: 9px;
+    margin-top: 9px;
+}
+
+.product-price {
+    color: black;
+    font-size: medium;
+    font-weight: bold;
+  }
+
+.product-description {
+    color: black;
+    font-size: medium;
+    font-weight: lighter;
+}
