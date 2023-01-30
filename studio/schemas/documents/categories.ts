@@ -7,7 +7,12 @@ export default {
       type: 'string',
       name: 'name',
       title: 'Nome',
-      validation: (Rule) => Rule.required(),
+      validation: (Rule:any) => Rule.required(),
+    },
+    {
+      name: 'icon',
+      type: 'figure',
+      title: 'Icone',
     },
     {
       type: 'boolean',

@@ -7,7 +7,6 @@ import fetchContent from '../services/fetchContent';
 import QuantityFormGroup from '../components/QuantityFormGroup';
 
 export default function ProductDetails() {
-
   const { id } = useParams();
   const [product, setProduct] = useState();
   const [loading, setLoading] = useState(true);

@@ -1,79 +1,61 @@
-import React, { useContext } from 'react';
+/* eslint-disable react/no-this-in-sfc */
+/* eslint-disable func-names */
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-underscore-dangle */
+// import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import CategoryDropdown from './categoryDropdown';
 import Context from '../context/Context';
 import '../css/categories.css';
+import { sortObjectArray } from '../services/sort';
 
 export default function Categories() {
-  const {
-    categories,
-  } = useContext(Context);
+  const { categories } = useContext(Context);
+  const [sortedCategories, setSortedCategories] = useState();
 
-  // declaração e tratamento do retorno da API para iterar sobre as categorias de produtos
-  const mainCategoryCaes = categories?.[0]?.subCategories || [];
-  const mainCategoryGatos = categories?.[1]?.subCategories || [];
+  useEffect(() => {
+    if (categories) setSortedCategories(sortObjectArray(categories, ['name']));
+    const subMenuCheckbox = '.sub-menu-checkbox';
+
+    $(document).mouseup((e) => {
+      const container = $('.categories');
+
+      if (!container.is(e.target) // if clicked outside
+        && container.has(e.target).length === 0) {
+        $('#drop').prop('checked', false); // to uncheck
+        $(subMenuCheckbox).prop('checked', false); // to uncheck
+      }
+    });
+
+    $(document).ready(function () {
+      $('#drop').on('change', function () {
+        $(subMenuCheckbox).prop('checked', false);
+      });
+      $(subMenuCheckbox).on('change', function () {
+        $(subMenuCheckbox).not(this).prop('checked', false);
+      });
+    });
+  }, [categories]);
+
+  if (!categories) return null;
 
   return (
-    <div className="categories-container">
-      <div className="dropdown">
-        {/* botão de dropdown */}
-        <button className="btn btn-secondary dropdown-toggle btn-category" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <img className="animal-img-icon" alt="cão" src="https://images.tcdn.com.br/files/1127101/themes/7/img/ico-caes.png" height="30" width="35" />
-          Cães
-        </button>
-        {/* iteração sobre as categorias de produtos para retorna-los em itens de um dropdown clicável */}
-        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          {
-            mainCategoryCaes.map((subCategory) => (
-              <a
-                className="dropdown-item"
-                // link placeholder para redirecionamento
-                href="https://www.w3schools.com/tags/att_a_href.asp#:~:text=Definition%20and%20Usage,will%20not%20be%20a%20hyperlink."
-                key={ subCategory }
-                data-testid={ `${subCategory}-caes` }
-              >
-                { subCategory }
-              </a>
-            ))
-          }
-        </div>
-      </div>
-      <div className="dropdown">
-        {/* botão de dropdown */}
-        <button className="btn btn-secondary dropdown-toggle btn-category" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <img className="animal-img-icon" alt="gato" src="https://images.tcdn.com.br/files/1127101/themes/7/img/ico-gatos.png" height="30" width="30" />
-          Gatos
-        </button>
-        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          {/* iteração sobre as categorias de produtos para retorna-los em itens de um dropdown clicável */}
-          {
-            mainCategoryGatos.map((subCategory) => (
-              <a
-                className="dropdown-item"
-                // link placeholder para redirecionamento
-                href="https://www.w3schools.com/tags/att_a_href.asp#:~:text=Definition%20and%20Usage,will%20not%20be%20a%20hyperlink."
-                key={ subCategory }
-                data-testid={ `${subCategory}-gatos` }
-              >
-                { subCategory }
-              </a>
-
-            ))
-          }
-        </div>
+    <div className="categories bg-secondary">
+      <div className="container d-lg-flex justify-content-lg-center">
+        <nav className="nav-categories">
+          <label htmlFor="drop" className="toggle">&#8801; Categorias</label>
+          <input type="checkbox" id="drop" />
+          <ul className="menu">
+            {
+              sortedCategories?.map((mainCategory, index) => (
+                <CategoryDropdown key={ mainCategory.id } category={ mainCategory } index={ index + 1 } />
+              ))
+            }
+          </ul>
+        </nav>
       </div>
     </div>
   );
 }
-
-/* {
-  mainCategoryGatos.map((subCategory) => (
-    <button
-      key={ subCategory }
-      type="button"
-      data-testid={ `${subCategory}-cães` }
-      // onClick={ () => handleClick(subCategory) }
-    >
-      { subCategory }
-    </button>
-
-  ))
-} */

@@ -79,7 +79,6 @@ export default function Navbar() {
                     <FiShoppingCart className="cart-icon" />
                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
                       {cartItems?.length ? cartItems.reduce((acc, curr) => acc + curr.quantity, 0) : 0}
-                      <span className="visually-hidden">unread messages</span>
                     </span>
                   </div>
                 </Link>
