@@ -15,7 +15,7 @@ export default async (table, id) => {
   const query = {
     // Query que retorna todos os produtos
     products: groq`*[_type == "products"] | order(_createdAt asc) {
-      _id, title, photo, price, description,
+      _id, title, photo, price, description, sale, spotlight,
       "categories": categories[]->name,
     }`,
     // Query que retorna um produto ou uma lista de produtos
@@ -25,7 +25,7 @@ export default async (table, id) => {
       }`,
     // Query que retorna somente as categorias que contém produtos ativos
     categories: groq`*[_type == "categories" && isMainCategory] {
-      "mainCategory": name,
+      name, _id, icon,
       "subCategories": *[_type == "products" && references(^._id)]{
         "subCategory": categories[1]->name
       }
