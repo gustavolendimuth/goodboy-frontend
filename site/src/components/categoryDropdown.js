@@ -19,7 +19,7 @@ export default function CategoryDropdown({ category, index }) {
       <ul>
         {category?.subCategories.map((subCategory) => (
           <li key={ subCategory.slug.current } className="sub-category-link text-nowrap">
-            <Link to={ `/categoria/${category.slug.current}/${subCategory.slug.current}` } className="test button-link">
+            <Link to={ `/categoria/${category.slug.current}/${subCategory.slug.current}` } className="test">
               {subCategory.name}
             </Link>
           </li>

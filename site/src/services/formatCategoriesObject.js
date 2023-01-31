@@ -22,6 +22,5 @@ export default (array) => {
     console.log(subCategories, sortedSubCategories);
     return { ...category, subCategories: sortedSubCategories };
   });
-  // console.log(result);
   return result;
 };
