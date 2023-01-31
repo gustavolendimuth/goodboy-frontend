@@ -25,9 +25,10 @@ export default async (table, id) => {
       }`,
     // Query que retorna somente as categorias que contém produtos ativos
     categories: groq`*[_type == "categories" && isMainCategory] {
-      name, _id, icon,
+      name, _id, icon, slug,
       "subCategories": *[_type == "products" && references(^._id)]{
-        "subCategory": categories[1]->name
+        "name": categories[1]->name,
+        "slug": categories[1]->slug
       }
     }`,
   };

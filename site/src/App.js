@@ -26,6 +26,7 @@ import Alert from './components/Alert';
 import ScrollToTop from './hooks/ScrollToTop';
 import Orders from './pages/Orders';
 import Loading from './components/Loading';
+import CategoryResult from './pages/CategoryResult';
 
 function App() {
   const {
@@ -46,7 +47,7 @@ function App() {
   const getCategories = async () => {
     setLoading((prevLoading) => prevLoading + 1);
     const categoriesResponse = await fetchContent('categories');
-    if (categoriesResponse) setCategories(formatCategoriesObject(categoriesResponse));
+    if (categoriesResponse && !categories) setCategories(formatCategoriesObject(categoriesResponse));
     setLoading((prevLoading) => prevLoading - 1);
   };
 
@@ -81,6 +82,8 @@ function App() {
           <Route element={ <Login /> } path="/login/:email/:magicLink" />
           <Route element={ <Login /> } path="/login" />
           <Route element={ <Orders /> } path="/compras" />
+          <Route element={ <Orders /> } path="/compras" />
+          <Route element={ <CategoryResult /> } path="/categoria/:mainCategory/:subCategory" />
           <Route element={ <Home /> } path="*" />
         </Routes>
       </main>
