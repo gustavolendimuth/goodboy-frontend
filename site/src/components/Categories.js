@@ -28,17 +28,19 @@ export default function Categories() {
         $('#drop').prop('checked', false); // to uncheck
         $(subMenuCheckbox).prop('checked', false); // to uncheck
       }
+      console.log(e.target);
     });
 
     $(document).ready(function () {
-      $('#drop').on('change', function () {
-        $(subMenuCheckbox).prop('checked', false);
+      $('.test').on('click', function () {
+        $('#drop').prop('checked', false); // to uncheck
+        $(subMenuCheckbox).prop('checked', false); // to uncheck
       });
       $(subMenuCheckbox).on('change', function () {
         $(subMenuCheckbox).not(this).prop('checked', false);
       });
     });
-  }, [categories]);
+  }, [categories, sortedCategories]);
 
   if (!categories) return null;
 
