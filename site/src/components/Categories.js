@@ -16,14 +16,15 @@ export default function Categories() {
   const [sortedCategories, setSortedCategories] = useState();
 
   useEffect(() => {
-    if (categories) setSortedCategories(sortObjectArray(categories, ['name']));
+    if (categories && !sortedCategories) setSortedCategories(sortObjectArray(categories, ['name']));
     const subMenuCheckbox = '.sub-menu-checkbox';
 
     $(document).mouseup((e) => {
       const container = $('.categories');
 
-      if (!container.is(e.target) // if clicked outside
-        && container.has(e.target).length === 0) {
+      if ((!container.is(e.target) // if clicked outside
+        && container.has(e.target).length === 0)
+        || $(e.target).hasClass('sub-category-link')) {
         $('#drop').prop('checked', false); // to uncheck
         $(subMenuCheckbox).prop('checked', false); // to uncheck
       }
@@ -49,8 +50,8 @@ export default function Categories() {
           <input type="checkbox" id="drop" />
           <ul className="menu">
             {
-              sortedCategories?.map((mainCategory, index) => (
-                <CategoryDropdown key={ mainCategory.id } category={ mainCategory } index={ index + 1 } />
+              sortedCategories?.map((category, index) => (
+                <CategoryDropdown key={ category._id } category={ category } index={ index + 1 } />
               ))
             }
           </ul>
