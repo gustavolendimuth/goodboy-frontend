@@ -13,19 +13,15 @@
 
 .product-price {
   color: var(--bs-gray);
-  font-size: large;
+  font-size: 1.2rem !important;
   font-weight: bold;
 }
 
 .quantity {
   color: var(--bs-gray) !important;
-  font-size: 0.9rem !important;
-  padding: 6px !important;
+  font-size: 1rem !important;
+  margin: 0 !important;
   text-align: center !important;
-}
-
-.input-group-text {
-  padding: 0 20px !important;
 }
 
 .actions .btn {
@@ -36,6 +32,8 @@
   width: 200px;
 }
 
-.input-group-text.btn {
-  font-size: 1.2rem !important;
+.button-quantity-group.btn {
+  font-size: 1.3rem !important;
+  height: auto;
+  padding: 0 20px !important;
 }

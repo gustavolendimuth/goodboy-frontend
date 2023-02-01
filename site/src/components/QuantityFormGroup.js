@@ -19,17 +19,19 @@ function QuantityFormGroup({ id }) {
           <div className="input-group mb-2">
             <button
               type="button"
-              className="input-group-text btn btn-secondary"
+              className="button-quantity-group btn btn-primary"
               onClick={ () => removeFromCart(id) }
             >
               <b>
                 -
               </b>
             </button>
-            <p className="form-control quantity"><b>{quantity}</b></p>
+            <div className="form-control">
+              <p className="quantity"><b>{quantity}</b></p>
+            </div>
             <button
               type="button"
-              className="input-group-text btn btn-secondary"
+              className="button-quantity-group btn btn-primary"
               onClick={ () => addToCart(id) }
             >
               <b>
@@ -41,7 +43,7 @@ function QuantityFormGroup({ id }) {
       ) : (
         <button
           type="button"
-          className="btn btn-secondary w-100"
+          className="btn btn-primary w-100"
           onClick={ () => addToCart(id) }
         >
           Adicionar
