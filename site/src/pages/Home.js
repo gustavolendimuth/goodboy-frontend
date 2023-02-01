@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-import AllProducts from '../components/AllProducts';
+import React, { useContext } from 'react';
+import Products from '../components/Products';
 import Sale from '../components/Sale';
 import Spotlight from '../components/Spotlight';
+import Context from '../context/Context';
 
 export default function Home() {
+  const { products } = useContext(Context);
   return (
     <>
       <section>
@@ -14,7 +16,7 @@ export default function Home() {
         <Spotlight />
       </section>
       <section>
-        <AllProducts />
+        <Products products={ products } />
       </section>
     </>
   );

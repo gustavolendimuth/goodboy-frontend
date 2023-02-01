@@ -13,7 +13,7 @@ export default function ProductCard({ product }) {
   if (!product) return null;
 
   return (
-    <div className="col mx-auto" key={ product.title }>
+    <div className="col" key={ product.title }>
       <div className="product-card card h-100 d-flex flex-column justify-content-between align-items-center p-4">
         <Link to={ `/produto/${product._id}` }>
           <img
@@ -26,7 +26,7 @@ export default function ProductCard({ product }) {
           />
         </Link>
         <div>
-          <Link to={ `/produto/${product._id}` }>
+          <Link className="text-decoration-none" to={ `/produto/${product._id}` }>
             <p className="product-title p-2">{product.title}</p>
           </Link>
         </div>

@@ -31,8 +31,14 @@
 }
 
 .btn-outline-danger {
-  border-color: var(--bs-light);
-  color: var(--bs-light);
+  border-color: var(--bs-light) !important;
+  color: var(--bs-light) !important;
+}
+
+.btn-outline-danger:hover {
+  border-color: var(--bs-danger) !important;
+
+  /* color: var(--bs-light) !important; */
 }
 
 .search {

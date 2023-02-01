@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-export const sortObjectArray = (objectArray, keys) => {
+export const sortMultipleKeys = (objectArray, keys) => {
   const compare = (a, b) => {
     let comparison = 0;
     keys.forEach((key) => {

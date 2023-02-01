@@ -63,7 +63,11 @@ export default function Navbar() {
                         </form>
                       </div>)
                     : (
-                      <Link to="/login" className="btn btn-outline-danger btn-sm px-3 d-flex justify-content-center align-items-center">
+                      <Link
+                        to="/login"
+                        className="btn btn-outline-danger btn-sm px-3 d-flex
+                          justify-content-center align-items-center"
+                      >
                         <BiLogIn className="login-icon me-1" />
                         Entrar
                       </Link>
