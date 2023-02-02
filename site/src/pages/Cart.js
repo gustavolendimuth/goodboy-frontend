@@ -39,7 +39,7 @@ export default function Cart() {
       <div className="container container__cart">
         <div className="section-title text-center pt-5 pb-4">
           <h1>Carrinho</h1>
-          <h3>Confira os produtos e as quantidades</h3>
+          <h4>Confira os produtos e as quantidades</h4>
         </div>
         <div className="content rounded-4">
           <div className="items p-4">
@@ -52,16 +52,16 @@ export default function Cart() {
           <div className="summary w-100 d-flex flex-column align-items-end">
             <div className=" w-auto">
               <div className="d-flex justify-content-between">
-                <h3 className="text">
+                <h4 className="text">
                   Total
-                </h3>
-                <h3 className="price" id="cart-total">
+                </h4>
+                <h4 className="price" id="cart-total">
                   <b>
                     {
                       currencyFormatter({ format: 'pt-BR', value: total, symbol: true })
                     }
                   </b>
-                </h3>
+                </h4>
               </div>
               <div className="d-flex justify-content-center pt-4">
                 <Link

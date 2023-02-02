@@ -17,10 +17,10 @@ body {
   --bs-btn-hover-bg: #0b5ed7;
   color: var(--bs-gray) !important;
   font-family: Varela Round , sans-serif !important;
+  margin: 0;
+  padding: 0;
   width: 100% !important;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Itim&family=Rubik+Gemstones&family=Varela+Round&display=swap') ;
 
 h1 {
   color: var(--bs-primary);
@@ -55,7 +55,7 @@ p {
   color: var(--bs-gray);
   font-size: 1rem;
   letter-spacing: 0.01em;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 #root {

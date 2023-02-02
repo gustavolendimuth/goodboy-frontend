@@ -7,7 +7,7 @@
 /* eslint-disable no-underscore-dangle */
 // import { Link } from 'react-router-dom';
 import React, { useContext, useEffect, useState } from 'react';
-import CategoryDropdown from './categoryDropdown';
+import CategoryDropdown from './CategoryDropdown';
 import Context from '../context/Context';
 import '../css/categories.css';
 import { sortMultipleKeys } from '../services/sort';

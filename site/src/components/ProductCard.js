@@ -17,12 +17,13 @@ export default function ProductCard({ product }) {
       <div className="product-card card h-100 d-flex flex-column justify-content-between align-items-center p-4">
         <Link to={ `/produto/${product._id}` }>
           <img
-            src={ urlFor(product.photo.image).url() }
+            src={ urlFor(product.photo.image)
+              .format('webp').quality(90).height(250)
+              .url() }
             alt={ product.photo.alt }
-            height="250px"
-            width="250px"
             className="p-2"
             style={ { objectFit: 'contain' } }
+            loading="lazy"
           />
         </Link>
         <div>

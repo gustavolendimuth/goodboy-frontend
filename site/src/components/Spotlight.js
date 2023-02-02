@@ -1,21 +1,13 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Context from '../context/Context';
 import '../css/spotlight.css';
-import random from '../services/random';
 import ProductCard from './ProductCard';
 
 export default function Spotlight() {
-  const { products } = useContext(Context);
-  const [spotlightProducts, setSpotlightProducts] = useState();
+  const { salesAndSpotlights } = useContext(Context);
 
-  useEffect(() => {
-    setSpotlightProducts(
-      random(products?.filter((product) => product.spotlight), 4),
-    );
-  }, [products]);
-
-  if (!spotlightProducts) return null;
+  if (!salesAndSpotlights) return null;
 
   return (
     <section className="spotlight-container pt-5 pb-3">
@@ -25,9 +17,9 @@ export default function Spotlight() {
         </div>
         <div className="pt-4">
           <div
-            className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-5"
+            className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 pt-4 pb-5 justify-content-center"
           >
-            {spotlightProducts && spotlightProducts.map((product) => (
+            {salesAndSpotlights?.spotlight?.map((product) => (
               <ProductCard key={ product._id } product={ product } />
             ))}
           </div>

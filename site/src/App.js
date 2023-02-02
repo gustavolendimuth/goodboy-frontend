@@ -25,6 +25,7 @@ import ScrollToTop from './hooks/ScrollToTop';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/main.css';
 import './css/custom.scss';
+import FloatingButtons from './components/FloatingButtons';
 
 function App() {
   // A função useToken é responsável por verificar o token ao abrir a página e salvar no localStorage após o login
@@ -36,6 +37,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <FloatingButtons />
       <Loading />
       <ScrollToTop />
       <Alert />

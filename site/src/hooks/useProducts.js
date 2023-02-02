@@ -9,8 +9,8 @@ export default function useProducts() {
   useEffect(() => {
     const getProducts = async () => {
       setLoading((prevLoading) => prevLoading + 1);
-      const productsResponse = await fetchContent({ query: 'products' });
-      if (productsResponse) setProducts(productsResponse);
+      const response = await fetchContent({ query: 'products' });
+      if (response) setProducts(response);
       setLoading((prevLoading) => prevLoading - 1);
     };
     if (!products) getProducts();

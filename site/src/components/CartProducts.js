@@ -26,50 +26,50 @@ export default function CartProducts({ item, info }) {
           ${index !== array.length - 1 && 'item pb-3'} 
           ${index !== 0 && 'pt-3'}` }
       >
-        <div className="col-md-2 p-0 text-center">
+        <div className="col-12 col-lg-2 p-0 text-center">
           <img
-            src={ urlFor(item.photo.image).url() }
+            src={ urlFor(item.photo.image).height(150).url() }
             alt={ item.photo.alt }
-            width="120px"
-            height="120px"
             style={ { objectFit: 'contain' } }
+            width="150px"
+            height="150px"
           />
         </div>
-        <div className="col-md-6 my-auto">
+        <div className="col-12 col-lg-6 my-auto pt-3 pt-lg-0">
           <div className="product-info d-flex flex-column justify-content-center gap-3">
-            <h3 className=" text-center text-md-start text-primary pt-3 m-0">
+            <p className="fs-5 text-center text-md-start text-primary m-0">
               {item.title}
-            </h3>
-            <div className="text-center text-md-start">
-              <p>
+            </p>
+            <div className="text-center text-lg-start">
+              <p className="m-0">
                 preço
               </p>
-              <h4 className="m-0">
+              <p className="fs-5 m-0">
                 <b>
                   {
                     currencyFormatter({ format: 'pt-BR', value: item.price, symbol: true })
                   }
                 </b>
-              </h4>
+              </p>
             </div>
           </div>
         </div>
-        <div className="col-md-2 my-auto py-3 px-4 text-center">
-          <QuantityFormGroup id={ item._id } />
-        </div>
-        <div className="col-12 col-md-2 my-auto">
-          <div className="text-center text-md-end">
-            <div className="my-auto py-3">
-              <p>
+        <div className="col-12 col-lg-4">
+          <div className="d-flex justify-content-center justify-content-lg-end pt-3 pt-lg-0">
+            <QuantityFormGroup id={ item._id } />
+          </div>
+          <div className="text-center text-lg-end">
+            <div className="my-auto pt-3">
+              <p className="m-0">
                 subtotal
               </p>
-              <h3>
+              <p className="fs-5 m-0">
                 <b>
                   {
                     currencyFormatter({ format: 'pt-BR', value: item.price * quantity, symbol: true })
                   }
                 </b>
-              </h3>
+              </p>
             </div>
           </div>
         </div>

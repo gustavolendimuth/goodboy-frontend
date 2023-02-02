@@ -1,21 +1,13 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Context from '../context/Context';
 import '../css/sale.css';
-import random from '../services/random';
 import ProductCard from './ProductCard';
 
 export default function Sale() {
-  const { products } = useContext(Context);
-  const [saleProducts, setSaleProducts] = useState();
+  const { salesAndSpotlights } = useContext(Context);
 
-  useEffect(() => {
-    setSaleProducts(
-      random(products?.filter((product) => product.sale), 4),
-    );
-  }, [products]);
-
-  if (!saleProducts) return null;
+  if (!salesAndSpotlights) return null;
 
   return (
     <section className="sale-container pt-5 pb-4">
@@ -25,9 +17,9 @@ export default function Sale() {
         </div>
         <div className="pt-4">
           <div
-            className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-5"
+            className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 pb-5 justify-content-center"
           >
-            {saleProducts?.map((product) => (
+            {salesAndSpotlights?.sales?.map((product) => (
               <ProductCard key={ product._id } product={ product } />
             ))}
           </div>

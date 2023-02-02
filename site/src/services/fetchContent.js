@@ -1,3 +1,4 @@
+/* eslint-disable react-func/max-lines-per-function */
 import groq from 'groq';
 import sanityClient from './sanityClient';
 
@@ -15,7 +16,12 @@ export default async ({ query, id, mainCategory, subCategory }) => {
   const groqQuery = {
     // Query que retorna todos os produtos
     products: groq`
-    *[_type == "products"] | order(_createdAt asc) {
+    *[_type == "products"] | order(_updatedAt desc)[0...30] {
+      _id, title, photo, price, description, sale, spotlight,
+      "categories": categories[]->name,
+    }`,
+    saleAndSpotlight: groq`
+    *[_type == "products" && (sale == true || spotlight == true)] {
       _id, title, photo, price, description, sale, spotlight,
       "categories": categories[]->name,
     }`,
@@ -33,9 +39,9 @@ export default async ({ query, id, mainCategory, subCategory }) => {
           ...(categories[1]->{name, slug, _id, icon})
         }
       }`,
-
+    // Query que retorna todas as categorias
     allCategories: groq`*[_type == "categories"]`,
-
+    // Query que retorna todos os produtos de uma categoria
     productsByCategory: groq`
       *[_type == "products" && ${JSON.stringify(mainCategory)} in categories[]->slug.current &&  ${JSON.stringify(subCategory)} in categories[]->slug.current ]{
       ... , "categories": categories[]->name
