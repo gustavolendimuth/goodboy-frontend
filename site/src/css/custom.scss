@@ -1,8 +1,12 @@
 // change the theme
+$min-contrast-ratio: 3;
+$primary: #007aff;
+$secondary: #fc553d;
 // $theme-colors: (
-//   "primary": #fc553d,
-//   "secondary": #007aff
+//   "primary": #007aff,
+//   "secondary": #fc553d
 // );
 
 // Import Bootstrap and its default variables
 @import "bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Rubik+Gemstones&family=Varela+Round&display=swap') ;

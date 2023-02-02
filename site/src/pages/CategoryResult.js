@@ -19,7 +19,6 @@ export default function CategoryResult() {
   const getProductsByCategory = async () => {
     setLoading((prevLoading) => prevLoading + 1);
     const response = await fetchContent({ query: 'productsByCategory', mainCategory, subCategory });
-    console.log(response);
     setFilteredProducts(response);
     setLoading((prevLoading) => prevLoading - 1);
   };
@@ -27,7 +26,8 @@ export default function CategoryResult() {
   useEffect(() => {
     if (allCategories && mainCategory) {
       setCategoryNames({
-        mainCategory: getCategoryName(mainCategory), subCategory: getCategoryName(subCategory),
+        mainCategory: getCategoryName(mainCategory),
+        subCategory: getCategoryName(subCategory),
       });
     }
 

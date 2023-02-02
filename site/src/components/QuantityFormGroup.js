@@ -13,7 +13,7 @@ function QuantityFormGroup({ id }) {
   }, [cartItems]);
 
   return (
-    <div className="actions p-2 d-flex flex-column justify-content-center align-items-center m-auto">
+    <div className="actions p-2 d-flex flex-column justify-content-center align-items-center">
       {quantity > 0 ? (
         <div className="bottom w-100">
           <div className="input-group mb-2">

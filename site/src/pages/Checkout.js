@@ -52,7 +52,7 @@ export default function Checkout() {
 
     const settings = {
       initialization: {
-        amount: currencyFormatter({ format: 'en-US', value: total }),
+        amount: total,
         items,
       },
       callbacks: {

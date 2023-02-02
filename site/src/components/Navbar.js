@@ -3,14 +3,13 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { BiLogIn, BiLogOut, BiCreditCard, BiBone } from 'react-icons/bi';
-import { FiShoppingCart } from 'react-icons/fi';
+import Cart from './Cart';
 import goodboyLogo from '../images/goodboy_logo-transp.webp';
 import Context from '../context/Context';
 import '../css/navbar.css';
 
 export default function Navbar() {
   const {
-    cartItems,
     user,
     setUser,
     setToken,
@@ -74,18 +73,14 @@ export default function Navbar() {
                     )
                 }
               </div>
-              <div className="mx-4">
-                <Link
-                  className="nav-link active d-flex gap-2 align-items-center"
-                  to={ cartItems?.length ? '/carrinho' : null }
+              <div className="p-3">
+                <button
+                  className="btn btn-secondary cart rounded-circle"
+                  type="button"
+                  title="Ir para o carrinho"
                 >
-                  <div className="position-relative">
-                    <FiShoppingCart className="cart-icon" />
-                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
-                      {cartItems?.length ? cartItems.reduce((acc, curr) => acc + curr.quantity, 0) : 0}
-                    </span>
-                  </div>
-                </Link>
+                  <Cart />
+                </button>
               </div>
             </div>
           </li>
