@@ -6,15 +6,17 @@ import urlFor from '../services/urlFor';
 import '../css/productDetails.css';
 import fetchContent from '../services/fetchContent';
 import QuantityFormGroup from '../components/QuantityFormGroup';
+import currencyFormatter from '../services/currencyFormatter';
 
 export default function ProductDetails() {
   const { setLoading } = useContext(Context);
   const { id } = useParams();
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState('');
 
   const getProduct = async () => {
     setLoading((prevLoading) => prevLoading + 1);
     const [data] = await fetchContent({ query: 'product', id });
+    if (!data) { setProduct(null); }
     setProduct(data);
     setLoading((prevLoading) => prevLoading - 1);
   };
@@ -25,31 +27,33 @@ export default function ProductDetails() {
 
   if (product) {
     return (
-      <div className="product-card d-flex flex-column justify-content-center align-items-center p-3">
-        <div>
-          <div className="product-title" key={ product.title }>
-            <div>
-              <div>
-                <p className="product-title">{product.title}</p>
-              </div>
-              <div>
-                <img className="product-image" src={ urlFor(product.photo?.image).url() } alt={ product.photo?.alt } />
-              </div>
-              <div>
-                <p className="product-description">{product.description}</p>
-              </div>
-              <div>
-                <p className="product-price">{product.price}</p>
-              </div>
-              <div>
-                <QuantityFormGroup id={ id } />
-              </div>
+      <div className="d-flex flex-column justify-content-center align-items-center p-3 container">
+        <div className="product-card-div">
+          <div key={ product.title }>
+
+            <div className="product-title-div section-title">
+              <h1 className="product-title">{product.title}</h1>
             </div>
+            <div className="product-image-div">
+              <img className="product-image" width="500px" height="500px" src={ urlFor(product.photo?.image).url() } alt={ product.photo?.alt } />
+            </div>
+            <div className="product-description-div">
+              <p className="product-description">{product.description}</p>
+            </div>
+            <div className="product-price-div">
+              <p className="product-price">{currencyFormatter({ format: 'pt-br', value: product.price, symbol: true })}</p>
+            </div>
+            <div className="button-div">
+              <QuantityFormGroup id={ id } />
+            </div>
+
           </div>
 
         </div>
       </div>
     );
   }
-  return <div className="product-title">Produto não encontrado</div>;
+  return (product === undefined
+    ? <div className="product-title">Produto não encontrado</div> : null
+  );
 }
