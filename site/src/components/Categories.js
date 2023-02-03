@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-this-in-sfc */
 /* eslint-disable func-names */
 /* eslint-disable prefer-arrow-callback */
@@ -6,38 +7,45 @@
 /* eslint-disable no-underscore-dangle */
 // import { Link } from 'react-router-dom';
 import React, { useContext, useEffect, useState } from 'react';
-import CategoryDropdown from './categoryDropdown';
+import CategoryDropdown from './CategoryDropdown';
 import Context from '../context/Context';
 import '../css/categories.css';
-import { sortObjectArray } from '../services/sort';
+import { sortMultipleKeys } from '../services/sort';
+import useCategories from '../hooks/useCategories';
 
 export default function Categories() {
   const { categories } = useContext(Context);
   const [sortedCategories, setSortedCategories] = useState();
 
   useEffect(() => {
-    if (categories) setSortedCategories(sortObjectArray(categories, ['name']));
-    const subMenuCheckbox = '.sub-menu-checkbox';
+    if (categories && !sortedCategories) {
+      setSortedCategories(sortMultipleKeys(categories, ['name']));
+    }
 
     $(document).mouseup((e) => {
       const container = $('.categories');
+      const subMenuCheckbox = '.sub-menu-checkbox';
 
-      if (!container.is(e.target) // if clicked outside
-        && container.has(e.target).length === 0) {
+      if ($(e.target).hasClass('toggle')) {
+        $(subMenuCheckbox).not(this).prop('checked', false);
+      }
+
+      if (
+        (
+          !container.is(e.target) // if clicked outside
+          && container.has(e.target).length === 0 // if clicked outside
+        )
+        || $(e.target).hasClass('test')
+        || $(e.target).hasClass(subMenuCheckbox)
+      ) {
+        // console.log('clicked outside');
         $('#drop').prop('checked', false); // to uncheck
         $(subMenuCheckbox).prop('checked', false); // to uncheck
       }
     });
-
-    $(document).ready(function () {
-      $('#drop').on('change', function () {
-        $(subMenuCheckbox).prop('checked', false);
-      });
-      $(subMenuCheckbox).on('change', function () {
-        $(subMenuCheckbox).not(this).prop('checked', false);
-      });
-    });
   }, [categories]);
+
+  useCategories();
 
   if (!categories) return null;
 
@@ -49,8 +57,12 @@ export default function Categories() {
           <input type="checkbox" id="drop" />
           <ul className="menu">
             {
-              sortedCategories?.map((mainCategory, index) => (
-                <CategoryDropdown key={ mainCategory.id } category={ mainCategory } index={ index + 1 } />
+              sortedCategories?.map((category, index) => (
+                <CategoryDropdown
+                  key={ category._id }
+                  category={ category }
+                  index={ index + 1 }
+                />
               ))
             }
           </ul>

@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 // import urlFor from '../services/urlFor';
 
-export default function CategoryDropdown2({ category, index }) {
+export default function CategoryDropdown({ category, index }) {
   if (!category) return null;
 
   return (
@@ -18,8 +18,10 @@ export default function CategoryDropdown2({ category, index }) {
       <input type="checkbox" className="sub-menu-checkbox" id={ `drop-${index}` } />
       <ul>
         {category?.subCategories.map((subCategory) => (
-          <li className=" text-nowrap" key={ subCategory }>
-            <Link to={ `/${category.name}/${subCategory}` }>{subCategory}</Link>
+          <li key={ subCategory.slug.current } className="sub-category-link text-nowrap">
+            <Link to={ `/categoria/${category.slug.current}/${subCategory.slug.current}` } className="test">
+              {subCategory.name}
+            </Link>
           </li>
         ))}
       </ul>

@@ -1,7 +1,7 @@
-.product-title {
+.product-card .product-title {
   color: var(--bs-primary);
-  font-weight: 600;
-  text-align: center;
+  font-weight: 700;
+  max-width: 400px;
 }
 
 .product-card {
@@ -13,29 +13,10 @@
 
 .product-price {
   color: var(--bs-gray);
-  font-size: large;
+  font-size: 1.2rem !important;
   font-weight: bold;
-}
-
-.quantity {
-  color: var(--bs-gray) !important;
-  font-size: 0.9rem !important;
-  padding: 6px !important;
-  text-align: center !important;
-}
-
-.input-group-text {
-  padding: 0 20px !important;
 }
 
 .actions .btn {
   font-size: 0.9rem !important;
-}
-
-.actions {
-  width: 200px;
-}
-
-.input-group-text.btn {
-  font-size: 1.2rem !important;
 }

@@ -13,8 +13,7 @@ export default function ProductDetails() {
 
   useEffect(() => {
     const getProduct = async () => {
-      const [data] = await fetchContent('product', id);
-      console.log('data product', data);
+      const [data] = await fetchContent({ query: 'product', id });
       setProduct(data);
       setLoading(false);
     };

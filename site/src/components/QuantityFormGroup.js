@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import Context from '../context/Context';
+import '../css/quantityFormGroup.css';
 
 function QuantityFormGroup({ id }) {
   const { addToCart, removeFromCart, deleteFromCart, cartItems, getItemQuantity } = useContext(Context);
@@ -13,35 +14,35 @@ function QuantityFormGroup({ id }) {
   }, [cartItems]);
 
   return (
-    <div className="actions p-2 d-flex flex-column justify-content-center align-items-center m-auto">
+    <div className="actions w-100 d-flex flex-column justify-content-center align-items-center gap-2">
       {quantity > 0 ? (
-        <div className="bottom w-100">
-          <div className="input-group mb-2">
-            <button
-              type="button"
-              className="input-group-text btn btn-secondary"
-              onClick={ () => removeFromCart(id) }
-            >
-              <b>
-                -
-              </b>
-            </button>
-            <p className="form-control quantity"><b>{quantity}</b></p>
-            <button
-              type="button"
-              className="input-group-text btn btn-secondary"
-              onClick={ () => addToCart(id) }
-            >
-              <b>
-                +
-              </b>
-            </button>
+        <div className="input-group quantity-group">
+          <button
+            type="button"
+            className="button-quantity-group btn btn-primary"
+            onClick={ () => removeFromCart(id) }
+          >
+            <b>
+              -
+            </b>
+          </button>
+          <div className="form-control">
+            <p className="quantity"><b>{quantity}</b></p>
           </div>
+          <button
+            type="button"
+            className="button-quantity-group btn btn-primary"
+            onClick={ () => addToCart(id) }
+          >
+            <b>
+              +
+            </b>
+          </button>
         </div>
       ) : (
         <button
           type="button"
-          className="btn btn-secondary w-100"
+          className="btn btn-primary w-100"
           onClick={ () => addToCart(id) }
         >
           Adicionar

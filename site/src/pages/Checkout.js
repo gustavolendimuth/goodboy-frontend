@@ -52,7 +52,7 @@ export default function Checkout() {
 
     const settings = {
       initialization: {
-        amount: currencyFormatter({ format: 'en-US', value: total }),
+        amount: total,
         items,
       },
       callbacks: {
@@ -138,7 +138,7 @@ export default function Checkout() {
       <div className="container container__payment">
         <div className="section-title text-center pt-5 pb-4">
           <h1>Checkout</h1>
-          <h3>Finalize a compra utilizando o pagamento seguro do Mercado Pago</h3>
+          <h4>Finalize a compra utilizando o pagamento seguro do Mercado Pago</h4>
         </div>
         <div className="form-payment rounded-3">
           <div className="products py-5 px-4">

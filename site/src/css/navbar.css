@@ -31,10 +31,21 @@
 }
 
 .btn-outline-danger {
-  border-color: var(--bs-light);
-  color: var(--bs-light);
+  border-color: var(--bs-light) !important;
+  color: var(--bs-light) !important;
+}
+
+.btn-outline-danger:hover {
+  border-color: var(--bs-danger) !important;
+
+  /* color: var(--bs-light) !important; */
 }
 
 .search {
   padding-left: 12px !important;
+}
+
+.navbar .cart {
+  padding-bottom: 4px !important;
+  padding-top: 4px !important;
 }

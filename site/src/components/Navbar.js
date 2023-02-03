@@ -1,30 +1,31 @@
 /* eslint-disable react/forbid-component-props */
 /* eslint-disable react/jsx-max-depth */
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BiLogIn, BiLogOut, BiCreditCard, BiBone } from 'react-icons/bi';
-import { FiShoppingCart } from 'react-icons/fi';
+import Cart from './Cart';
 import goodboyLogo from '../images/goodboy_logo-transp.webp';
 import Context from '../context/Context';
 import '../css/navbar.css';
-import fetchContent from '../services/fetchContent';
+// import fetchContent from '../services/fetchContent';
 
 export default function Navbar() {
   const {
-    setProducts,
-    cartItems,
+    // setProducts,
     user,
     setUser,
     setToken,
   } = useContext(Context);
   const [searchInput, setSearchInput] = useState('');
 
-  const searchProductsBar = async () => {
-    const productsResponse = await fetchContent('searchProducts', searchInput);
-    if (productsResponse) { await setProducts(productsResponse); }
-    console.log('searchInput', searchInput);
-    console.log('productsResponse', productsResponse);
-  };
+  const navigate = useNavigate();
+
+  // const searchProductsBar = async () => {
+  //   const productsResponse = await fetchContent({ query: 'searchProducts', searchInput });
+  //   if (productsResponse) { await setProducts(productsResponse); }
+  //   console.log('searchInput', searchInput);
+  //   console.log('productsResponse', productsResponse);
+  // };
 
   const logout = () => {
     setUser();
@@ -39,7 +40,7 @@ export default function Navbar() {
         </Link>
         <form onSubmit={ (e) => e.preventDefault() } className="d-flex mx-auto mb-2 mb-lg-0 order-2 order-lg-1" role="search">
           <input className="form-control me-2 search" type="search" placeholder="Produto" aria-label="Search" onChange={ (e) => setSearchInput(e.target.value) } />
-          <button className="btn btn-primary d-flex px-3" type="submit" onClick={ () => searchProductsBar() }>
+          <button className="btn btn-primary d-flex px-3" type="submit" onClick={ () => navigate(`/search/${searchInput}`) }>
             <BiBone className="login-icon me-1" />
             Buscar
           </button>
@@ -73,25 +74,25 @@ export default function Navbar() {
                         </form>
                       </div>)
                     : (
-                      <Link to="/login" className="btn btn-outline-danger btn-sm px-3 d-flex justify-content-center align-items-center">
+                      <Link
+                        to="/login"
+                        className="btn btn-outline-danger btn-sm px-3 d-flex
+                          justify-content-center align-items-center"
+                      >
                         <BiLogIn className="login-icon me-1" />
                         Entrar
                       </Link>
                     )
                 }
               </div>
-              <div className="mx-4">
-                <Link
-                  className="nav-link active d-flex gap-2 align-items-center"
-                  to={ cartItems?.length ? '/carrinho' : null }
+              <div className="p-3">
+                <button
+                  className="btn btn-secondary cart rounded-circle"
+                  type="button"
+                  title="Ir para o carrinho"
                 >
-                  <div className="position-relative">
-                    <FiShoppingCart className="cart-icon" />
-                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">
-                      {cartItems?.length ? cartItems.reduce((acc, curr) => acc + curr.quantity, 0) : 0}
-                    </span>
-                  </div>
-                </Link>
+                  <Cart />
+                </button>
               </div>
             </div>
           </li>

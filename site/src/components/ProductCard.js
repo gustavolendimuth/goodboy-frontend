@@ -13,29 +13,31 @@ export default function ProductCard({ product }) {
   if (!product) return null;
 
   return (
-    <div className="col mx-auto" key={ product.title }>
-      <div className="product-card card h-100 d-flex flex-column justify-content-between align-items-center p-4">
+    <div className="col" key={ product.title }>
+      <div className="product-card gap-3 card h-100 d-flex flex-column justify-content-between align-items-center p-4">
         <Link to={ `/produto/${product._id}` }>
           <img
-            src={ urlFor(product.photo.image).url() }
+            src={ urlFor(product.photo.image)
+              .format('webp').quality(95).height(250)
+              .url() }
             alt={ product.photo.alt }
-            height="250px"
-            width="250px"
-            className="p-2"
             style={ { objectFit: 'contain' } }
+            loading="lazy"
           />
         </Link>
         <div>
-          <Link to={ `/produto/${product._id}` }>
-            <p className="product-title p-2">{product.title}</p>
+          <Link className="text-decoration-none" to={ `/produto/${product._id}` }>
+            <p className="product-title p-0 m-0">{product.title}</p>
           </Link>
         </div>
         <div>
-          <p className="product-price">
+          <p className="product-price p-0 m-0">
             { currencyFormatter({ format: 'pt-BR', value: product.price, symbol: true }) }
           </p>
         </div>
-        <QuantityFormGroup id={ product._id } />
+        <div className="d-flex justify-content-center w-100">
+          <QuantityFormGroup id={ product._id } />
+        </div>
       </div>
     </div>
   );

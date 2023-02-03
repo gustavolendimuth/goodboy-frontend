@@ -69,7 +69,10 @@
 
 .nav-categories ul li ul li:hover { background: var(--bs-primary); }
 
-.nav-categories a:hover { background-color: var(--bs-primary); }
+.nav-categories a:hover {
+  background-color: var(--bs-primary);
+  color: #fff;
+}
 
 .nav-categories ul ul {
   border: var(--bs-secondary) 4px solid;
