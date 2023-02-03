@@ -35,7 +35,7 @@ export default function ProductCard({ product }) {
             { currencyFormatter({ format: 'pt-BR', value: product.price, symbol: true }) }
           </p>
         </div>
-        <div className="w-100">
+        <div className="d-flex justify-content-center w-100">
           <QuantityFormGroup id={ product._id } />
         </div>
       </div>

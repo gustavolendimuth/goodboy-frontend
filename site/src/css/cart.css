@@ -30,7 +30,7 @@
     max-width: 400px;
   }
 
-  .test {
+  .product-item .quantity-sub-total-group {
     align-content: center !important;
     flex-direction: column !important;
     justify-content: center !important;
@@ -42,7 +42,7 @@
   max-width: 300px;
 }
 
-.test {
+.product-item .quantity-sub-total-group {
   align-content: flex-end;
   align-items: center;
   column-gap: 48px;
