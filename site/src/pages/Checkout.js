@@ -79,8 +79,8 @@ export default function Checkout() {
       customization: {
         paymentMethods: {
           creditCard: 'all',
-          debitCard: 'all',
-          bankTransfer: ['pix'],
+          // debitCard: 'all',
+          // bankTransfer: ['pix'],
         },
         visual: {
           style: {
@@ -166,22 +166,6 @@ export default function Checkout() {
                 }
               </span>
             </div>
-          </div>
-          <div className="alert alert-warning mx-4" role="alert">
-            <h3>
-              <b>Cartão de crédito de teste</b>
-            </h3>
-            <b>Número do cartão:</b> 5031 4332 1540 6351
-            <br />
-            <b>Data de vencimento:</b> 11/25
-            <br />
-            <b>Código de segurança:</b> 123
-            <br />
-            <b>Nome do titular:</b> APRO
-            <br />
-            <b>CPF:</b> 12345678909
-            <br />
-            <b>E-mail:</b> seu email
           </div>
           <div className="container" id="mercadopago-bricks-container__PaymentCard"> </div>
           <div className="px-3 pb-3">
