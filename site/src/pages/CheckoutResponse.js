@@ -53,6 +53,7 @@ export default function CheckoutResponse() {
         .then((data) => {
           setCheckoutResponse(data);
         });
+      setLoading((prevLoading) => prevLoading - 1);
     } else {
       renderStatusScreenBrick(bricksBuilder);
     }
@@ -71,7 +72,7 @@ export default function CheckoutResponse() {
       <div className="container container__payment">
         <div className="section-title text-center pt-5 pb-4">
           <h1>Dados do Pagamento</h1>
-          <h3>Confira as informações do pagamento de sua compra</h3>
+          <h4>Confira as informações do pagamento de sua compra</h4>
         </div>
         <div className="form-payment">
           <div id="statusScreenBrick_container"> </div>

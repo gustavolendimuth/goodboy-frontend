@@ -20,3 +20,9 @@
 .actions .btn {
   font-size: 0.9rem !important;
 }
+
+.product-card .product-image {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
