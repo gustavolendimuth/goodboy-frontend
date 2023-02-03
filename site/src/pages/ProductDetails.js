@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-// import Context from '../context/Context';
+import Context from '../context/Context';
 import urlFor from '../services/urlFor';
 import '../css/productDetails.css';
 import fetchContent from '../services/fetchContent';
 import QuantityFormGroup from '../components/QuantityFormGroup';
 
 export default function ProductDetails() {
+  const { setLoading } = useContext(Context);
   const { id } = useParams();
   const [product, setProduct] = useState();
-  const [loading, setLoading] = useState(true);
+
+  const getProduct = async () => {
+    setLoading((prevLoading) => prevLoading + 1);
+    const [data] = await fetchContent({ query: 'product', id });
+    setProduct(data);
+    setLoading((prevLoading) => prevLoading - 1);
+  };
 
   useEffect(() => {
-    const getProduct = async () => {
-      const [data] = await fetchContent({ query: 'product', id });
-      setProduct(data);
-      setLoading(false);
-    };
     getProduct();
   }, [id]);
 
-  if (loading) { return <div className="product-title"> Carregando </div>; }
   if (product) {
     return (
       <div className="product-card d-flex flex-column justify-content-center align-items-center p-3">
