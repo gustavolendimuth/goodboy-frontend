@@ -18,10 +18,10 @@ export default function ProductCard({ product }) {
         <Link to={ `/produto/${product._id}` }>
           <img
             src={ urlFor(product.photo.image)
-              .format('webp').quality(95).height(250)
+              .format('webp').quality(90).height(250)
               .url() }
+            className="product-image img-fluid"
             alt={ product.photo.alt }
-            style={ { objectFit: 'contain' } }
             loading="lazy"
           />
         </Link>
