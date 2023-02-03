@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import CategoryResult from './pages/CategoryResult';
+import SearchResult from './pages/SearchResult';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
@@ -59,6 +60,7 @@ function App() {
           <Route element={ <Orders /> } path="/compras" />
           <Route element={ <Orders /> } path="/compras" />
           <Route element={ <CategoryResult /> } path="/categoria/:mainCategory/:subCategory" />
+          <Route element={ <SearchResult /> } path="/search/:searchInput" />
           <Route element={ <Home /> } path="*" />
         </Routes>
       </main>

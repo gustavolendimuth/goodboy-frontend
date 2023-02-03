@@ -4,7 +4,7 @@ import sanityClient from './sanityClient';
 
 // Função que faz o fetch e retorna um objeto com os produtos, ou categorias, de acordo com os parâmetros passados
 // Para fazer o fetch de um produto, é necessário passar o segundo parâmetro com o id do produto
-export default async ({ query, id, mainCategory, subCategory }) => {
+export default async ({ query, id, mainCategory, subCategory, searchInput }) => {
   // verificar se o id é uma string, caso seja, transformar em array
   let idArray = [];
   if (!Array.isArray(id)) {
@@ -45,6 +45,10 @@ export default async ({ query, id, mainCategory, subCategory }) => {
     productsByCategory: groq`
       *[_type == "products" && ${JSON.stringify(mainCategory)} in categories[]->slug.current &&  ${JSON.stringify(subCategory)} in categories[]->slug.current ]{
       ... , "categories": categories[]->name
+    }`,
+    searchProducts: groq`*[_type == "products" && title match "${searchInput}"] | order(_createdAt asc) {
+      _id, title, photo, price, description,
+      "categories": categories[]->name,
     }`,
   };
 
