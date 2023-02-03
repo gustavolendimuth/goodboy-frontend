@@ -56,7 +56,7 @@ export default function CartProducts({ item, info }) {
           {/* </div> */}
         </div>
         <div className="col-12 col-lg-2 d-flex flex-column justify-content-center">
-          <div className="text-end test">
+          <div className="text-end quantity-sub-total-group">
             <QuantityFormGroup id={ item._id } />
             <div>
               <p className="m-0 text-center text-lg-end">
