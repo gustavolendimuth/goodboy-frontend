@@ -20,7 +20,7 @@ export default function ProductDetails() {
     getProduct();
   }, [id]);
 
-  if (loading) { return <div> Carregando </div>; }
+  if (loading) { return <div className="product-title"> Carregando </div>; }
   if (product) {
     return (
       <div className="product-card d-flex flex-column justify-content-center align-items-center p-3">
@@ -49,5 +49,5 @@ export default function ProductDetails() {
       </div>
     );
   }
-  return <div>Produto não encontrado</div>;
+  return <div className="product-title">Produto não encontrado</div>;
 }
