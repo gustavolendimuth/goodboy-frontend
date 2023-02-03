@@ -15,6 +15,7 @@ body {
   --half-gray: #f5f5f5;
   --bs-gray: #585e62;
   --bs-btn-hover-bg: #0b5ed7;
+  --gray-500: #adb5bd;
   color: var(--bs-gray) !important;
   font-family: Varela Round , sans-serif !important;
   margin: 0;
@@ -27,24 +28,15 @@ h1 {
   font-size: 2.5rem;
 }
 
-h1.svelte-1mym5f9 {
-  color: var(--light-gray) !important;
-}
-
-h2.svelte-zpmp54 {
-  color: var(--light-gray) !important;
-}
-
 h3 {
   font-family: Varela Round , sans-serif !important;
   font-size: 1.3rem;
 }
 
 h4 {
-  color: var(--light-gray);
+  color: var(--gray-500);
   font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.07em;
 }
 
 .section-title h1 {
@@ -53,8 +45,7 @@ h4 {
 
 p {
   color: var(--bs-gray);
-  font-size: 1rem;
-  letter-spacing: 0.01em;
+  font-size: 0.95rem !important;
   margin: 0;
 }
 

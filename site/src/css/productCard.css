@@ -1,7 +1,7 @@
-.product-title {
+.product-card .product-title {
   color: var(--bs-primary);
-  font-weight: 600;
-  text-align: center;
+  font-weight: 700;
+  max-width: 400px;
 }
 
 .product-card {
@@ -17,23 +17,6 @@
   font-weight: bold;
 }
 
-.quantity {
-  color: var(--bs-gray) !important;
-  font-size: 1rem !important;
-  margin: 0 !important;
-  text-align: center !important;
-}
-
 .actions .btn {
   font-size: 0.9rem !important;
-}
-
-.actions {
-  width: 200px;
-}
-
-.button-quantity-group.btn {
-  font-size: 1.3rem !important;
-  height: auto;
-  padding: 0 20px !important;
 }

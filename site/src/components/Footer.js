@@ -32,14 +32,14 @@ export default function Footer() {
         <div className="d-flex flex-column gap-1 pt-3">
           <h4 className="m-0">Atendimento </h4>
           <p>
-            <Link href="tel:13996932144" className="text-decoration-none text-light" title="Telefone: (13) 99693-2144">
+            <a href="tel:13996932144" className="text-decoration-none text-light" title="Telefone: (13) 99693-2144">
               (13) 99693-2144
-            </Link>
+            </a>
           </p>
           <p>
-            <Link href="mailto:jhonas.marques10@gmail.com" className="text-decoration-none text-light" title="Email: jhonas.marques10@gmail.com">
-              jhonas.marques10@gmail.com
-            </Link>
+            <a href="mailto:contato@goodboy.net.br" className="text-decoration-none text-light" title="Email: contato@goodboy.net.br">
+              contato@goodboy.net.br
+            </a>
           </p>
         </div>
         <div>

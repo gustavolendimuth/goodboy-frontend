@@ -23,3 +23,33 @@
   border-bottom: 1px solid var(--light-grey);
 }
 
+@media only screen and ( max-width : 992px ) {
+
+  .cart-product-title {
+    margin: 0 auto;
+    max-width: 400px;
+  }
+
+  .test {
+    align-content: center !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+
+}
+
+.quantity-group-container {
+  max-width: 300px;
+}
+
+.test {
+  align-content: flex-end;
+  align-items: center;
+  column-gap: 48px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  row-gap: 18px;
+  width: 100%;
+}
+

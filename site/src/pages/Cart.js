@@ -49,19 +49,19 @@ export default function Cart() {
               ))
             }
           </div>
-          <div className="summary w-100 d-flex flex-column align-items-end">
-            <div className=" w-auto">
-              <div className="d-flex justify-content-between">
-                <h4 className="text">
+          <div className="summary d-flex flex-column align-items-center align-items-sm-end">
+            <div className="w-auto">
+              <div className="d-flex flex-column align-items-center flex-sm-row justify-content-between">
+                <p className="fs-4">
                   Total
-                </h4>
-                <h4 className="price" id="cart-total">
+                </p>
+                <p className="fs-4" id="cart-total">
                   <b>
                     {
                       currencyFormatter({ format: 'pt-BR', value: total, symbol: true })
                     }
                   </b>
-                </h4>
+                </p>
               </div>
               <div className="d-flex justify-content-center pt-4">
                 <Link

@@ -39,7 +39,7 @@ export default function FloatingButtons() {
   }, [pathname]);
 
   return (
-    <div className="floating-buttons d-flex flex-column bg-danger rounded-5">
+    <div className="floating-buttons bg-danger rounded-5">
       <button
         ref={ scrollToTop }
         className="btn btn-danger scroll-to-top rounded-circle"
