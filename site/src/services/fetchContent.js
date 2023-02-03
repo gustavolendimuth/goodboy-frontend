@@ -30,6 +30,10 @@ export default async (table, id) => {
         "subCategory": categories[1]->name
       }
     }`,
+    searchProducts: groq`*[_type == "products" && title match "${id}"] | order(_createdAt asc) {
+      _id, title, photo, price, description,
+      "categories": categories[]->name,
+    }`,
   };
 
   if (table) {

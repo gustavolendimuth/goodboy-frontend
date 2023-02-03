@@ -1,20 +1,30 @@
 /* eslint-disable react/forbid-component-props */
 /* eslint-disable react/jsx-max-depth */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BiLogIn, BiLogOut, BiCreditCard, BiBone } from 'react-icons/bi';
 import { FiShoppingCart } from 'react-icons/fi';
 import goodboyLogo from '../images/goodboy_logo-transp.webp';
 import Context from '../context/Context';
 import '../css/navbar.css';
+import fetchContent from '../services/fetchContent';
 
 export default function Navbar() {
   const {
+    setProducts,
     cartItems,
     user,
     setUser,
     setToken,
   } = useContext(Context);
+  const [searchInput, setSearchInput] = useState('');
+
+  const searchProductsBar = async () => {
+    const productsResponse = await fetchContent('searchProducts', searchInput);
+    if (productsResponse) { await setProducts(productsResponse); }
+    console.log('searchInput', searchInput);
+    console.log('productsResponse', productsResponse);
+  };
 
   const logout = () => {
     setUser();
@@ -28,8 +38,8 @@ export default function Navbar() {
           <img src={ goodboyLogo } alt="Good Boy Logo" width="200px" className="img-fluid" />
         </Link>
         <form onSubmit={ (e) => e.preventDefault() } className="d-flex mx-auto mb-2 mb-lg-0 order-2 order-lg-1" role="search">
-          <input className="form-control me-2 search" type="search" placeholder="Produto" aria-label="Search" />
-          <button className="btn btn-primary d-flex px-3" type="submit">
+          <input className="form-control me-2 search" type="search" placeholder="Produto" aria-label="Search" onChange={ (e) => setSearchInput(e.target.value) } />
+          <button className="btn btn-primary d-flex px-3" type="submit" onClick={ () => searchProductsBar() }>
             <BiBone className="login-icon me-1" />
             Buscar
           </button>
