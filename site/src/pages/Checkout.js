@@ -121,7 +121,6 @@ export default function Checkout() {
         title: item.title,
         quantity: getItemQuantity(item._id),
         unitPrice: item.price,
-        description: item.description,
       })),
     );
   }, [cartItemsData]);
