@@ -8,7 +8,7 @@ import '../css/checkout.css';
 import { removeLocalStorage } from '../services/localStorage';
 
 export default function CheckoutResponse() {
-  const { checkoutResponse, setCartItems, setCartItemsData, setCheckoutResponse, setLoading } = useContext(Context);
+  const { checkoutResponse, setCartItems, setCartItemsData, setCheckoutResponse, setLoading, setAlert } = useContext(Context);
   const { id } = useParams();
 
   if (!id) {
@@ -31,7 +31,7 @@ export default function CheckoutResponse() {
           setLoading((prevLoading) => prevLoading - 1);
           setAlert({
             ok: false,
-            message: errorMessage,
+            message: 'Desculpe... serviço indisponível, tente mais tarde',
             time: 5000,
           });
           console.log(error);

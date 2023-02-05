@@ -80,7 +80,7 @@ export default function Checkout() {
         paymentMethods: {
           creditCard: 'all',
           // debitCard: 'all',
-          // bankTransfer: ['pix'],
+          bankTransfer: ['pix'],
         },
         visual: {
           style: {
@@ -96,6 +96,7 @@ export default function Checkout() {
 
     const bricks = await mercadopago.bricks();
     cardPaymentBrickController = await bricks.create('payment', 'mercadopago-bricks-container__PaymentCard', settings);
+    console.log(cardPaymentBrickController);
   };
 
   useEffect(() => {
@@ -133,7 +134,7 @@ export default function Checkout() {
   }, [checkoutResponse]);
 
   return (
-    <section className="payment-form">
+    <section className="checkout">
       <div className="container container__payment">
         <div className="section-title text-center pt-5 pb-4">
           <h1>Checkout</h1>
