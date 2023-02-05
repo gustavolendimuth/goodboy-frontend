@@ -27,7 +27,6 @@ function Loading() {
         <div className="spinner-border text-light" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
-        <p className="text-light">carregando...</p>
       </div>
     </div>
   );
