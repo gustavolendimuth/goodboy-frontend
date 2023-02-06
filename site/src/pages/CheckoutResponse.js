@@ -8,9 +8,10 @@ import '../css/checkout.css';
 import { removeLocalStorage } from '../services/localStorage';
 
 export default function CheckoutResponse() {
-  const { checkoutResponse, setCartItems, setCartItemsData, setLoading, setAlert } = useContext(Context);
+  const { checkoutResponse, setCartItems, setCartItemsData, setLoading, setAlert, setCheckoutResponse } = useContext(Context);
   const [searchParams] = useSearchParams();
   const paymentId = searchParams.get('payment_id');
+  const status = searchParams.get('status');
 
   if (!paymentId) return <Navigate to="/checkout" />;
 
@@ -45,10 +46,11 @@ export default function CheckoutResponse() {
   };
 
   useEffect(() => {
-    if (checkoutResponse?.status === 'approved') {
+    if (checkoutResponse?.status === 'approved' || status === 'approved') {
       removeLocalStorage('cart');
       setCartItems();
       setCartItemsData();
+      setCheckoutResponse();
     }
   }, [checkoutResponse]);
 
@@ -57,15 +59,13 @@ export default function CheckoutResponse() {
   }, [paymentId]);
 
   return (
-    <section className="shopping-cart light">
+    <section className="form-payment shopping-cart light">
       <div className="container container__payment">
         <div className="section-title text-center pt-5 pb-4">
           <h1>Dados do Pagamento</h1>
-          <h4>Confira as informações do pagamento de sua compra</h4>
+          <h5>Confira as informações do pagamento. Caso ocorra algum problema, volte para o carrinho e tente novamente.</h5>
         </div>
-        <div className="form-payment">
-          <div id="statusScreenBrick_container"> </div>
-        </div>
+        <div id="statusScreenBrick_container"> </div>
       </div>
     </section>
   );
