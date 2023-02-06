@@ -2,26 +2,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-max-depth */
 import React, { useContext, useEffect } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { useSearchParams, Navigate } from 'react-router-dom';
 import Context from '../context/Context';
 import '../css/checkout.css';
 import { removeLocalStorage } from '../services/localStorage';
 
 export default function CheckoutResponse() {
-  const { checkoutResponse, setCartItems, setCartItemsData, setCheckoutResponse, setLoading, setAlert } = useContext(Context);
-  const { id } = useParams();
+  const { checkoutResponse, setCartItems, setCartItemsData, setLoading, setAlert } = useContext(Context);
+  const [searchParams] = useSearchParams();
+  const paymentId = searchParams.get('payment_id');
 
-  if (!id) {
-    return <Navigate to="/checkout" />;
-  }
+  // if (!paymentId) return <Navigate to="/checkout" />;
 
   const mp = new MercadoPago(process.env.REACT_APP_PROJECT_PUBLIC_KEY);
   const bricksBuilder = mp.bricks();
 
   const renderStatusScreenBrick = async (param) => {
+    setLoading((prevLoading) => prevLoading + 1);
     const settings = {
       initialization: {
-        paymentId: id, // id de pagamento gerado pelo Mercado Pago
+        paymentId, // id de pagamento gerado pelo Mercado Pago
       },
       callbacks: {
         onReady: () => {
@@ -32,7 +32,6 @@ export default function CheckoutResponse() {
           setAlert({
             ok: false,
             message: 'Desculpe... serviço indisponível, tente mais tarde',
-            time: 5000,
           });
           console.log(error);
         },
@@ -46,26 +45,16 @@ export default function CheckoutResponse() {
   };
 
   useEffect(() => {
-    if (!checkoutResponse) {
-      setLoading((prevLoading) => prevLoading + 1);
-      fetch(`https://api.mercadopago.com/v1/payments/${id}?access_token=${process.env.REACT_APP_PROJECT_ACCESS_TOKEN}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setCheckoutResponse(data);
-        });
-      setLoading((prevLoading) => prevLoading - 1);
-    } else {
-      renderStatusScreenBrick(bricksBuilder);
-    }
-  }, [checkoutResponse]);
-
-  useEffect(() => {
     if (checkoutResponse?.status === 'approved') {
       removeLocalStorage('cart');
       setCartItems();
       setCartItemsData();
     }
   }, [checkoutResponse]);
+
+  useEffect(() => {
+    if (paymentId) renderStatusScreenBrick(bricksBuilder);
+  }, [paymentId]);
 
   return (
     <section className="shopping-cart light">

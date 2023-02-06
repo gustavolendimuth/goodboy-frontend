@@ -54,14 +54,14 @@ function App() {
           <Route element={ <ProductDetails /> } path="/produto/:id" />
           <Route element={ <Cart /> } path="/carrinho" />
           <Route element={ <Checkout /> } path="/checkout" />
-          <Route element={ <CheckoutResponse /> } path="/checkout/compra/:id" />
+          <Route element={ <CheckoutResponse /> } path="/checkout/compra" />
           <Route element={ <Login /> } path="/login/:email/:magicLink" />
           <Route element={ <Login /> } path="/login" />
           <Route element={ <Orders /> } path="/compras" />
           <Route element={ <Orders /> } path="/compras" />
           <Route element={ <CategoryResult /> } path="/categoria/:mainCategory/:subCategory" />
           <Route element={ <SearchResult /> } path="/search/:searchInput" />
-          <Route element={ <Home /> } path="*" />
+          {/* <Route element={ <Home /> } path="*" /> */}
         </Routes>
       </main>
       <Footer />
