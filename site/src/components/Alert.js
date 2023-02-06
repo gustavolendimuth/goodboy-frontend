@@ -26,10 +26,10 @@ function Alert() {
   if (!alert) return null;
 
   return (
-    <div className="overlay">
+    <div className={ alert.overlay ? 'alert-overlay' : 'overlay' }>
       <div className="scale-up-center">
         <div
-          className={ `alert alert-message ${alert.ok ? 'alert-success' : ' alert-danger'} alert-dismissible fade show d-flex align-items-center` }
+          className={ `alert alert-message ${alert.ok ? 'alert-success' : ' alert-danger'} ${alert.keep ? '' : 'alert-dismissible'} fade show d-flex align-items-center` }
           role="alert"
         >
           <div>
@@ -40,7 +40,16 @@ function Alert() {
             </strong>
           </div>
           {alert.message}
-          <button onClick={ () => setAlert() } type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" />
+          {
+            !alert.keep
+            && <button
+              onClick={ () => setAlert() }
+              type="button"
+              className="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            />
+          }
         </div>
       </div>
     </div>
