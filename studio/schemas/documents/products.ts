@@ -12,6 +12,7 @@ export default {
       name: 'photo',
       type: 'figure',
       title: 'Foto',
+      validation: (Rule:any) => Rule.required(),
     },
     {
       name: 'price',
