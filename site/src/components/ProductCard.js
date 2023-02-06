@@ -16,14 +16,26 @@ export default function ProductCard({ product }) {
     <div className="col" key={ product.title }>
       <div className="product-card gap-3 card h-100 d-flex flex-column justify-content-between align-items-center p-4">
         <Link to={ `/produto/${product._id}` }>
-          <img
-            src={ urlFor(product.photo.image)
-              .format('webp').quality(90).height(250)
-              .url() }
-            className="product-image img-fluid"
-            alt={ product.photo.alt }
-            loading="lazy"
-          />
+          {
+            product.photo.image.asset._ref ? (
+              <img
+                src={ urlFor(product.photo.image)
+                  .format('webp').quality(90).height(250)
+                  .url() }
+                className="product-image img-fluid"
+                alt={ product.photo.alt }
+                loading="lazy"
+              />
+            ) : (
+              <div
+                width="200px"
+                height="200px"
+                className="rounded bg-primary d-flex flex-column justify-content-center align-items-center"
+              >
+                <h1>Foto</h1>
+              </div>
+            )
+          }
         </Link>
         <div>
           <Link className="text-decoration-none" to={ `/produto/${product._id}` }>
