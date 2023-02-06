@@ -61,7 +61,7 @@ function App() {
           <Route element={ <Orders /> } path="/compras" />
           <Route element={ <CategoryResult /> } path="/categoria/:mainCategory/:subCategory" />
           <Route element={ <SearchResult /> } path="/search/:searchInput" />
-          {/* <Route element={ <Home /> } path="*" /> */}
+          <Route element={ <Home /> } path="*" />
         </Routes>
       </main>
       <Footer />
