@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-max-depth */
 import React, { useContext, useEffect } from 'react';
-import { useSearchParams, Navigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Context from '../context/Context';
 import '../css/checkout.css';
 import { removeLocalStorage } from '../services/localStorage';
