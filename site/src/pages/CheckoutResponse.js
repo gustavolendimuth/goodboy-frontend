@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-max-depth */
 import React, { useContext, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import Context from '../context/Context';
 import '../css/checkout.css';
 import { removeLocalStorage } from '../services/localStorage';
@@ -12,7 +12,7 @@ export default function CheckoutResponse() {
   const [searchParams] = useSearchParams();
   const paymentId = searchParams.get('payment_id');
 
-  // if (!paymentId) return <Navigate to="/checkout" />;
+  if (!paymentId) return <Navigate to="/checkout" />;
 
   const mp = new MercadoPago(process.env.REACT_APP_PROJECT_PUBLIC_KEY);
   const bricksBuilder = mp.bricks();

@@ -138,7 +138,9 @@ export default function Checkout() {
 
   useEffect(() => {
     if (checkoutResponse) {
-      navigate(`/checkout/compra?paymentId=${checkoutResponse.id}`);
+      navigate(`/checkout/compra?payment_id=${checkoutResponse.id}`);
+      setLoading((prevLoading) => prevLoading - 1);
+
       // window.location.reload(true);
     }
   }, [checkoutResponse]);
