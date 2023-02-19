@@ -46,7 +46,7 @@ export default async ({ query, id, mainCategory, subCategory, searchInput }) => 
       *[_type == "products" && ${JSON.stringify(mainCategory)} in categories[]->slug.current &&  ${JSON.stringify(subCategory)} in categories[]->slug.current ]{
       ... , "categories": categories[]->name
     }`,
-    searchProducts: groq`*[_type == "products" && title match "${searchInput}"] | order(_createdAt asc) {
+    searchProducts: groq`*[_type == "products" && title in "${searchInput}"] | order(_createdAt asc) {
       _id, title, photo, price, description,
       "categories": categories[]->name,
     }`,

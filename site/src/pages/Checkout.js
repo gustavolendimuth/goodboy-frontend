@@ -12,7 +12,7 @@ import Context from '../context/Context';
 import '../css/checkout.css';
 import useCartItemsData from '../hooks/useCartItemsData';
 import currencyFormatter from '../services/currencyFormatter';
-import fetchAPI from '../services/fetchAPI';
+import fetchOrders from '../services/fetchOrders';
 
 export default function Checkout() {
   const {
@@ -35,10 +35,14 @@ export default function Checkout() {
 
   const mercadopago = new MercadoPago(process.env.REACT_APP_PROJECT_PUBLIC_KEY);
 
-  const processPayment = async (formData) => {
+  const processPayment = async (formData, preferenceId) => {
     setLoading((prevLoading) => prevLoading + 1);
 
-    const { result, error } = await fetchAPI({ endpoint: 'process_payment', method: 'POST', body: { formData, items } });
+    const { result, error } = await fetchOrders({
+      endpoint: 'process_payment',
+      method: 'POST',
+      body: { formData, items, preferenceId },
+    });
 
     if (error || result.message || !result) {
       setLoading((prevLoading) => prevLoading - 1);
@@ -50,7 +54,8 @@ export default function Checkout() {
 
   const loadPaymentForm = async () => {
     setLoading((prevLoading) => prevLoading + 1);
-    const { result: preferenceId } = await fetchAPI({ endpoint: 'preference', method: 'POST', body: { items } });
+    const { result: preferenceId } = await fetchOrders({ endpoint: 'preference', method: 'POST', body: { items } });
+
     const settings = {
       initialization: {
         amount: total,
@@ -66,15 +71,13 @@ export default function Checkout() {
             ok: false,
             message: 'Dados inválidos, verifique os campos e tente novamente',
           });
-          window.cardPaymentBrickController.unmount();
-          loadPaymentForm();
         },
         onSubmit: ({ selectedPaymentMethod, formData, paymentType }) => new Promise(() => {
           if (selectedPaymentMethod === 'wallet_purchase') {
             setAlert({ ok: true, message: 'Finalize o pagamento na aba do Mercado Pago', keep: true, overlay: true });
             return;
           }
-          processPayment(formData)
+          processPayment(formData, preferenceId)
             .then((result) => {
               if (result) setCheckoutResponse(result);
             })

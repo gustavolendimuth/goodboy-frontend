@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
 import Context from '../context/Context';
 import { getLocalStorage, removeLocalStorage, setLocalStorage } from '../services/localStorage';
-import fetchAPI from '../services/fetchAPI';
+import fetchOrders from '../services/fetchOrders';
 
 const useToken = () => {
   const {
@@ -20,7 +20,7 @@ const useToken = () => {
     const verifyToken = async (param) => {
       setLoading((prevLoading) => prevLoading + 1);
 
-      const { response, result } = await fetchAPI({ endpoint: 'login', method: 'POST', body: { token: param } });
+      const { response, result } = await fetchOrders({ endpoint: 'login', method: 'POST', body: { token: param } });
 
       if (!response.ok) {
         setToken();

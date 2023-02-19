@@ -8,6 +8,7 @@
 
 .spinner-modal {
   background-color: var(--bs-secondary);
+  border: 4px solid var(--bs-light);
   border-radius: 12px;
   display: block;
   left: 50%;

@@ -1,6 +1,9 @@
 export default async ({ endpoint, method, token, body }) => {
+  const url = new URL(process.env.REACT_APP_PROJECT_API_URL);
+  url.pathname = endpoint;
+
   try {
-    const response = await fetch(`${process.env.REACT_APP_PROJECT_API_URL}/${endpoint}`, {
+    const response = await fetch(url, {
       method,
       headers: {
         'Content-Type': 'application/json',
@@ -11,6 +14,7 @@ export default async ({ endpoint, method, token, body }) => {
     const result = await response.json();
     return { response, result };
   } catch (error) {
+    console.log(error);
     return { error };
   }
 };

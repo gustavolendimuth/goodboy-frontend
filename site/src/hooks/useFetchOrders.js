@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from 'react';
 import Context from '../context/Context';
-import fetchAPI from '../services/fetchAPI';
+import fetchOrders from '../services/fetchOrders';
 
 const useFetchOrders = ({ method }) => {
   const { token, setAlert, setLoading, setOrders, user, setOrdersIsFinished } = useContext(Context);
 
   useEffect(() => {
-    const fetchOrders = async () => {
+    const getOrders = async () => {
       let response;
       let result;
 
@@ -16,7 +16,7 @@ const useFetchOrders = ({ method }) => {
       try {
         setLoading((prevLoading) => prevLoading + 1);
 
-        const data = await fetchAPI({ endpoint: 'order', method: 'GET', token });
+        const data = await fetchOrders({ endpoint: 'order', method: 'GET', token });
         result = data.result;
         response = data.response;
 
@@ -38,7 +38,7 @@ const useFetchOrders = ({ method }) => {
       setOrdersIsFinished(true);
     };
 
-    fetchOrders();
+    getOrders();
   }, [user]);
 };
 

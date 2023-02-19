@@ -2,7 +2,7 @@
 import jwtDecode from 'jwt-decode';
 import { useContext, useEffect } from 'react';
 import Context from '../context/Context';
-import fetchAPI from '../services/fetchAPI';
+import fetchOrders from '../services/fetchOrders';
 
 const useLogin = ({ email = '', magicLink = '' }) => {
   const { setAlert, loginForm, setLoading, setUser, setToken } = useContext(Context);
@@ -21,7 +21,7 @@ const useLogin = ({ email = '', magicLink = '' }) => {
             body.magicLink = magicLink;
           }
 
-          const data = await fetchAPI({ endpoint: 'login', method: 'POST', body });
+          const data = await fetchOrders({ endpoint: 'login', method: 'POST', body });
           result = data.result;
           response = data.response;
 
