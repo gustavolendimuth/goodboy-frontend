@@ -13,108 +13,42 @@ import '../css/checkout.css';
 import useCartItemsData from '../hooks/useCartItemsData';
 import currencyFormatter from '../services/currencyFormatter';
 import fetchOrders from '../services/fetchOrders';
+import LoadPaymentForm from '../hooks/LoadPaymentForm';
 
 export default function Checkout() {
   const {
     checkoutResponse,
-    setCheckoutResponse,
     total,
     cartItemsData,
     getItemQuantity,
     cartLocalStorage,
     cartItems,
     setLoading,
-    setAlert,
+    items,
+    setItems,
   } = useContext(Context);
-  const [items, setItems] = useState();
+
   const paymentFormLoaded = useRef(false);
-  const errorMessage = 'Desculpe... serviço indisponível, tente mais tarde';
-  let cardPaymentBrickController;
 
   const navigate = useNavigate();
+  const loadPaymentForm = LoadPaymentForm();
 
-  const mercadopago = new MercadoPago(process.env.REACT_APP_PROJECT_PUBLIC_KEY);
-
-  const processPayment = async (formData, preferenceId) => {
-    setLoading((prevLoading) => prevLoading + 1);
-
-    const { result, error } = await fetchOrders({
-      endpoint: 'process_payment',
-      method: 'POST',
-      body: { formData, items, preferenceId },
-    });
-
-    if (error || result.message || !result) {
-      setLoading((prevLoading) => prevLoading - 1);
-      setAlert({ ok: false, message: errorMessage });
-      return;
-    }
-    return result;
-  };
-
-  const loadPaymentForm = async () => {
-    setLoading((prevLoading) => prevLoading + 1);
-    const { result: preferenceId } = await fetchOrders({ endpoint: 'preference', method: 'POST', body: { items } });
-
-    const settings = {
-      initialization: {
-        amount: total,
-        preferenceId,
-        items,
-      },
-      callbacks: {
-        onReady: () => {
-          setLoading((prevLoading) => prevLoading - 1);
-        },
-        onError: (error) => {
-          setAlert({
-            ok: false,
-            message: 'Dados inválidos, verifique os campos e tente novamente',
-          });
-        },
-        onSubmit: ({ selectedPaymentMethod, formData, paymentType }) => new Promise(() => {
-          if (selectedPaymentMethod === 'wallet_purchase') {
-            setAlert({ ok: true, message: 'Finalize o pagamento na aba do Mercado Pago', keep: true, overlay: true });
-            return;
-          }
-          processPayment(formData, preferenceId)
-            .then((result) => {
-              if (result) setCheckoutResponse(result);
-            })
-            .catch((error) => {
-              setLoading((prevLoading) => prevLoading - 1);
-              setAlert({ ok: false, message: errorMessage });
-            });
-        }),
-      },
-      locale: 'pt-BR',
-      customization: {
-        paymentMethods: {
-          creditCard: 'all',
-          debitCard: 'all',
-          bankTransfer: 'all',
-          mercadoPago: ['wallet_purchase'],
-        },
-        visual: {
-          style: {
-            theme: 'light',
-            customVariables: {
-              formBackgroundColor: '#ffffff',
-              baseColor: 'gray',
-            },
-          },
-        },
-      },
-    };
-
-    const bricks = await mercadopago.bricks();
-    window.cardPaymentBrickController = await bricks.create('payment', 'mercadopago-bricks-container__PaymentCard', settings);
-  };
+  useEffect(() => {
+    if (!cartItemsData || items) return;
+    setItems(
+      cartItemsData?.map((item) => ({
+        productId: item._id,
+        title: item.title,
+        quantity: getItemQuantity(item._id),
+        unitPrice: item.price,
+      })),
+    );
+  }, [cartItemsData, items, getItemQuantity]);
 
   useEffect(() => {
     if (!checkoutResponse && total && items && !paymentFormLoaded.current) {
       if (window.cardPaymentBrickController) window.cardPaymentBrickController.unmount();
-      loadPaymentForm();
+      window.cardPaymentBrickController = loadPaymentForm();
       paymentFormLoaded.current = true;
     }
   }, [items, total]);
@@ -128,23 +62,9 @@ export default function Checkout() {
   useCartItemsData();
 
   useEffect(() => {
-    if (!cartItemsData || items) return;
-    setItems(
-      cartItemsData?.map((item) => ({
-        productId: item._id,
-        title: item.title,
-        quantity: getItemQuantity(item._id),
-        unitPrice: item.price,
-      })),
-    );
-  }, [cartItemsData]);
-
-  useEffect(() => {
     if (checkoutResponse) {
       navigate(`/checkout/compra?payment_id=${checkoutResponse.id}`);
       setLoading((prevLoading) => prevLoading - 1);
-
-      // window.location.reload(true);
     }
   }, [checkoutResponse]);
 

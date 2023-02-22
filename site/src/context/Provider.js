@@ -23,6 +23,7 @@ export default function Provider({ children }) {
   const [ordersIsFinished, setOrdersIsFinished] = useState(false);
   const [allCategories, setAllCategories] = useState();
   const [salesAndSpotlights, setSalesAndSpotlights] = useState();
+  const [items, setItems] = useState();
 
   const getItemQuantity = (id) => cartItems?.find((item) => item.id === id)?.quantity || 0;
 
@@ -111,6 +112,8 @@ export default function Provider({ children }) {
     setAllCategories,
     salesAndSpotlights,
     setSalesAndSpotlights,
+    items,
+    setItems,
   };
 
   return (
