@@ -46,11 +46,16 @@ export default function Checkout() {
   }, [cartItemsData, items, getItemQuantity]);
 
   useEffect(() => {
-    if (!checkoutResponse && total && items && !paymentFormLoaded.current) {
-      if (window.cardPaymentBrickController) window.cardPaymentBrickController.unmount();
-      window.cardPaymentBrickController = loadPaymentForm();
-      paymentFormLoaded.current = true;
-    }
+    const mountCardPaymentBrickController = async () => {
+      if (!checkoutResponse && total && items && !paymentFormLoaded.current) {
+        const cardPaymentBrickController = await window.cardPaymentBrickController;
+        console.log(cardPaymentBrickController);
+        if (cardPaymentBrickController) cardPaymentBrickController.unmount();
+        window.cardPaymentBrickController = loadPaymentForm();
+        paymentFormLoaded.current = true;
+      }
+    };
+    mountCardPaymentBrickController();
   }, [items, total]);
 
   useEffect(() => {
