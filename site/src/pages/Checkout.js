@@ -1,18 +1,12 @@
-/* eslint-disable react-func/max-lines-per-function */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable sonarjs/no-use-of-empty-return-value */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useContext, useState, useRef } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Context from '../context/Context';
 import '../css/checkout.css';
 import useCartItemsData from '../hooks/useCartItemsData';
 import currencyFormatter from '../services/currencyFormatter';
-import fetchOrders from '../services/fetchOrders';
 import LoadPaymentForm from '../hooks/LoadPaymentForm';
 
 export default function Checkout() {
@@ -24,39 +18,10 @@ export default function Checkout() {
     cartLocalStorage,
     cartItems,
     setLoading,
-    items,
-    setItems,
   } = useContext(Context);
 
-  const paymentFormLoaded = useRef(false);
-
   const navigate = useNavigate();
-  const loadPaymentForm = LoadPaymentForm();
-
-  useEffect(() => {
-    if (!cartItemsData || items) return;
-    setItems(
-      cartItemsData?.map((item) => ({
-        productId: item._id,
-        title: item.title,
-        quantity: getItemQuantity(item._id),
-        unitPrice: item.price,
-      })),
-    );
-  }, [cartItemsData, items, getItemQuantity]);
-
-  useEffect(() => {
-    const mountCardPaymentBrickController = async () => {
-      if (!checkoutResponse && total && items && !paymentFormLoaded.current) {
-        const cardPaymentBrickController = await window.cardPaymentBrickController;
-        console.log(cardPaymentBrickController);
-        if (cardPaymentBrickController) cardPaymentBrickController.unmount();
-        window.cardPaymentBrickController = loadPaymentForm();
-        paymentFormLoaded.current = true;
-      }
-    };
-    mountCardPaymentBrickController();
-  }, [items, total]);
+  LoadPaymentForm();
 
   useEffect(() => {
     if (cartLocalStorage && !cartItems?.length) {

@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react-func/max-lines-per-function */
 /* eslint-disable import/prefer-default-export */
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import fetchOrders from '../services/fetchOrders';
 import Context from '../context/Context';
 
@@ -15,9 +16,26 @@ export default function LoadPaymentForm() {
     setLoading,
     setAlert,
     items,
+    cartItemsData,
+    getItemQuantity,
+    setItems,
+    checkoutResponse,
   } = useContext(Context);
 
   const mercadopago = new MercadoPago(process.env.REACT_APP_PROJECT_PUBLIC_KEY);
+  const paymentFormLoaded = useRef(false);
+
+  useEffect(() => {
+    if (!cartItemsData) return;
+    setItems(
+      cartItemsData?.map((item) => ({
+        id: item._id,
+        title: item.title,
+        quantity: getItemQuantity(item._id),
+        unit_price: item.price,
+      })),
+    );
+  }, [cartItemsData]);
 
   const processPayment = async (formData) => {
     setLoading((prevLoading) => prevLoading + 1);
@@ -65,6 +83,7 @@ export default function LoadPaymentForm() {
           processPayment(formData)
             .then((result) => {
               if (result) setCheckoutResponse(result);
+              return result;
             })
             .catch((error) => {
               console.log(error);
@@ -97,7 +116,21 @@ export default function LoadPaymentForm() {
     return bricks.create('payment', 'mercadopago-bricks-container__PaymentCard', settings);
   };
 
-  if (!items) return null;
+  useEffect(() => {
+    let cardPaymentBrickController;
 
-  return loadPaymentForm;
+    const mountCardPaymentBrickController = async () => {
+      if (!checkoutResponse && total && items && !paymentFormLoaded.current) {
+        cardPaymentBrickController = await window.cardPaymentBrickController;
+        if (cardPaymentBrickController) cardPaymentBrickController.unmount();
+        window.cardPaymentBrickController = loadPaymentForm();
+        paymentFormLoaded.current = true;
+      }
+    };
+    mountCardPaymentBrickController();
+    return () => {
+      paymentFormLoaded.current = false;
+      if (cardPaymentBrickController) cardPaymentBrickController.unmount();
+    };
+  }, [items, total]);
 }
