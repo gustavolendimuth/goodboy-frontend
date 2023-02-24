@@ -3,7 +3,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react-func/max-lines-per-function */
 /* eslint-disable import/prefer-default-export */
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import fetchOrders from '../services/fetchOrders';
 import Context from '../context/Context';
 
@@ -22,8 +22,8 @@ export default function LoadPaymentForm() {
     checkoutResponse,
   } = useContext(Context);
 
+  const [paymentFormLoaded, setPaymentFormLoaded] = useState(false);
   const mercadopago = new MercadoPago(process.env.REACT_APP_PROJECT_PUBLIC_KEY);
-  const paymentFormLoaded = useRef(false);
 
   useEffect(() => {
     if (!cartItemsData) return;
@@ -120,16 +120,16 @@ export default function LoadPaymentForm() {
     let cardPaymentBrickController;
 
     const mountCardPaymentBrickController = async () => {
-      if (!checkoutResponse && total && items && !paymentFormLoaded.current) {
+      if (!checkoutResponse && total && items && !paymentFormLoaded) {
         cardPaymentBrickController = await window.cardPaymentBrickController;
         if (cardPaymentBrickController) cardPaymentBrickController.unmount();
         window.cardPaymentBrickController = loadPaymentForm();
-        paymentFormLoaded.current = true;
+        setPaymentFormLoaded(true);
       }
     };
     mountCardPaymentBrickController();
     return () => {
-      paymentFormLoaded.current = false;
+      setPaymentFormLoaded(false);
       if (cardPaymentBrickController) cardPaymentBrickController.unmount();
     };
   }, [items, total]);
