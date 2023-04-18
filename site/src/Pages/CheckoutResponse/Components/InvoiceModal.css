@@ -1,0 +1,11 @@
+/* stylelint-disable max-line-length */
+
+/* stylelint-disable selector-no-qualifying-type */
+input[ type = 'number' ]::-webkit-inner-spin-button, input[ type = 'number' ]::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.invoice-modal .btn-close {
+  padding-top: 1.5rem !important;
+}

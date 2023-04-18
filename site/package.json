@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^3.0.0",
     "@popperjs/core": "^2.11.6",
     "@portabletext/to-html": "^1.0.3",
     "@sanity/client": "^3.3.6",
@@ -15,9 +16,12 @@
     "eslint": "^8.29.0",
     "groq": "^2.33.2",
     "html-react-parser": "^3.0.4",
+    "jquery": "^3.6.4",
+    "jquery-mask-plugin": "^1.14.16",
     "jwt-decode": "^3.1.2",
     "mdb-react-ui-kit": "^5.1.0",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.40.0",
     "react-icons": "^4.6.0",
@@ -27,7 +31,8 @@
     "sass": "^1.56.2",
     "string-remove": "^1.0.3",
     "web-vitals": "^2.1.4",
-    "words-n-numbers": "^7.1.2"
+    "words-n-numbers": "^7.1.2",
+    "zod": "^3.21.4"
   },
   "scripts": {
     "start": "react-scripts start",

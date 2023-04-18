@@ -1,3 +1,7 @@
+import MaskedInput from '../components/MaskedInput';
+
+const mask = '9999.99.99';
+
 export default {
   name: 'products',
   type: 'document',
@@ -24,6 +28,16 @@ export default {
       name: 'description',
       type: 'text',
       title: 'Descrição',
+    },
+    {
+      name: 'ncm',
+      type: 'string',
+      title: 'Código NCM',
+      components: {
+        input: MaskedInput,
+      },
+      validation: (Rule:any) => Rule.required().length(10),
+      description: 'Código NCM do produto. Para rações e semelhantes usar 2309.10.00. Para outros itens, consultar o site da Receita Federal.',
     },
     {
       name: 'sale',

@@ -1,32 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// Páginas
-import Login from './pages/Login';
-import Home from './pages/Home';
-import CategoryResult from './pages/CategoryResult';
-import SearchResult from './pages/SearchResult';
-import ProductDetails from './pages/ProductDetails';
-import Cart from './pages/Cart';
-import Checkout from './pages/Checkout';
-import CheckoutResponse from './pages/CheckoutResponse';
-import Orders from './pages/Orders';
-// Componentes
-import Footer from './components/Footer';
-import Navbar from './components/Navbar';
-import Categories from './components/Categories';
-import Alert from './components/Alert';
-import Loading from './components/Loading';
-// Hooks customizados
-import useToken from './hooks/useToken';
-import useCartLocalStorage from './hooks/useCartLocalStorage';
-import useProducts from './hooks/useProducts';
-import ScrollToTop from './hooks/ScrollToTop';
-// CSS
+// Pages
+import Login from './Pages/Login/Login';
+import Home from './Pages/Home/Home';
+import CategoryResult from './Pages/Category/Category';
+import SearchResult from './Pages/SearchResult/SearchResult';
+import ProductDetails from './Pages/ProductDetails/ProductDetails';
+import Cart from './Pages/Cart/Cart';
+import Checkout from './Pages/Checkout/Checkout';
+import CheckoutResponse from './Pages/CheckoutResponse/CheckoutResponse';
+import Orders from './Pages/Orders/Orders';
+// Components
+import Footer from './Pages/Components/Footer/Footer';
+import Navbar from './Pages/Components/Navbar/Navbar';
+import Categories from './Pages/Components/CategoriesBar/CategoriesBar';
+import Alert from './Pages/Components/Alert/Alert';
+import Loading from './Pages/Components/Loading/Loading';
+// Hooks
+import useToken from './Hooks/useToken';
+import useCartLocalStorage from './Hooks/useCartLocalStorage';
+import useProducts from './Hooks/useProducts';
+import ScrollToTop from './Hooks/ScrollToTop';
+// Styles
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './css/main.css';
-import './css/custom.scss';
-import FloatingButtons from './components/FloatingButtons';
+import './Pages/assets/styles/main.css';
+import './Pages/assets/styles/custom.scss';
+import FloatingButtons from './Pages/Components/FloatingButtons/FloatingButtons';
 
 function App() {
   // A função useToken é responsável por verificar o token ao abrir a página e salvar no localStorage após o login
