@@ -9,3 +9,7 @@ input[ type = 'number' ]::-webkit-inner-spin-button, input[ type = 'number' ]::-
 .invoice-modal .btn-close {
   padding-top: 1.5rem !important;
 }
+
+.invoice-modal {
+  z-index: 1000;
+}

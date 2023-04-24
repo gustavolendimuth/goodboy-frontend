@@ -77,6 +77,7 @@ export default function usePaymentForm() {
           processPayment(formData)
             .then((result) => {
               if (result) setCheckoutResponse(result);
+              console.log(result);
               return result;
             })
             .catch((error) => {

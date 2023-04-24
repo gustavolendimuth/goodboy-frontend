@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 // Libraries
 import { Button, Modal, Form, Container, Row, Col } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
@@ -12,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import fetchOrders from '../../../utils/fetchOrders';
 // Styles
 import './InvoiceModal.css';
+import Context from '../../../Context/Context';
 
 const schema = z.object({
   name: z.string().min(3, 'no mínimo 3 caracteres'),
@@ -19,12 +20,23 @@ const schema = z.object({
   number: z.string().min(1, 'maior do que 0'),
   complement: z.string().optional(),
   neighborhood: z.string().min(3, 'no mínimo 3 caracteres'),
-  postalCode: z.string().min(9, '8 números'),
+  postalCode: z.string().regex(/^\d{5}-\d{3}$/, 'CEP inválido'),
   paymentId: z.string(),
+  cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'CPF inválido'),
 });
 
 export default function InvoiceModal({ paymentId, status }) {
   const [showModal, setShowModal] = useState(false);
+  const { setAlert, setLoading } = useContext(Context);
+
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      paymentId,
+    },
+  });
+
+  const closeModal = () => setShowModal(false);
 
   useEffect(() => {
     if (status === 'approved') {
@@ -33,25 +45,34 @@ export default function InvoiceModal({ paymentId, status }) {
   }, [status]);
 
   useEffect(() => {
-    $('#cep').mask('00000-000');
-  });
+    const $cep = $('#cep');
+    $cep.mask('00000-000');
+    $cep.on('change', () => {
+      setValue('postalCode', $cep.val(), { shouldValidate: true });
+    });
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      paymentId,
-    },
+    const $cpf = $('#cpf');
+    $cpf.mask('000.000.000-00');
+    $cpf.on('change', () => {
+      setValue('cpf', $cpf.val(), { shouldValidate: true });
+    });
+    return () => {
+      $cep.off('change');
+      $cpf.off('change');
+    };
   });
 
   const sendFormData = async (data) => {
+    setLoading((prevLoading) => prevLoading + 1);
+    closeModal();
     const response = await fetchOrders({ endpoint: 'tiny_order', method: 'POST', body: data });
     console.log(response);
+    setAlert({ ok: true, message: 'Nota fiscal emitida. Você receberá um e-mail com a nota fiscal', overlay: true });
+    setLoading((prevLoading) => prevLoading - 1);
   };
 
-  const closeModal = () => setShowModal(false);
-
   return (
-    <Modal show={ showModal } onHide={ closeModal } className="invoice-modal">
+    <Modal show={ showModal } onHide={ closeModal } backdrop="static" keyboard="false" className="invoice-modal">
       <Container>
         <Modal.Header className="border-bottom-0 pt-5 px-lg-5 pb-4 d-flex align-items-start" closeButton>
           <Modal.Title className="fw-bold mb-0 fs-lg-2 fs-4">
@@ -66,6 +87,11 @@ export default function InvoiceModal({ paymentId, status }) {
               <Form.Control { ...register('name') } type="text" className="rounded-3" placeholder="Nome na nota" />
               <Form.Label>Nome na nota</Form.Label>
               { errors.name && <Form.Text className="text-danger">{ errors.name.message }</Form.Text> }
+            </Form.Group>
+            <Form.Group className="form-floating" controlId="cpf">
+              <Form.Control { ...register('cpf') } type="text" className="rounded-3" placeholder="CPF" />
+              <Form.Label>CPF</Form.Label>
+              { errors.cpf && <Form.Text className="text-danger">{ errors.cpf.message }</Form.Text> }
             </Form.Group>
             <Form.Group className="form-floating" controlId="endereco">
               <Form.Control { ...register('address') } type="text" className="rounded-3" placeholder="Endereço" />

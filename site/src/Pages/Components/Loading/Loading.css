@@ -17,5 +17,5 @@
   text-align: center;
   top: 50%;
   transform: translateY(-50%) translateX(-50%);
-  z-index: 101;
+  z-index: 2000;
 }

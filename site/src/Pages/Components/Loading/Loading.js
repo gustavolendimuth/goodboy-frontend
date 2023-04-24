@@ -11,7 +11,7 @@ function Loading() {
     const timer = setTimeout(() => {
       setLoading(0);
       setAlert({ ok: false, message: 'Ops... estamos com problemas, tente novamente mais tarde.' });
-    }, 10000);
+    }, 20000);
 
     if (!loading) {
       clearTimeout(timer);

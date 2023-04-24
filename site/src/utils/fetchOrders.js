@@ -8,6 +8,7 @@ export default async ({ endpoint, method, token, body }) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: token,
+        Token: process.env.REACT_APP_PROJECT_API_TOKEN,
       },
       body: JSON.stringify(body),
     });
