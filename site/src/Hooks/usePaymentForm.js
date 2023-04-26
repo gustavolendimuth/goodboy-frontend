@@ -94,6 +94,7 @@ export default function usePaymentForm() {
           debitCard: 'all',
           bankTransfer: 'all',
           mercadoPago: ['wallet_purchase'],
+          maxInstallments: 1,
         },
         visual: {
           style: {

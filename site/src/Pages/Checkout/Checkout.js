@@ -32,7 +32,7 @@ export default function Checkout() {
 
   useEffect(() => {
     if (checkoutResponse) {
-      navigate(`/checkout/compra?payment_id=${checkoutResponse.id}&status=${checkoutResponse.status}`);
+      navigate(`/checkout/compra?payment_id=${checkoutResponse.id}`);
       setLoading((prevLoading) => prevLoading - 1);
     }
   }, [checkoutResponse]);

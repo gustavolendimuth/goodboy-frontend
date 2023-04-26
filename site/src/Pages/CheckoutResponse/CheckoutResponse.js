@@ -9,6 +9,7 @@ import InvoiceModal from './Components/InvoiceModal';
 import { removeLocalStorage } from '../../utils/localStorage';
 // Styles
 import '../Checkout/Checkout.css';
+import fetchMercadoPago from '../../utils/fetchMercadoPago';
 
 export default function CheckoutResponse() {
   const {
@@ -22,9 +23,8 @@ export default function CheckoutResponse() {
 
   const [statusBrickFormLoaded, setStatusBrickFormLoaded] = useState(false);
   const [searchParams] = useSearchParams();
-  const paymentId = searchParams.get('payment_id');
-  const status = searchParams.get('status');
   let statusBrickController;
+  const paymentId = searchParams.get('payment_id');
 
   const mercadopago = new MercadoPago(process.env.REACT_APP_PROJECT_PUBLIC_KEY);
 
@@ -57,27 +57,44 @@ export default function CheckoutResponse() {
   };
 
   useEffect(() => {
-    if (checkoutResponse?.status === 'approved' || status === 'approved') {
-      removeLocalStorage('cart');
-      setCartItems();
-      setCartItemsData();
-      setCheckoutResponse();
-    }
-  }, [checkoutResponse, status]);
+    const checkoutResponseCheck = async () => {
+      if (!checkoutResponse && paymentId) {
+        setLoading((prevLoading) => prevLoading + 1);
+        const { result } = await fetchMercadoPago(paymentId);
+        console.log(result);
+        setCheckoutResponse(result);
+        setLoading((prevLoading) => prevLoading - 1);
+      }
+
+      if (checkoutResponse?.status === 'approved') {
+        removeLocalStorage('cart');
+        setCartItems();
+        setCartItemsData();
+      }
+    };
+    checkoutResponseCheck();
+  }, [checkoutResponse]);
 
   useEffect(() => {
     const statusBrickLoad = async () => {
-      if (paymentId && status && !statusBrickFormLoaded) {
+      if (paymentId && !statusBrickFormLoaded) {
         statusBrickController = await window.statusBrickController;
         if (statusBrickController) statusBrickController.unmount();
         await renderStatusBrick();
         setStatusBrickFormLoaded(true);
       }
+
+      const handleWindowFocus = () => {
+        window.location.reload();
+      };
+
+      window.addEventListener('focus', handleWindowFocus);
     };
     statusBrickLoad();
     return () => {
       setStatusBrickFormLoaded(false);
       if (statusBrickController) statusBrickController.unmount();
+      window.removeEventListener('focus', handleWindowFocus);
     };
   }, []);
 
@@ -85,7 +102,11 @@ export default function CheckoutResponse() {
 
   return (
     <section className="form-payment shopping-cart light">
-      <InvoiceModal paymentId={ paymentId } status={ checkoutResponse?.status || status } />
+      {
+        checkoutResponse?.status === 'approved' && (
+          <InvoiceModal paymentId={ paymentId } status={ checkoutResponse?.status } />
+        )
+      }
       <div className="container container__payment">
         <div className="section-title text-center pt-5 pb-4">
           <h1>Dados do Pagamento</h1>
