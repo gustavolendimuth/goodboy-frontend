@@ -9,7 +9,7 @@ import InvoiceModal from './Components/InvoiceModal';
 import { removeLocalStorage } from '../../utils/localStorage';
 // Styles
 import '../Checkout/Checkout.css';
-import fetchMercadoPago from '../../utils/fetchMercadoPago';
+import fetchOrders from '../../utils/fetchOrders';
 
 export default function CheckoutResponse() {
   const {
@@ -25,6 +25,7 @@ export default function CheckoutResponse() {
   const [searchParams] = useSearchParams();
   let statusBrickController;
   const paymentId = searchParams.get('payment_id');
+  // const [status, setStatus] = useState();
 
   const mercadopago = new MercadoPago(process.env.REACT_APP_PROJECT_PUBLIC_KEY);
 
@@ -60,8 +61,10 @@ export default function CheckoutResponse() {
     const checkoutResponseCheck = async () => {
       if (!checkoutResponse && paymentId) {
         setLoading((prevLoading) => prevLoading + 1);
-        const { result } = await fetchMercadoPago(paymentId);
-        console.log(result);
+        const { result } = await fetchOrders({
+          endpoint: `order/${paymentId}`,
+          method: 'GET',
+        });
         setCheckoutResponse(result);
         setLoading((prevLoading) => prevLoading - 1);
       }
@@ -83,14 +86,13 @@ export default function CheckoutResponse() {
         await renderStatusBrick();
         setStatusBrickFormLoaded(true);
       }
-
-      const handleWindowFocus = () => {
-        window.location.reload();
-      };
-
-      window.addEventListener('focus', handleWindowFocus);
     };
     statusBrickLoad();
+
+    const handleWindowFocus = () => {
+      window.location.reload();
+    };
+    window.addEventListener('focus', handleWindowFocus);
     return () => {
       setStatusBrickFormLoaded(false);
       if (statusBrickController) statusBrickController.unmount();
@@ -103,7 +105,7 @@ export default function CheckoutResponse() {
   return (
     <section className="form-payment shopping-cart light">
       {
-        checkoutResponse?.status === 'approved' && (
+        (checkoutResponse?.status === 'approved' && !checkoutResponse?.invoiceNumber) && (
           <InvoiceModal paymentId={ paymentId } status={ checkoutResponse?.status } />
         )
       }

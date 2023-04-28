@@ -1,6 +1,7 @@
 export default async ({ endpoint, method, token, body }) => {
   const url = new URL(process.env.REACT_APP_PROJECT_API_URL);
   url.pathname = endpoint;
+  const Token = process.env.REACT_APP_PROJECT_API_TOKEN;
 
   try {
     const response = await fetch(url, {
@@ -8,7 +9,7 @@ export default async ({ endpoint, method, token, body }) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: token,
-        Token: process.env.REACT_APP_PROJECT_API_TOKEN,
+        Token,
       },
       body: JSON.stringify(body),
     });

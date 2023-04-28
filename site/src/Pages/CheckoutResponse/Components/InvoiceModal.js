@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/prefer-single-boolean-return */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import PropTypes from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
@@ -14,20 +15,25 @@ import fetchOrders from '../../../utils/fetchOrders';
 import './InvoiceModal.css';
 import Context from '../../../Context/Context';
 
-const schema = z.object({
-  name: z.string().min(3, 'no mínimo 3 caracteres'),
-  address: z.string().min(5, 'o endereço deve ter no mínimo 5 caracteres'),
-  number: z.string().min(1, 'maior do que 0'),
-  complement: z.string().optional(),
-  neighborhood: z.string().min(3, 'no mínimo 3 caracteres'),
-  postalCode: z.string().regex(/^\d{5}-\d{3}$/, 'CEP inválido'),
-  paymentId: z.string(),
-  cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'CPF inválido'),
-});
-
 export default function InvoiceModal({ paymentId, status }) {
   const [showModal, setShowModal] = useState(false);
-  const { setAlert, setLoading } = useContext(Context);
+  const { setAlert, setLoading, checkoutResponse } = useContext(Context);
+
+  const schema = z.object({
+    name: z.string().min(3, 'no mínimo 3 caracteres'),
+    address: z.string().min(5, 'o endereço deve ter no mínimo 5 caracteres'),
+    number: z.string().min(1, 'maior do que 0'),
+    complement: z.string().optional(),
+    neighborhood: z.string().min(3, 'no mínimo 3 caracteres'),
+    postalCode: z.string().regex(/^\d{5}-\d{3}$/, 'CEP inválido'),
+    paymentId: z.string(),
+    cpf: z.string().optional(),
+  }).refine((data) => {
+    if (!checkoutResponse.user.cpf && !/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(data.cpf)) {
+      return false;
+    }
+    return true;
+  }, { message: 'CPF inválido' });
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
@@ -46,16 +52,17 @@ export default function InvoiceModal({ paymentId, status }) {
 
   useEffect(() => {
     const $cep = $('#cep');
+    const $cpf = $('#cpf');
     $cep.mask('00000-000');
     $cep.on('change', () => {
       setValue('postalCode', $cep.val(), { shouldValidate: true });
     });
-
-    const $cpf = $('#cpf');
-    $cpf.mask('000.000.000-00');
-    $cpf.on('change', () => {
-      setValue('cpf', $cpf.val(), { shouldValidate: true });
-    });
+    if (checkoutResponse && !checkoutResponse.user.cpf) {
+      $cpf.mask('000.000.000-00');
+      $cpf.on('change', () => {
+        setValue('cpf', $cpf.val(), { shouldValidate: true });
+      });
+    }
     return () => {
       $cep.off('change');
       $cpf.off('change');
@@ -88,7 +95,7 @@ export default function InvoiceModal({ paymentId, status }) {
               <Form.Label>Nome na nota</Form.Label>
               { errors.name && <Form.Text className="text-danger">{ errors.name.message }</Form.Text> }
             </Form.Group>
-            <Form.Group className="form-floating" controlId="cpf">
+            <Form.Group className="form-floating" controlId="cpf" hidden={ checkoutResponse.user.cpf }>
               <Form.Control { ...register('cpf') } type="text" className="rounded-3" placeholder="CPF" />
               <Form.Label>CPF</Form.Label>
               { errors.cpf && <Form.Text className="text-danger">{ errors.cpf.message }</Form.Text> }
