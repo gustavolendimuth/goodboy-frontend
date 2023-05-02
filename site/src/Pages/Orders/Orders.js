@@ -20,7 +20,7 @@ function Orders() {
   };
 
   // Esta função é responsável por buscar os dados das compras do usuário
-  useFetchOrders({ method: 'GET' });
+  useFetchOrders();
 
   useEffect(() => {
     if (!orders && ordersIsFinished) {
@@ -81,7 +81,7 @@ function Orders() {
                         Total
                       </p>
                       <p>
-                        { currencyFormatter({ value: order.payedAmount, symbol: true, format: 'pt-BR' }) }
+                        { currencyFormatter({ value: order.totalAmount, symbol: true, format: 'pt-BR' }) }
                       </p>
                     </div>
                   </div>

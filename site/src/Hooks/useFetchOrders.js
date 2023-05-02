@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react';
 import Context from '../Context/Context';
 import fetchOrders from '../utils/fetchOrders';
 
-const useFetchOrders = ({ method }) => {
+const useFetchOrders = () => {
   const { token, setAlert, setLoading, setOrders, user, setOrdersIsFinished } = useContext(Context);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const useFetchOrders = ({ method }) => {
         result = data.result;
         response = data.response;
 
-        if (response.ok && method === 'GET') {
+        if (response.ok) {
           setOrders(result);
         }
       } finally {
@@ -30,7 +30,6 @@ const useFetchOrders = ({ method }) => {
           setAlert({
             ok: response?.ok || false,
             message: 'Serviço indisponível, tente mais tarde',
-            time: 5000,
           });
         }
       }
