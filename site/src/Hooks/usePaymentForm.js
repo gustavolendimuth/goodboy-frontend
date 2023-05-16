@@ -6,7 +6,9 @@
 import { useContext, useEffect, useState } from 'react';
 import fetchOrders from '../utils/fetchOrders';
 import Context from '../Context/Context';
+// Utils
 import urlFor from '../utils/urlFor';
+import currencyFormatter from '../utils/currencyFormatter';
 
 export default function usePaymentForm() {
   const {
@@ -49,7 +51,7 @@ export default function usePaymentForm() {
 
     const settings = {
       initialization: {
-        amount: total,
+        amount: currencyFormatter({ format: 'en-US', value: total }),
         preferenceId,
         items,
       },

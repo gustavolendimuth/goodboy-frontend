@@ -1,13 +1,15 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import './FloatingButtons.css';
 import { BsFillArrowUpCircleFill } from 'react-icons/bs';
 import { FaMoneyBillWave } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Cart from '../Navbar/CartIcon';
+import Context from '../../../Context/Context';
 
 export default function FloatingButtons() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { cartItems } = useContext(Context);
 
   const scrollToTop = useRef(null);
   const cart = useRef(null);
@@ -63,7 +65,7 @@ export default function FloatingButtons() {
         ref={ checkout }
         className="btn btn-danger checkout rounded-circle"
         type="button"
-        onClick={ () => navigate('/checkout') }
+        onClick={ () => navigate(cartItems?.length ? '/checkout' : null) }
         title="Ir para o checkout"
       >
         <FaMoneyBillWave />
