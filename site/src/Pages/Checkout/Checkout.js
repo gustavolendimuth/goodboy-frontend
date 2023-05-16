@@ -12,6 +12,7 @@ import usePaymentForm from '../../Hooks/usePaymentForm';
 export default function Checkout() {
   const {
     checkoutResponse,
+    setCheckoutResponse,
     total,
     cartItemsData,
     getItemQuantity,
@@ -29,6 +30,10 @@ export default function Checkout() {
   }, [cartLocalStorage]);
 
   useCartItemsData();
+
+  useEffect(() => {
+    setCheckoutResponse();
+  }, []);
 
   useEffect(() => {
     if (checkoutResponse) {

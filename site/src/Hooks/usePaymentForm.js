@@ -112,12 +112,10 @@ export default function usePaymentForm() {
   };
 
   useEffect(() => {
-    let cardPaymentBrickController;
-
     const mountCardPaymentBrickController = async () => {
       if (!checkoutResponse && total && items && !paymentFormLoaded) {
-        cardPaymentBrickController = await window.cardPaymentBrickController;
-        if (cardPaymentBrickController) cardPaymentBrickController.unmount();
+        const cardPaymentBrickController = await window.cardPaymentBrickController;
+        if (cardPaymentBrickController) window.location.reload();
         window.cardPaymentBrickController = loadPaymentForm();
         setPaymentFormLoaded(true);
       }
@@ -125,7 +123,6 @@ export default function usePaymentForm() {
     mountCardPaymentBrickController();
     return () => {
       setPaymentFormLoaded(false);
-      if (cardPaymentBrickController) cardPaymentBrickController.unmount();
     };
   }, [items, total]);
 

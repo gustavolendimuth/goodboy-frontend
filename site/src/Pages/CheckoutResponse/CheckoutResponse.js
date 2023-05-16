@@ -97,6 +97,7 @@ export default function CheckoutResponse() {
       setStatusBrickFormLoaded(false);
       if (statusBrickController) statusBrickController.unmount();
       window.removeEventListener('focus', handleWindowFocus);
+      setCheckoutResponse();
     };
   }, []);
 
