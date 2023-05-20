@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-identical-functions */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable no-underscore-dangle */
@@ -79,7 +80,6 @@ export default function usePaymentForm() {
           processPayment(formData)
             .then((result) => {
               if (result) setCheckoutResponse(result);
-              console.log(result);
               return result;
             })
             .catch((error) => {
@@ -100,11 +100,7 @@ export default function usePaymentForm() {
         },
         visual: {
           style: {
-            theme: 'light',
-            customVariables: {
-              formBackgroundColor: '#ffffff',
-              baseColor: 'gray',
-            },
+            theme: 'bootstrap',
           },
         },
       },
@@ -127,6 +123,24 @@ export default function usePaymentForm() {
       setPaymentFormLoaded(false);
     };
   }, [items, total]);
+
+  // useEffect(() => {
+  //   const mountCardPaymentBrickController = async () => {
+  //     if (!checkoutResponse && total && items && !paymentFormLoaded) {
+  //       const cardPaymentBrickController = await window.cardPaymentBrickController;
+  //       if (cardPaymentBrickController) {
+  //         console.log(cardPaymentBrickController);
+  //         cardPaymentBrickController.unmount();
+  //       }
+  //       window.cardPaymentBrickController = loadPaymentForm();
+  //       setPaymentFormLoaded(true);
+  //     }
+  //   };
+  //   mountCardPaymentBrickController();
+  //   return () => {
+  //     setPaymentFormLoaded(false);
+  //   };
+  // }, [items, total]);
 
   useEffect(() => {
     if (!cartItemsData) return;
