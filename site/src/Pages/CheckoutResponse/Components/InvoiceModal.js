@@ -18,6 +18,7 @@ import Context from '../../../Context/Context';
 export default function InvoiceModal({ paymentId, status }) {
   const [showModal, setShowModal] = useState(false);
   const { setAlert, setLoading, checkoutResponse } = useContext(Context);
+  let message;
 
   const schema = z.object({
     name: z.string().optional(),
@@ -29,17 +30,17 @@ export default function InvoiceModal({ paymentId, status }) {
     paymentId: z.string(),
     cpf: z.string().optional(),
   }).refine((data) => {
+    if (!checkoutResponse.user.name && data.name && data.name.length < 3) {
+      message = 'Nome deve ter no mínimo 3 caracteres';
+      return false;
+    }
+
     if (!checkoutResponse.user.cpf && !/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(data.cpf)) {
+      message = 'CPF inválido';
       return false;
     }
     return true;
-  }, { message: 'CPF inválido' })
-    .refine((data) => {
-      if (!checkoutResponse.user.name && data.name && data.name.length < 3) {
-        return false;
-      }
-      return true;
-    }, { message: 'Nome deve ter no mínimo 3 caracteres' });
+  }, { message });
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
