@@ -30,7 +30,7 @@ export default function InvoiceModal({ paymentId, status }) {
     paymentId: z.string(),
     cpf: z.string().optional(),
   }).refine((data) => {
-    if (!checkoutResponse.user.name && data.name && data.name.length < 3) {
+    if (!checkoutResponse.user.name && data.name?.length < 3) {
       message = 'Nome deve ter no mínimo 3 caracteres';
       return false;
     }
@@ -40,7 +40,7 @@ export default function InvoiceModal({ paymentId, status }) {
       return false;
     }
     return true;
-  }, { message });
+  }, { message: () => message });
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
