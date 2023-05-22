@@ -20,7 +20,7 @@ export default function InvoiceModal({ paymentId, status }) {
   const { setAlert, setLoading, checkoutResponse } = useContext(Context);
 
   const schema = z.object({
-    name: z.string().min(3, 'no mínimo 3 caracteres'),
+    name: z.string().optional(),
     address: z.string().min(5, 'o endereço deve ter no mínimo 5 caracteres'),
     number: z.string().min(1, 'maior do que 0'),
     complement: z.string().optional(),
@@ -33,7 +33,13 @@ export default function InvoiceModal({ paymentId, status }) {
       return false;
     }
     return true;
-  }, { message: 'CPF inválido' });
+  }, { message: 'CPF inválido' })
+    .refine((data) => {
+      if (!checkoutResponse.user.name && data.name && data.name.length < 3) {
+        return false;
+      }
+      return true;
+    }, { message: 'Nome deve ter no mínimo 3 caracteres' });
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
@@ -90,7 +96,7 @@ export default function InvoiceModal({ paymentId, status }) {
         <Form autoComplete="on" onSubmit={ handleSubmit((formData) => sendFormData(formData)) }>
           <Modal.Body className="pt-0 px-lg-5 pb-lg-4 d-flex flex-column gap-3">
             <Form.Control { ...register('paymentId') } type="text" hidden />
-            <Form.Group className="form-floating" controlId="nome">
+            <Form.Group className="form-floating" controlId="nome" hidden={ checkoutResponse.user.name }>
               <Form.Control { ...register('name') } type="text" className="rounded-3" placeholder="Nome na nota" />
               <Form.Label>Nome na nota</Form.Label>
               { errors.name && <Form.Text className="text-danger">{ errors.name.message }</Form.Text> }
