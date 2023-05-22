@@ -18,29 +18,17 @@ import Context from '../../../Context/Context';
 export default function InvoiceModal({ paymentId, status }) {
   const [showModal, setShowModal] = useState(false);
   const { setAlert, setLoading, checkoutResponse } = useContext(Context);
-  let message;
 
   const schema = z.object({
-    name: z.string().optional(),
+    name: !checkoutResponse.user.name ? z.string().min(3, 'o nome deve ter no mínimo 3 caracteres') : z.string().optional(),
     address: z.string().min(5, 'o endereço deve ter no mínimo 5 caracteres'),
     number: z.string().min(1, 'maior do que 0'),
     complement: z.string().optional(),
     neighborhood: z.string().min(3, 'no mínimo 3 caracteres'),
     postalCode: z.string().regex(/^\d{5}-\d{3}$/, 'CEP inválido'),
     paymentId: z.string(),
-    cpf: z.string().optional(),
-  }).refine((data) => {
-    if (!checkoutResponse.user.name && data.name?.length < 3) {
-      message = 'Nome deve ter no mínimo 3 caracteres';
-      return false;
-    }
-
-    if (!checkoutResponse.user.cpf && !/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(data.cpf)) {
-      message = 'CPF inválido';
-      return false;
-    }
-    return true;
-  }, { message: () => message });
+    cpf: !checkoutResponse.user.cpf ? z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'CPF inválido') : z.string().optional(),
+  });
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
