@@ -18,32 +18,40 @@ import Context from '../../../Context/Context';
 export default function InvoiceModal({ paymentId, status }) {
   const [showModal, setShowModal] = useState(false);
   const { setAlert, setLoading, checkoutResponse } = useContext(Context);
+  const { name, address, number, complement, neighborhood, postalCode, cpf } = checkoutResponse.user;
 
   const schema = z.object({
-    name: !checkoutResponse.user.name ? z.string().min(3, 'o nome deve ter no mínimo 3 caracteres') : z.string().optional(),
-    address: z.string().min(5, 'o endereço deve ter no mínimo 5 caracteres'),
-    number: z.string().min(1, 'maior do que 0'),
+    name: !name ? z.string().min(5, 'o nome deve ter no mínimo 5 caracteres') : z.string().optional(),
+    address: !address ? z.string().min(5, 'o endereço deve ter no mínimo 5 caracteres') : z.string().optional(),
+    number: !number ? z.string().min(1, 'no mínimo 1 número') : z.string().optional(),
     complement: z.string().optional(),
-    neighborhood: z.string().min(3, 'no mínimo 3 caracteres'),
-    postalCode: z.string().regex(/^\d{5}-\d{3}$/, 'CEP inválido'),
+    neighborhood: !neighborhood ? z.string().min(3, 'no mínimo 3 caracteres') : z.string().optional(),
+    postalCode: !postalCode ? z.string().regex(/^\d{5}-\d{3}$/, 'CEP inválido') : z.string().optional(),
     paymentId: z.string(),
-    cpf: !checkoutResponse.user.cpf ? z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'CPF inválido') : z.string().optional(),
+    cpf: !cpf ? z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'CPF inválido') : z.string().optional(),
   });
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       paymentId,
+      name,
+      address,
+      number,
+      complement,
+      neighborhood,
+      postalCode,
+      cpf,
     },
   });
 
   const closeModal = () => setShowModal(false);
 
   useEffect(() => {
-    if (status === 'approved') {
+    if (status === 'approved' && !checkoutResponse.address) {
       setShowModal(true);
     }
-  }, [status]);
+  }, [status, checkoutResponse]);
 
   useEffect(() => {
     const $cep = $('#cep');
@@ -95,21 +103,21 @@ export default function InvoiceModal({ paymentId, status }) {
               <Form.Label>CPF</Form.Label>
               { errors.cpf && <Form.Text className="text-danger">{ errors.cpf.message }</Form.Text> }
             </Form.Group>
-            <Form.Group className="form-floating" controlId="endereco">
+            <Form.Group className="form-floating" controlId="endereco" hidden={ checkoutResponse.user.address }>
               <Form.Control { ...register('address') } type="text" className="rounded-3" placeholder="Endereço" />
               <Form.Label>Endereço</Form.Label>
               { errors.address && <Form.Text className="text-danger">{ errors.address.message }</Form.Text> }
             </Form.Group>
             <Row className="g-3">
               <Col xs={ 5 }>
-                <Form.Group className="form-floating" controlId="numero">
+                <Form.Group className="form-floating" controlId="numero" hidden={ checkoutResponse.user.number }>
                   <Form.Control type="number" { ...register('number') } className="rounded-3" placeholder="Número" />
                   <Form.Label>Número</Form.Label>
                   { errors.number && <Form.Text className="text-danger">{ errors.number.message }</Form.Text> }
                 </Form.Group>
               </Col>
               <Col xs={ 7 }>
-                <Form.Group className="form-floating" controlId="complemento">
+                <Form.Group className="form-floating" controlId="complemento" hidden={ checkoutResponse.user.address }>
                   <Form.Control type="text" { ...register('complement') } className="rounded-3" placeholder="Complemento" />
                   <Form.Label>Complemento</Form.Label>
                   { errors.complement && <Form.Text className="text-danger">{ errors.complement.message }</Form.Text> }
@@ -118,14 +126,14 @@ export default function InvoiceModal({ paymentId, status }) {
             </Row>
             <Row className="g-3">
               <Col xs={ 7 }>
-                <Form.Group className="form-floating" controlId="bairro">
+                <Form.Group className="form-floating" controlId="bairro" hidden={ checkoutResponse.user.neighborhood }>
                   <Form.Control type="text" { ...register('neighborhood') } className="rounded-3" placeholder="Bairro" />
                   <Form.Label>Bairro</Form.Label>
                   { errors.neighborhood && <Form.Text className="text-danger">{ errors.neighborhood.message }</Form.Text> }
                 </Form.Group>
               </Col>
               <Col xs={ 5 }>
-                <Form.Group className="form-floating" controlId="cep">
+                <Form.Group className="form-floating" controlId="cep" hidden={ checkoutResponse.user.postalCode }>
                   <Form.Control type="text" { ...register('postalCode') } className="rounded-3" placeholder="Cep" />
                   <Form.Label>Cep</Form.Label>
                   { errors.postalCode && <Form.Text className="text-danger">{ errors.postalCode.message }</Form.Text> }
