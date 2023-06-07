@@ -28,7 +28,7 @@ export default async ({ query, id, mainCategory, subCategory, searchInput }) => 
     // Query que retorna um produto ou uma lista de produtos
     product: groq`
       *[_type == "products" && _id in ${JSON.stringify(idArray)}] {
-        _id, title, photo, price, description, ncm,
+        _id, title, photo, price, description, ncm, originCode, slug, situation
         "categories": categories[]->name,
       }`,
     // Query que retorna somente as categorias que contém produtos ativos
