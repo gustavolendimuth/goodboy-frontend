@@ -26,9 +26,21 @@ export default {
       type: 'string',
       title: 'Nome',
       validation: (Rule:any) => Rule.custom((title:any, context:any) => 
-        new Promise(resolve => SanityClient.fetch(`*[_type == "products" && _id != $docId && title == $title][0]`, {title, docId: context.document._id})
+        new Promise(resolve => {
+          let query;
+          const docId = context.document._id;
+          const isDraft = docId.startsWith('drafts.');
+          let nonDraftId = '';
+
+          if (isDraft) {
+            nonDraftId = docId.replace('drafts.', '');
+            query = `*[_type == "products" && _id != $docId && _id != $nonDraftId && title == $title][0]`;
+          } else {
+            query = `*[_type == "products" && _id != $docId && !(_id in path("drafts." + $docId)) && title == $title][0]`;
+          };
+          SanityClient.fetch(query, {title, docId, nonDraftId})
             .then(res => resolve(!res ? true : 'O nome deve ser único'))
-        )
+        })
       )
     },
     {
