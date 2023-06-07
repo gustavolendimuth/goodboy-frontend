@@ -34,9 +34,9 @@ const MaskedInput = (props) => {
 };
 
 MaskedInput.propTypes = {
-  elementProps: PropTypes.any.isRequired,
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired
+  elementProps: PropTypes.any,
+  onChange: PropTypes.func,
+  value: PropTypes.string
 }
 
 export default MaskedInput;
