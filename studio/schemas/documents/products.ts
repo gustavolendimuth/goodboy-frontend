@@ -34,11 +34,11 @@ export default {
 
           if (isDraft) {
             nonDraftId = docId.replace('drafts.', '');
-            query = `*[_type == "products" && _id != $docId && _id != $nonDraftId && title match $title][0]`;
+            query = `*[_type == "products" && _id != $docId && _id != $nonDraftId && lower(title) == $title][0]`;
           } else {
-            query = `*[_type == "products" && _id != $docId && !(_id in path("drafts." + $docId)) && title match $title][0]`;
+            query = `*[_type == "products" && _id != $docId && !(_id in path("drafts." + $docId)) && lower(title) == $title][0]`;
           }
-          SanityClient.fetch(query, {title, docId, nonDraftId})
+          SanityClient.fetch(query, {title: title.toLowerCase(), docId, nonDraftId})
             .then(res => resolve(!res ? true : 'O nome deve ser único'))
         })
       )
