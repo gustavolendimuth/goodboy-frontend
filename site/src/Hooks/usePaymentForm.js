@@ -157,6 +157,7 @@ export default function usePaymentForm() {
           .url(),
         originCode: item.originCode,
         situation: item.situation,
+        slug: item.slug,
       })),
     );
   }, [cartItemsData]);
