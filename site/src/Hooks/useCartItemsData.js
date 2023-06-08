@@ -21,6 +21,7 @@ const useCartItemsData = () => {
         setLoading((prevLoading) => prevLoading + 1);
         const items = cartItems.map((item) => item.id);
         const response = await fetchContent({ query: 'product', id: items });
+        console.log('fetchContent', response);
         setCartItemsData(response);
         setLoading((prevLoading) => prevLoading - 1);
       };
