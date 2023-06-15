@@ -16,7 +16,7 @@ export default async ({ endpoint, method, token, body }) => {
     const result = await response.json();
     return { response, result };
   } catch (error) {
-    console.log(error);
+    console.log('Fetch Orders Error: ', error);
     return { error };
   }
 };

@@ -3,10 +3,6 @@
   text-align: center;
 }
 
-.cart-icon {
-  font-size: 1.8rem;
-}
-
 .cart-number-container {
   background-color: var(--bs-light);
   border-radius: 50%;
@@ -14,14 +10,8 @@
   width: 22px;
 }
 
-.cart-number {
-  color: var(--bs-primary);
-}
-
 .login-icon {
-  font-size: 1.4rem
-
-  /* margin-left: -7px; */
+  font-size: 1.4rem;
 }
 
 .login-links {
@@ -43,9 +33,4 @@
 
 .search {
   padding-left: 12px !important;
-}
-
-.navbar .cart {
-  padding-bottom: 4px !important;
-  padding-top: 4px !important;
 }

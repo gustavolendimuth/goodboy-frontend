@@ -47,7 +47,7 @@ const useToken = () => {
 
   useEffect(() => {
     if (loginForm?.email) {
-      setLocalStorage('keepConnected', JSON.stringify(loginForm.keepConnected));
+      setLocalStorage('keepConnected', loginForm.keepConnected);
     }
   }, [loginForm]);
 

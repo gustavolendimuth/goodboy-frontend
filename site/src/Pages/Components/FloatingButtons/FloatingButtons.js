@@ -3,7 +3,7 @@ import './FloatingButtons.css';
 import { BsFillArrowUpCircleFill } from 'react-icons/bs';
 import { FaMoneyBillWave } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Cart from '../Navbar/CartIcon';
+import CartIcon from '../CartIcon/CartIcon';
 import Context from '../../../Context/Context';
 
 export default function FloatingButtons() {
@@ -12,7 +12,7 @@ export default function FloatingButtons() {
   const { cartItems } = useContext(Context);
 
   const scrollToTop = useRef(null);
-  const cart = useRef(null);
+  // const cart = useRef(null);
   const checkout = useRef(null);
 
   useEffect(() => {
@@ -33,11 +33,6 @@ export default function FloatingButtons() {
     } else {
       checkout.current.style.display = 'block';
     }
-    if (pathname === '/carrinho') {
-      cart.current.style.display = 'none';
-    } else {
-      cart.current.style.display = 'block';
-    }
   }, [pathname]);
 
   return (
@@ -52,14 +47,7 @@ export default function FloatingButtons() {
         <BsFillArrowUpCircleFill />
       </button>
 
-      <button
-        ref={ cart }
-        className="btn btn-danger cart rounded-circle"
-        type="button"
-        title="Ir para o carrinho"
-      >
-        <Cart />
-      </button>
+      <CartIcon className={ pathname === '/carrinho' ? 'd-none' : 'd-block' } />
 
       <button
         ref={ checkout }

@@ -25,7 +25,7 @@ const useLogin = ({ email = '', magicLink = '' }) => {
           result = data.result;
           response = data.response;
 
-          if (response.ok && result.token) {
+          if (response?.ok && result?.token) {
             const decoded = jwtDecode(result.token);
             setUser(decoded);
             setToken(result.token);

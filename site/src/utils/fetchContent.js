@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable react-func/max-lines-per-function */
 import groq from 'groq';
 import sanityClient from './sanityClient';

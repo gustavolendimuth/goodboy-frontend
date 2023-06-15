@@ -56,7 +56,6 @@ export default function CartProducts({ item, info }) {
               </b>
             </p>
           </div>
-          {/* </div> */}
         </div>
         <div className="col-12 col-lg-2 d-flex flex-column justify-content-center">
           <div className="text-end quantity-sub-total-group">

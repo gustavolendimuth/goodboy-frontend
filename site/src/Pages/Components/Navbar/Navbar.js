@@ -3,7 +3,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BiLogIn, BiLogOut, BiCreditCard, BiBone } from 'react-icons/bi';
-import Cart from './CartIcon';
+import Cart from '../CartIcon/CartIcon';
 import goodboyLogo from '../../assets/images/goodboy_logo-transp.webp';
 import Context from '../../../Context/Context';
 import './Navbar.css';
@@ -77,13 +77,7 @@ export default function Navbar() {
                 }
               </div>
               <div className="px-3">
-                <button
-                  className="btn btn-secondary cart rounded-circle"
-                  type="button"
-                  title="Ir para o carrinho"
-                >
-                  <Cart />
-                </button>
+                <Cart />
               </div>
             </div>
           </li>
