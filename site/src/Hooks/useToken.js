@@ -52,7 +52,8 @@ const useToken = () => {
   }, [loginForm]);
 
   useEffect(() => {
-    const keepConnected = getLocalStorage('keepConnected') === 'true';
+    const keepConnected = getLocalStorage('keepConnected');
+    console.log('keepConnected', keepConnected);
     if (token && keepConnected) {
       setLocalStorage('token', token);
     } else {
