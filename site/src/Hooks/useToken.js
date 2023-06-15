@@ -53,7 +53,6 @@ const useToken = () => {
 
   useEffect(() => {
     const keepConnected = getLocalStorage('keepConnected');
-    console.log('keepConnected', keepConnected);
     if (token && keepConnected) {
       setLocalStorage('token', token);
     } else {
