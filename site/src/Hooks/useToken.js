@@ -30,6 +30,7 @@ const useToken = () => {
           message: result?.message || 'Serviço indisponível, tente mais tarde',
           time: 5000,
         });
+        setLoading((prevLoading) => prevLoading - 1);
         return;
       }
 
