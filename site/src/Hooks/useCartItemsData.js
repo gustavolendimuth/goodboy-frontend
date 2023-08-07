@@ -16,6 +16,7 @@ const useCartItemsData = () => {
   } = useContext(Context);
 
   useEffect(() => {
+    console.log('teste', cartItems, cartLocalStorage);
     if (cartItems?.length && cartLocalStorage) {
       const getCartItemsData = async () => {
         setLoading((prevLoading) => prevLoading + 1);

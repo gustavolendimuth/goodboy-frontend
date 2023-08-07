@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
 import Context from '../../Context/Context';
-import './Login.css';
 import useLogin from '../../Hooks/useLogin';
+import './Login.css';
 
 function Login() {
   const { email, magicLink } = useParams();
@@ -34,6 +34,7 @@ function Login() {
   return (
     <div className="container py-4">
       <section className="form-signin">
+
         <form
           onSubmit={
             handleSubmit((data) => {

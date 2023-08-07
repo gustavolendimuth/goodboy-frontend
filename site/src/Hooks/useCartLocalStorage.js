@@ -2,8 +2,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from 'react';
 import Context from '../Context/Context';
-import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import fetchContent from '../utils/fetchContent';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
 const useCartLocalStorage = () => {
   const {
@@ -23,7 +23,10 @@ const useCartLocalStorage = () => {
   useEffect(() => {
     const getCartItems = async () => {
       const cart = getLocalStorage('cart');
-      if (cartLocalStorage || !cart) return;
+      if (cartLocalStorage || !cart) {
+        setCartLocalStorage(true);
+        return;
+      }
       setLoading((prevLoading) => prevLoading + 1);
       const items = cart?.map((item) => item.id);
       const response = await fetchContent({ query: 'product', id: items });
@@ -32,8 +35,8 @@ const useCartLocalStorage = () => {
       if (cart && response && response.length !== cart.length) {
         newCartItems = cart.filter((item) => response.find((resItem) => resItem._id === item.id));
       }
-      setCartItems(newCartItems || cart);
       setCartLocalStorage(true);
+      setCartItems(newCartItems || cart);
       setLoading((prevLoading) => prevLoading - 1);
     };
     getCartItems();
