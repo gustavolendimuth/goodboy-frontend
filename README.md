@@ -1,36 +1,36 @@
-# Good Boy
+# Good Boy - Frontend
 
-#### E-commerce de produtos para pet simples, fácil e prática para venda em loja física, sem vendedor. Acesse https://goodboy.net.br para ver o projeto rodando.
-### Repositório do backend
- https://github.com/gustavolendimuth/goodboy-api
-### Repositório do frontend
-https://github.com/gustavolendimuth/good-boy
+Good Boy é uma plataforma de e-commerce para produtos de animais de estimação, projetada para ser simples, fácil e prática para uso em lojas físicas sem vendedor. Visite [Good Boy](https://goodboy.net.br) para ver o projeto ao vivo.
+
+## Backend
+
+- [Repositório do Backend](https://github.com/gustavolendimuth/goodboy-api)
+
 ## Instalação
-Para instalar o projeto, use ` npm run goodboy `.
 
-## Organização do projeto
-### Frontend
-Na pasta ` site ` estão os arquivos relacionados com o frontend do projeto. Na pasta ` src `, temos as pastas components, context, css, pages, services e tests.
-#### Components
-A pasta components contém os componentes que são usados nas páginas localizadas na pasta ` pages `.
+Para instalar o projeto, execute o comando `npm run goodboy`. Este comando instalará as dependências do Site e Dashboard.
 
-#### Context
-A pasta ` context ` contém os arquivos de configurações do hooks context api.
+## Estrutura do Projeto
 
-#### Pages
-A pasta de ` pages ` contém os arquivos que representam páginas. Cada arquivo dentro desta pasta, corresponde a uma rota no arquivo ` App.js `.
+Os arquivos relacionados ao frontend estão localizados no diretório `site`. Dentro do diretório `src`, você encontrará os seguintes subdiretórios: `components`, `context`, `css`, `pages`, `services` e `tests`.
 
-#### Services
-A pasta ` services ` contém funções que são reaproveitadas por todo o projeto.
+- `Components`: Este diretório contém os componentes usados nas páginas localizadas no diretório `pages`.
+- `Context`: Este diretório contém os arquivos de configuração para os hooks da Context API.
+- `Pages`: Este diretório contém os arquivos que representam as páginas. Cada arquivo neste diretório corresponde a uma rota no arquivo `App.js`.
+- `Services`: Este diretório contém funções que são reutilizadas em todo o projeto.
 
-## Configurações do projeto
-### Backend (studio)
-O backend foi construído utilizando o CMS sanity.io. Para criar o backend do projeto, é necessário uma conta no sanity.io. Dentro da pasta studio, renomeie o arquivo ` ./studio/.env.development.exemple ` para ` ./studio/.env.development ` e configure as variáveis de ambiente referentes ao projeto ID e a dataset do Sanity.io.
-### Frontend
-Dentro da pasta site, configurar as variáveis de ambiente em um arquivo ` ./site/.env `. Configurar as variáveis referentes ao projeto ID e a dataset do Sanity.io para queries GROQ utilizadas no frontend.
+## Configuração do Projeto
 
-## Como iniciar o projeto
-### Frontend
-Para inicializar o frontend, use o comando ` npm start `.
-### Backend (studio)
-Para inicializar o studio para ter acesso aos formulários do backend, use o comando ` npm run sanity `.
+### Site
+
+Para configurar o Site, você precisará de uma conta do Mercado Pago. Dentro do diretório `site`, renomeie o arquivo `.env.example` para `.env`. Configure as variáveis de ambiente utilizando o ID do projeto criado no Sanity.io, as chaves criadas no Mercado Pago.
+
+### Dashboard
+
+Para configurar o Dashboard do Sanity.io, você precisará de uma conta no Sanity.io. Dentro do diretório `studio`, renomeie o arquivo `.env.development.example` para `.env.development` e configure as variáveis utilizando o ID do projeto criado no Sanity.io.
+
+## Iniciando o Projeto
+### Site
+Para iniciar o frontend, use o comando `npm start`, na raiz do projeto.
+### Dashboard
+Para iniciar o dashboard, use o comando `npm run sanity` na raiz do projeto.
