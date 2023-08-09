@@ -1,6 +1,8 @@
 # Good Boy - Frontend
 
-Good Boy é uma plataforma de e-commerce para produtos de animais de estimação, projetada para ser simples, fácil e prática para uso em lojas físicas sem vendedor. Visite [Good Boy](https://goodboy.net.br) para ver o projeto ao vivo.
+Good Boy é uma plataforma de e-commerce para produtos de animais de estimação, projetada para ser simples, fácil e prática para uso em lojas físicas sem vendedor. 
+
+O projeto é construído usando React, juntamente com outras tecnologias como Sanity.io para o CMS do Dashboard. Visite [Good Boy](https://goodboy.net.br) para ver o deploy do projeto.
 
 ## Backend
 
