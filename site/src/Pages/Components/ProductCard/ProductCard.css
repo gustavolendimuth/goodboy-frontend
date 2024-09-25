@@ -1,0 +1,28 @@
+.product-card .product-title {
+  color: var(--bs-primary);
+  font-weight: 700;
+  max-width: 400px;
+}
+
+.product-card {
+  background-color: var(--bs-light);
+  border: 1px solid var(--light-grey);
+  border-radius: 8px;
+  box-shadow: 0 0 10px 1px rgba(86, 86, 86, 0.1);
+}
+
+.product-price {
+  color: var(--bs-gray);
+  font-size: 1.2rem !important;
+  font-weight: bold;
+}
+
+.actions .btn {
+  font-size: 0.9rem !important;
+}
+
+.product-card .product-image {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}

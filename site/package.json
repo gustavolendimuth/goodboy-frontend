@@ -1,0 +1,79 @@
+{
+  "name": "good-boy",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@hookform/resolvers": "^3.0.0",
+    "@popperjs/core": "^2.11.6",
+    "@portabletext/to-html": "^1.0.3",
+    "@sanity/client": "^3.3.6",
+    "@sanity/image-url": "^1.0.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "^5.2.3",
+    "camelcase": "^7.0.0",
+    "eslint": "^8.29.0",
+    "groq": "^2.33.2",
+    "html-react-parser": "^3.0.4",
+    "jquery": "^3.6.4",
+    "jquery-mask-plugin": "^1.14.16",
+    "jwt-decode": "^3.1.2",
+    "mdb-react-ui-kit": "^5.1.0",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.7.2",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.40.0",
+    "react-icons": "^4.6.0",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.1",
+    "react-tooltip": "^4.2.21",
+    "sass": "^1.56.2",
+    "string-remove": "^1.0.3",
+    "web-vitals": "^2.1.4",
+    "words-n-numbers": "^7.1.2",
+    "zod": "^3.21.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/react": "^13.4.0",
+    "autoprefixer": "^10.4.13",
+    "css-loader": "^6.7.2",
+    "eslint": "^8.29.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-react-func": "^0.1.18",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-sonarjs": "^0.15.0",
+    "husky": "^8.0.1",
+    "postcss-loader": "^7.0.2",
+    "prettier": "^2.7.1",
+    "prop-types": "^15.8.1",
+    "react-proptypes-generate": "^1.7.6",
+    "sass-loader": "^13.2.0",
+    "style-loader": "^3.3.1",
+    "stylelint": "^14.11.0",
+    "stylelint-config-standard": "^28.0.0",
+    "stylelint-order": "^5.0.0"
+  }
+}

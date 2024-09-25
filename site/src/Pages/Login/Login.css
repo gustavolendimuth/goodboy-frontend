@@ -1,0 +1,18 @@
+.form-signin {
+  background-color: var(--bs-light);
+  border: 1px solid var(--light-grey);
+  border-radius: 1rem;
+  margin: auto;
+  max-width: 400px;
+  padding: 50px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.login {
+  font-size: 1.1rem;
+  padding-left: 12px !important;
+  padding-top: 28px !important;
+}
