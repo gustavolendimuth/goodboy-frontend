@@ -4,7 +4,7 @@
   "description": "Good Boy e-commerce",
   "scripts": {
     "goodboy": "cd ./site && npm install && cd ../studio && npm install",
-    "start": "cd ./site && npm start",
+    "start": "cd ./site && npm start && sanity start",
     "dev": "cd ./site && npm start",
     "sanity": "cd ./studio && sanity start",
     "build": "rm -rf ./build && cd ./site && npm install && npm run build && mv build ../ && cd ../studio && sanity install && sanity build ../build/studio -y",
