@@ -7,8 +7,8 @@
   "scripts": {
     "dev": "sanity dev",
     "start": "sanity start",
-    "sanity": "sanity build",
-    "build": "cd ../studio && sanity install && sanity build ../build/studio -y",
+    "build": "sanity build",
+    "sanity": "sanity build . -y",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy"
   },
