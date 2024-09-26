@@ -25,7 +25,8 @@
     "react-input-mask": "^2.0.4",
     "react-is": "^18.2.0",
     "sanity": "^3.12.1",
-    "styled-components": "^5.2.0"
+    "styled-components": "^5.2.0",
+    "@sanity/cli": "^3.0.6"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^2.0.1",
