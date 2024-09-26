@@ -1,4 +1,7 @@
-[[redirects]]
+[redirects]
   from = "/*"
   to = "/"
   status = 200
+
+[build]
+  command = "npm run update && npm run build"
