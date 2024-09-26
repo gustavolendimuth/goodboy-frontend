@@ -8,7 +8,7 @@
     "dev": "sanity dev",
     "start": "sanity start",
     "build": "sanity build",
-    "sanity": "sanity build . -y",
+    "update": "npm install sanity@latest",
     "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy"
   },
