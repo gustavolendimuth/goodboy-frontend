@@ -18,12 +18,12 @@ export default async ({ query, id, mainCategory, subCategory, searchInput }) => 
     // Query que retorna todos os produtos
     products: groq`
     *[_type == "products"] | order(_updatedAt desc)[0...30] {
-      _id, title, photo, price, description, sale, spotlight, originCode, slug,
+      _id, title, photo, price, description, ncm, sale, spotlight, originCode, slug,
       "categories": categories[]->name,
     }`,
     saleAndSpotlight: groq`
     *[_type == "products" && (sale == true || spotlight == true)] {
-      _id, title, photo, price, description, sale, spotlight,
+      _id, title, photo, price, description, ncm, sale, spotlight,
       "categories": categories[]->name,
     }`,
     // Query que retorna um produto ou uma lista de produtos

@@ -48,8 +48,13 @@ export default function Cart() {
         <div className="content rounded-4">
           <div className="items p-4">
             {
-              cartItemsData && cartItemsData.map((item, index, array) => (
-                <CartProducts key={ item._id } item={ item } info={ { index, array } } />
+              cartItemsData
+              && cartItemsData.map((item, index, array) => (
+                <CartProducts
+                  key={ item._id }
+                  item={ item }
+                  info={ { index, array } }
+                />
               ))
             }
           </div>
@@ -60,11 +65,7 @@ export default function Cart() {
                   Total
                 </p>
                 <p className="fs-4" id="cart-total">
-                  <b>
-                    {
-                      currencyFormatter({ format: 'pt-BR', value: total, symbol: true })
-                    }
-                  </b>
+                  <b>{currencyFormatter({ format: 'pt-BR', value: total, symbol: true })}</b>
                 </p>
               </div>
               <div className="d-flex justify-content-center pt-4">
