@@ -6,5 +6,24 @@
     "labelledby",
     "mastercard"
   ],
-  "peacock.remoteColor": "#f74c5a"
+  "peacock.remoteColor": "#f74c5a",
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#f97d87",
+    "activityBar.background": "#f97d87",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#abfba4",
+    "activityBarBadge.foreground": "#15202b",
+    "commandCenter.border": "#15202b99",
+    "sash.hoverBorder": "#f97d87",
+    "statusBar.background": "#f74c5a",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#f51b2d",
+    "statusBarItem.remoteBackground": "#f74c5a",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#f74c5a",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#f74c5a99",
+    "titleBar.inactiveForeground": "#15202b99"
+  }
 }
